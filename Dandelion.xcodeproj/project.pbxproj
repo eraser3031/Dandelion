@@ -11,6 +11,15 @@
 		21FFCCF4288C092F003152C2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FFCCF3288C092F003152C2 /* ContentView.swift */; };
 		21FFCCF6288C0930003152C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21FFCCF5288C0930003152C2 /* Assets.xcassets */; };
 		21FFCCF9288C0930003152C2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21FFCCF8288C0930003152C2 /* Preview Assets.xcassets */; };
+		21FFCD00288C0ED2003152C2 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FFCCFF288C0ED2003152C2 /* Color.swift */; };
+		21FFCD02288C0EE2003152C2 /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FFCD01288C0EE2003152C2 /* Typography.swift */; };
+		21FFCD08288C1E33003152C2 /* PlayfairDisplay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21FFCD05288C1E32003152C2 /* PlayfairDisplay-Bold.ttf */; };
+		21FFCD09288C1E33003152C2 /* PlayfairDisplay-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21FFCD06288C1E33003152C2 /* PlayfairDisplay-Italic.ttf */; };
+		21FFCD0A288C1E33003152C2 /* PlayfairDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21FFCD07288C1E33003152C2 /* PlayfairDisplay-Regular.ttf */; };
+		21FFCD0D288C1EDB003152C2 /* NanumMyeongjo.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21FFCD0B288C1EDB003152C2 /* NanumMyeongjo.otf */; };
+		21FFCD0E288C1EDB003152C2 /* NanumMyeongjoExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21FFCD0C288C1EDB003152C2 /* NanumMyeongjoExtraBold.otf */; };
+		21FFCD11288C2D29003152C2 /* SF-Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21FFCD10288C2D29003152C2 /* SF-Pro.ttf */; };
+		21FFCD13288C33EB003152C2 /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FFCD12288C33EA003152C2 /* Asset.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +28,16 @@
 		21FFCCF3288C092F003152C2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		21FFCCF5288C0930003152C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		21FFCCF8288C0930003152C2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		21FFCCFF288C0ED2003152C2 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		21FFCD01288C0EE2003152C2 /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
+		21FFCD05288C1E32003152C2 /* PlayfairDisplay-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlayfairDisplay-Bold.ttf"; sourceTree = "<group>"; };
+		21FFCD06288C1E33003152C2 /* PlayfairDisplay-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlayfairDisplay-Italic.ttf"; sourceTree = "<group>"; };
+		21FFCD07288C1E33003152C2 /* PlayfairDisplay-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlayfairDisplay-Regular.ttf"; sourceTree = "<group>"; };
+		21FFCD0B288C1EDB003152C2 /* NanumMyeongjo.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumMyeongjo.otf; sourceTree = "<group>"; };
+		21FFCD0C288C1EDB003152C2 /* NanumMyeongjoExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumMyeongjoExtraBold.otf; sourceTree = "<group>"; };
+		21FFCD0F288C1EF8003152C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		21FFCD10288C2D29003152C2 /* SF-Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro.ttf"; sourceTree = "<group>"; };
+		21FFCD12288C33EA003152C2 /* Asset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asset.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,9 +70,11 @@
 		21FFCCF0288C092F003152C2 /* Dandelion */ = {
 			isa = PBXGroup;
 			children = (
+				21FFCD0F288C1EF8003152C2 /* Info.plist */,
 				21FFCCF1288C092F003152C2 /* DandelionApp.swift */,
 				21FFCCF3288C092F003152C2 /* ContentView.swift */,
 				21FFCCF5288C0930003152C2 /* Assets.xcassets */,
+				21FFCD03288C0EEB003152C2 /* Design */,
 				21FFCCF7288C0930003152C2 /* Preview Content */,
 			);
 			path = Dandelion;
@@ -65,6 +86,30 @@
 				21FFCCF8288C0930003152C2 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		21FFCD03288C0EEB003152C2 /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				21FFCD04288C1DC9003152C2 /* Fonts */,
+				21FFCCFF288C0ED2003152C2 /* Color.swift */,
+				21FFCD01288C0EE2003152C2 /* Typography.swift */,
+				21FFCD12288C33EA003152C2 /* Asset.swift */,
+			);
+			path = Design;
+			sourceTree = "<group>";
+		};
+		21FFCD04288C1DC9003152C2 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				21FFCD10288C2D29003152C2 /* SF-Pro.ttf */,
+				21FFCD0B288C1EDB003152C2 /* NanumMyeongjo.otf */,
+				21FFCD0C288C1EDB003152C2 /* NanumMyeongjoExtraBold.otf */,
+				21FFCD05288C1E32003152C2 /* PlayfairDisplay-Bold.ttf */,
+				21FFCD06288C1E33003152C2 /* PlayfairDisplay-Italic.ttf */,
+				21FFCD07288C1E33003152C2 /* PlayfairDisplay-Regular.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,8 +170,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21FFCD0A288C1E33003152C2 /* PlayfairDisplay-Regular.ttf in Resources */,
+				21FFCD08288C1E33003152C2 /* PlayfairDisplay-Bold.ttf in Resources */,
 				21FFCCF9288C0930003152C2 /* Preview Assets.xcassets in Resources */,
+				21FFCD0D288C1EDB003152C2 /* NanumMyeongjo.otf in Resources */,
 				21FFCCF6288C0930003152C2 /* Assets.xcassets in Resources */,
+				21FFCD11288C2D29003152C2 /* SF-Pro.ttf in Resources */,
+				21FFCD09288C1E33003152C2 /* PlayfairDisplay-Italic.ttf in Resources */,
+				21FFCD0E288C1EDB003152C2 /* NanumMyeongjoExtraBold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,6 +190,9 @@
 			files = (
 				21FFCCF4288C092F003152C2 /* ContentView.swift in Sources */,
 				21FFCCF2288C092F003152C2 /* DandelionApp.swift in Sources */,
+				21FFCD13288C33EB003152C2 /* Asset.swift in Sources */,
+				21FFCD02288C0EE2003152C2 /* Typography.swift in Sources */,
+				21FFCD00288C0ED2003152C2 /* Color.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +324,7 @@
 				DEVELOPMENT_TEAM = VT69ZW2DRC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Dandelion/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -299,6 +354,7 @@
 				DEVELOPMENT_TEAM = VT69ZW2DRC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Dandelion/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
