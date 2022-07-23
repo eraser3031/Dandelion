@@ -19,6 +19,7 @@
 		21FFCD0D288C1EDB003152C2 /* NanumMyeongjo.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21FFCD0B288C1EDB003152C2 /* NanumMyeongjo.otf */; };
 		21FFCD0E288C1EDB003152C2 /* NanumMyeongjoExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21FFCD0C288C1EDB003152C2 /* NanumMyeongjoExtraBold.otf */; };
 		21FFCD11288C2D29003152C2 /* SF-Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21FFCD10288C2D29003152C2 /* SF-Pro.ttf */; };
+		21FFCD13288C33EB003152C2 /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FFCD12288C33EA003152C2 /* Asset.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		21FFCD0C288C1EDB003152C2 /* NanumMyeongjoExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumMyeongjoExtraBold.otf; sourceTree = "<group>"; };
 		21FFCD0F288C1EF8003152C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		21FFCD10288C2D29003152C2 /* SF-Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro.ttf"; sourceTree = "<group>"; };
+		21FFCD12288C33EA003152C2 /* Asset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asset.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 				21FFCD04288C1DC9003152C2 /* Fonts */,
 				21FFCCFF288C0ED2003152C2 /* Color.swift */,
 				21FFCD01288C0EE2003152C2 /* Typography.swift */,
+				21FFCD12288C33EA003152C2 /* Asset.swift */,
 			);
 			path = Design;
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 			files = (
 				21FFCCF4288C092F003152C2 /* ContentView.swift in Sources */,
 				21FFCCF2288C092F003152C2 /* DandelionApp.swift in Sources */,
+				21FFCD13288C33EB003152C2 /* Asset.swift in Sources */,
 				21FFCD02288C0EE2003152C2 /* Typography.swift in Sources */,
 				21FFCD00288C0ED2003152C2 /* Color.swift in Sources */,
 			);
