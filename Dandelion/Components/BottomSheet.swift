@@ -88,7 +88,7 @@ struct BottomSheetPreView: View {
             Text("hello~")
                 .frame(maxWidth: .infinity, maxHeight: 300)
         }
-
+        
     }
 }
 

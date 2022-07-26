@@ -16,6 +16,8 @@
 		218E63ED288C503A0023A8A0 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E63EC288C503A0023A8A0 /* SearchBar.swift */; };
 		21FDE2C32890090100A779A5 /* AddSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FDE2C22890090100A779A5 /* AddSearchView.swift */; };
 		21FDE2C528900C1500A779A5 /* AddBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FDE2C428900C1500A779A5 /* AddBookView.swift */; };
+		21FDE2C7289013F700A779A5 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FDE2C6289013F700A779A5 /* CustomSlider.swift */; };
+		21FDE2C92890140700A779A5 /* PageStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FDE2C82890140700A779A5 /* PageStepper.swift */; };
 		21FFCCF2288C092F003152C2 /* DandelionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FFCCF1288C092F003152C2 /* DandelionApp.swift */; };
 		21FFCCF4288C092F003152C2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FFCCF3288C092F003152C2 /* ContentView.swift */; };
 		21FFCCF6288C0930003152C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21FFCCF5288C0930003152C2 /* Assets.xcassets */; };
@@ -41,6 +43,8 @@
 		218E63EC288C503A0023A8A0 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		21FDE2C22890090100A779A5 /* AddSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSearchView.swift; sourceTree = "<group>"; };
 		21FDE2C428900C1500A779A5 /* AddBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookView.swift; sourceTree = "<group>"; };
+		21FDE2C6289013F700A779A5 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
+		21FDE2C82890140700A779A5 /* PageStepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageStepper.swift; sourceTree = "<group>"; };
 		21FFCCEE288C092F003152C2 /* Dandelion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dandelion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21FFCCF1288C092F003152C2 /* DandelionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DandelionApp.swift; sourceTree = "<group>"; };
 		21FFCCF3288C092F003152C2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -75,6 +79,8 @@
 				215F0A97288FA3AD0045FFF8 /* ButtonStyle.swift */,
 				218E63EC288C503A0023A8A0 /* SearchBar.swift */,
 				215F0AA3288FA78A0045FFF8 /* BottomSheet.swift */,
+				21FDE2C6289013F700A779A5 /* CustomSlider.swift */,
+				21FDE2C82890140700A779A5 /* PageStepper.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -232,6 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				21FFCCF4288C092F003152C2 /* ContentView.swift in Sources */,
+				21FDE2C7289013F700A779A5 /* CustomSlider.swift in Sources */,
 				21FFCCF2288C092F003152C2 /* DandelionApp.swift in Sources */,
 				21FFCD13288C33EB003152C2 /* Asset.swift in Sources */,
 				215F0A98288FA3AD0045FFF8 /* ButtonStyle.swift in Sources */,
@@ -242,6 +249,7 @@
 				21FFCD00288C0ED2003152C2 /* Color.swift in Sources */,
 				218E63ED288C503A0023A8A0 /* SearchBar.swift in Sources */,
 				215F0AA2288FA7620045FFF8 /* ManageBookmarkView.swift in Sources */,
+				21FDE2C92890140700A779A5 /* PageStepper.swift in Sources */,
 				215F0AA0288FA6F40045FFF8 /* BookMarkView.swift in Sources */,
 				215F0AA4288FA78A0045FFF8 /* BottomSheet.swift in Sources */,
 				215F0A9A288FA68A0045FFF8 /* BookInfoView.swift in Sources */,

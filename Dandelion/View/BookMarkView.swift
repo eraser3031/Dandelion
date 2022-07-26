@@ -9,16 +9,17 @@ import SwiftUI
 
 struct BookMarkView: View {
     
-    @State private var bookmarks: [String] = []
+    @State private var bookmarks: [String] = [""]
+    @State private var showManageSheet = true
     
     var body: some View {
         ZStack {
             if bookmarks.count != 0 {
-            HStack(spacing: 20) {
-                Image.bookLeft
-                    .resizable()
-                    .scaledToFit()
-                
+                HStack(spacing: 20) {
+                    Image.bookLeft
+                        .resizable()
+                        .scaledToFit()
+                    
                     ScrollView(showsIndicators: false) {
                         VStack(spacing: 24) {
                             ForEach(0..<10) { i in
@@ -60,6 +61,9 @@ struct BookMarkView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
+        }
+        .sheet(isPresented: $showManageSheet) {
+            ManageBookmarkView()
         }
     }
 }
