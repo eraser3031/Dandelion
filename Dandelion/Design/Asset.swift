@@ -12,5 +12,6 @@ extension Image {
     static let seed = Image("Seed")
     static let book = Image("Book")
     static let bookLeft = Image("BookLeft")
+    static let bookHorizontal = Image("BookHorizontal")
     static let star = Image("Star")
 }
