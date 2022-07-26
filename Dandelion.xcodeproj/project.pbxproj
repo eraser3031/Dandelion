@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		215F0A98288FA3AD0045FFF8 /* FilledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215F0A97288FA3AD0045FFF8 /* FilledButton.swift */; };
 		218E63ED288C503A0023A8A0 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E63EC288C503A0023A8A0 /* SearchBar.swift */; };
 		21FFCCF2288C092F003152C2 /* DandelionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FFCCF1288C092F003152C2 /* DandelionApp.swift */; };
 		21FFCCF4288C092F003152C2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FFCCF3288C092F003152C2 /* ContentView.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		215F0A97288FA3AD0045FFF8 /* FilledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledButton.swift; sourceTree = "<group>"; };
 		218E63EC288C503A0023A8A0 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		21FFCCEE288C092F003152C2 /* Dandelion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dandelion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21FFCCF1288C092F003152C2 /* DandelionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DandelionApp.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 				21FFCD0F288C1EF8003152C2 /* Info.plist */,
 				21FFCCF1288C092F003152C2 /* DandelionApp.swift */,
 				21FFCCF3288C092F003152C2 /* ContentView.swift */,
+				215F0A97288FA3AD0045FFF8 /* FilledButton.swift */,
 				218E63EC288C503A0023A8A0 /* SearchBar.swift */,
 				21FFCCF5288C0930003152C2 /* Assets.xcassets */,
 				21FFCD03288C0EEB003152C2 /* Design */,
@@ -194,6 +197,7 @@
 				21FFCCF4288C092F003152C2 /* ContentView.swift in Sources */,
 				21FFCCF2288C092F003152C2 /* DandelionApp.swift in Sources */,
 				21FFCD13288C33EB003152C2 /* Asset.swift in Sources */,
+				215F0A98288FA3AD0045FFF8 /* FilledButton.swift in Sources */,
 				21FFCD02288C0EE2003152C2 /* Typography.swift in Sources */,
 				21FFCD00288C0ED2003152C2 /* Color.swift in Sources */,
 				218E63ED288C503A0023A8A0 /* SearchBar.swift in Sources */,
