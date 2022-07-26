@@ -34,25 +34,46 @@ struct BookDetailView: View {
                 HStack(spacing: 12) {
                     Text("Info")
                         .font(.theme.sheetTitle)
+                        .foregroundColor(sheetCase == .info ? .theme.primary : .theme.labelBackground)
+                        .onTapGesture {
+                            sheetCase = .info
+                        }
                     Text("Bookmark")
                         .font(.theme.sheetTitle)
-                        .foregroundColor(.theme.labelBackground)
+                        .foregroundColor(sheetCase == .bookmark ? .theme.primary : .theme.labelBackground)
+                        .onTapGesture {
+                            sheetCase = .bookmark
+                        }
                     Spacer()
                     
-                    Button {
-                        print("hi")
-                    } label: {
-                        Image(systemName: "ellipsis")
+                    HStack(spacing: 16) {
+                        if sheetCase == .bookmark {
+                            Button {
+                                print("hi")
+                            } label: {
+                                Image(systemName: "plus")
+                            }
+                            .buttonStyle(CircledButtonStyle())
+                        }
+                        
+                        Button {
+                            print("hi")
+                        } label: {
+                            Image(systemName: "ellipsis")
+                        }
+                        .buttonStyle(CircledButtonStyle())
                     }
-                    .buttonStyle(CircledButtonStyle())
                 }
             }
+            .padding(.horizontal, 30)
             
-            ScrollView {
+            if sheetCase == .info {
                 BookInfoView()
+                    .padding(.horizontal, 30)
+            } else {
+                BookMarkView()
             }
         }
-        .padding(.horizontal, 30)
         .padding(.top, 8)
     }
 }
