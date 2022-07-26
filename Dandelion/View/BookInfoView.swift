@@ -15,7 +15,7 @@ struct BookInfoView: View {
                     Image("Book3")
                     VStack(spacing: 4) {
                         Text("Pride and Prejudice")
-                            .font(.theme.filledButton)
+                            .font(.theme.headline)
                         Text("Jane Austen")
                             .font(.theme.footnote)
                     }

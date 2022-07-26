@@ -28,7 +28,7 @@ struct AddSearchView: View {
                     print("hi")
                 } label: {
                     Text("Done")
-                        .font(.theme.filledButton)
+                        .font(.theme.headline)
                 }
                 .buttonStyle(.plain)
             }

@@ -50,7 +50,7 @@ struct PageStepper: View {
             }
             .buttonStyle(.plain)
         }
-        .font(.theme.filledButton)
+        .font(.theme.headline)
     }
 }
 

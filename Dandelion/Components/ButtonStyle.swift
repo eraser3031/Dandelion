@@ -10,7 +10,7 @@ import SwiftUI
 struct FilledButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.theme.filledButton)
+            .font(.theme.headline)
             .foregroundColor(.theme.background)
             .padding(.vertical, 14)
             .padding(.horizontal, 20)

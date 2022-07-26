@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var searchText: String = ""
-    @State private var books: [String] = []
+    @State private var books: [String] = [""]
     @State private var showAddSheet = false
     
     private var columns: [GridItem] = [
@@ -98,6 +98,8 @@ struct ContentView: View {
                         .resizable()
                         .scaledToFit()
                         .cornerRadius(4)
+                        .onTapGesture {
+                        }
                 }
             }
         }
@@ -137,7 +139,7 @@ struct GroupedSection: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             Label(title, systemImage: systemName)
-                .font(.theme.filledButton)
+                .font(.theme.headline)
             if let text = text {
                 Text(text)
                     .font(.theme.footnote)
