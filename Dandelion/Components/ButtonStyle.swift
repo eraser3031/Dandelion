@@ -34,6 +34,19 @@ struct CircledButtonStyle: ButtonStyle {
     }
 }
 
+struct SheetDismissButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .frame(width: 22, height: 22)
+            .foregroundColor(.theme.secondary)
+            .font(.theme.footnote)
+            .background(
+                Circle()
+                    .fill(Color.theme.groupedBackground)
+            )
+    }
+}
+
 struct FilledButton_Previews: PreviewProvider {
     static var previews: some View {
         VStack(spacing: 10) {

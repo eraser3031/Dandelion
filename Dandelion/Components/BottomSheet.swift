@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BottomSheet<Content: View>: View {
-    
+    @Environment(\.safeAreaInsets) private var safeAreaInsets
     @Binding var isPresented: Bool
     let content: () -> Content
     
@@ -20,10 +20,11 @@ struct BottomSheet<Content: View>: View {
     var body: some View {
         content()
             .padding(20)
-            .background(
+            .padding(.bottom, safeAreaInsets.bottom)
+            .background {
                 RoundedRectangle(cornerRadius: 10, style: .continuous)
                     .fill(Color.theme.background)
-            )
+            }
     }
 }
 
@@ -94,5 +95,25 @@ struct BottomSheetPreView: View {
 struct BottomSheet_Previews: PreviewProvider {
     static var previews: some View {
         BottomSheetPreView()
+    }
+}
+
+private struct SafeAreaInsetsKey: EnvironmentKey {
+    static var defaultValue: EdgeInsets {
+        (UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.safeAreaInsets ?? .zero).insets
+    }
+}
+
+extension EnvironmentValues {
+    
+    var safeAreaInsets: EdgeInsets {
+        self[SafeAreaInsetsKey.self]
+    }
+}
+
+private extension UIEdgeInsets {
+    
+    var insets: EdgeInsets {
+        EdgeInsets(top: top, leading: left, bottom: bottom, trailing: right)
     }
 }
