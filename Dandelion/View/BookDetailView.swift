@@ -17,34 +17,71 @@ struct BookDetailView: View {
     @State private var sheetCase: BookDetailCase = .info
     
     var body: some View {
-        VStack(spacing: 26) {
-            HStack {
-                Button {
-                    print("hi")
-                } label: {
-                    Image(systemName: "xmark")
-                        .font(.theme.title2)
+        VStack(spacing: 20) {
+            VStack(spacing: 26) {
+                HStack {
+                    Button {
+                        print("hi")
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.theme.title2)
+                    }
+                    .buttonStyle(.plain)
+                    
+                    Spacer()
                 }
-                .buttonStyle(.plain)
-
-                Spacer()
+                
+                HStack(spacing: 12) {
+                    Text("Info")
+                        .font(.theme.sheetTitle)
+                    Text("Bookmark")
+                        .font(.theme.sheetTitle)
+                        .foregroundColor(.theme.labelBackground)
+                    Spacer()
+                    
+                    Button {
+                        print("hi")
+                    } label: {
+                        Image(systemName: "ellipsis")
+                    }
+                    .buttonStyle(CircledButtonStyle())
+                }
             }
             
-            HStack(spacing: 12) {
-                Text("Info")
-                    .font(.theme.sheetTitle)
-                Text("Bookmark")
-                    .font(.theme.sheetTitle)
-                    .foregroundColor(.theme.labelBackground)
-                Spacer()
-                
-                Button {
-                    print("hi")
-                } label: {
-                    Image(systemName: "ellipsis")
+            VStack(spacing: 16) {
+                Image("Book3")
+                VStack(spacing: 4) {
+                    Text("Pride and Prejudice")
+                        .font(.theme.filledButton)
+                    Text("Jane Austen")
+                        .font(.theme.footnote)
                 }
-                .buttonStyle(CircledButtonStyle())
             }
+            .frame(maxWidth: .infinity)
+            .padding(24)
+            .background(
+                RoundedRectangle(cornerRadius: 32, style: .continuous)
+                    .strokeBorder(Color.theme.groupedBackground)
+            )
+            
+            ZStack {
+                VStack(spacing: 20) {
+                    VStack(spacing: 6) {
+                        Text("rating")
+                            .font(.theme.subHeadline)
+                        Text("3 / 5")
+                            .font(.system(size: 28, weight: .bold, design: .rounded))
+                    }
+                    Text("“ Work hard in silence, let\nyour success be the noise ”")
+                        .font(.theme.regularSerifItalic)
+                }
+            }
+            .frame(maxWidth: .infinity)
+            .padding(24)
+            .background(
+                RoundedRectangle(cornerRadius: 32, style: .continuous)
+                    .fill(Color.theme.subGroupedBackground)
+            )
             
             Spacer()
         }
