@@ -14,6 +14,8 @@
 		215F0AA2288FA7620045FFF8 /* ManageBookmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215F0AA1288FA7620045FFF8 /* ManageBookmarkView.swift */; };
 		215F0AA4288FA78A0045FFF8 /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215F0AA3288FA78A0045FFF8 /* BottomSheet.swift */; };
 		218E63ED288C503A0023A8A0 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E63EC288C503A0023A8A0 /* SearchBar.swift */; };
+		21FDE2C32890090100A779A5 /* AddSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FDE2C22890090100A779A5 /* AddSearchView.swift */; };
+		21FDE2C528900C1500A779A5 /* AddBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FDE2C428900C1500A779A5 /* AddBookView.swift */; };
 		21FFCCF2288C092F003152C2 /* DandelionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FFCCF1288C092F003152C2 /* DandelionApp.swift */; };
 		21FFCCF4288C092F003152C2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FFCCF3288C092F003152C2 /* ContentView.swift */; };
 		21FFCCF6288C0930003152C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21FFCCF5288C0930003152C2 /* Assets.xcassets */; };
@@ -37,6 +39,8 @@
 		215F0AA1288FA7620045FFF8 /* ManageBookmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageBookmarkView.swift; sourceTree = "<group>"; };
 		215F0AA3288FA78A0045FFF8 /* BottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
 		218E63EC288C503A0023A8A0 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		21FDE2C22890090100A779A5 /* AddSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSearchView.swift; sourceTree = "<group>"; };
+		21FDE2C428900C1500A779A5 /* AddBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookView.swift; sourceTree = "<group>"; };
 		21FFCCEE288C092F003152C2 /* Dandelion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dandelion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21FFCCF1288C092F003152C2 /* DandelionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DandelionApp.swift; sourceTree = "<group>"; };
 		21FFCCF3288C092F003152C2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -83,6 +87,8 @@
 				215F0A9F288FA6F40045FFF8 /* BookMarkView.swift */,
 				215F0A9D288FA6E80045FFF8 /* BookDetailView.swift */,
 				215F0AA1288FA7620045FFF8 /* ManageBookmarkView.swift */,
+				21FDE2C22890090100A779A5 /* AddSearchView.swift */,
+				21FDE2C428900C1500A779A5 /* AddBookView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -230,7 +236,9 @@
 				21FFCD13288C33EB003152C2 /* Asset.swift in Sources */,
 				215F0A98288FA3AD0045FFF8 /* ButtonStyle.swift in Sources */,
 				215F0A9E288FA6E80045FFF8 /* BookDetailView.swift in Sources */,
+				21FDE2C32890090100A779A5 /* AddSearchView.swift in Sources */,
 				21FFCD02288C0EE2003152C2 /* Typography.swift in Sources */,
+				21FDE2C528900C1500A779A5 /* AddBookView.swift in Sources */,
 				21FFCD00288C0ED2003152C2 /* Color.swift in Sources */,
 				218E63ED288C503A0023A8A0 /* SearchBar.swift in Sources */,
 				215F0AA2288FA7620045FFF8 /* ManageBookmarkView.swift in Sources */,
