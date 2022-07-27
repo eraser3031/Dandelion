@@ -36,20 +36,21 @@ struct CustomSlider<T>: View where T: BinaryFloatingPoint, T.Stride : BinaryFloa
                             .resizable()
                             .frame(width: 20, height: 20)
                             .foregroundColor(.theme.dandelion)
-                            .offset(x: geo.size.width * (CGFloat(value / bounds.upperBound).isNaN ? 0.01 : CGFloat(value / bounds.upperBound)) )
+                            .offset(x: CGFloat(value) )
+                            .gesture(
+                                DragGesture()
+                                    .onChanged{ transition in
+                                        onEditingChanged(true)
+                                        value = T(max(min(geo.size.width, transition.location.x), 0))
+                                        print(transition.location.x)
+                                    }
+                                    .onEnded{ _ in
+                                        onEditingChanged(false)
+                                    }
+                            )
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .gesture(
-                    DragGesture()
-                        .onChanged{ transition in
-                            onEditingChanged(true)
-                            value = T(CGFloat(transition.location.x / geo.size.width) * CGFloat(bounds.upperBound))
-                        }
-                        .onEnded{ _ in
-                            onEditingChanged(false)
-                        }
-                )
             }
 
             
