@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var searchText: String = ""
-    @State private var books: [String] = [""]
+    @State private var books: [Item] = []
     @State private var showAddSheet = false
     
     private var columns: [GridItem] = [
@@ -48,17 +48,20 @@ struct ContentView: View {
                 }
                 .buttonStyle(.plain)
             }
-            
-            if books.count == 0 {
-                noResultView
-            } else {
-                booksView
-            }
-            
+//
+//            if books.count == 0 {
+//                noResultView
+//            } else {
+//
+//            }
+            booksView
         }
         .padding([.top, .horizontal], 20)
         .bottomSheet(isPresented: $showAddSheet) {
             sheetContentView
+        }
+        .task {
+            books = await getMovie()
         }
     }
     
@@ -93,13 +96,13 @@ struct ContentView: View {
             Spacer()
                 .frame(height: 10)
             LazyVGrid(columns: columns, spacing: 30) {
-                ForEach(1..<6) { i in
-                    Image("Book\(i)")
-                        .resizable()
-                        .scaledToFit()
-                        .cornerRadius(4)
-                        .onTapGesture {
-                        }
+                ForEach(books, id: \.title) { book in
+                    AsyncImage(url: URL(string: book.cover), content: { imagePhase in
+                        imagePhase.image?
+                            .resizable()
+                            .scaledToFit()
+                            .cornerRadius(4)
+                    })
                 }
             }
         }
@@ -128,6 +131,30 @@ struct ContentView: View {
 
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+}
+
+extension ContentView {
+    
+    private func getMovie() async -> [Item] {
+        // Const 구조체에 상수로써 URL 을 관리.
+        guard let url = URL(string: "http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttberaser30311317001&Query=%ED%95%98%EB%A3%A8%ED%82%A4&QueryType=Title&MaxResults=10&start=1&SearchTarget=Book&output=js&Cover=Big&Version=20070901") else {
+            print("hihi")
+            return []
+        }
+
+        do {
+            let (data, response) = try await URLSession.shared.data(from: url)
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                return []
+            }
+
+            let popularMovie = try JSONDecoder().decode(Welcome.self, from: data.dropLast(1))
+            return popularMovie.item
+        } catch {
+            print(error)
+            return []
+        }
     }
 }
 

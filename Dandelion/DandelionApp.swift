@@ -11,7 +11,7 @@ import SwiftUI
 struct DandelionApp: App {
     var body: some Scene {
         WindowGroup {
-            BookMarkView()
+            ContentView()
         }
     }
 }
