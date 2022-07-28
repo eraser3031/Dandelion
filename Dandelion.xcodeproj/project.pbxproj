@@ -15,6 +15,8 @@
 		215F0AA4288FA78A0045FFF8 /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215F0AA3288FA78A0045FFF8 /* BottomSheet.swift */; };
 		21857523289149D20082F2A0 /* NetworkType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21857522289149D20082F2A0 /* NetworkType.swift */; };
 		218E63ED288C503A0023A8A0 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E63EC288C503A0023A8A0 /* SearchBar.swift */; };
+		21CF2BDC28927C1700293E38 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CF2BDB28927C1700293E38 /* Persistence.swift */; };
+		21CF2BDF28927C7A00293E38 /* Dandelion.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 21CF2BDD28927C7A00293E38 /* Dandelion.xcdatamodeld */; };
 		21FDE2C32890090100A779A5 /* AddSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FDE2C22890090100A779A5 /* AddSearchView.swift */; };
 		21FDE2C528900C1500A779A5 /* AddBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FDE2C428900C1500A779A5 /* AddBookView.swift */; };
 		21FDE2C7289013F700A779A5 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FDE2C6289013F700A779A5 /* CustomSlider.swift */; };
@@ -43,6 +45,8 @@
 		215F0AA3288FA78A0045FFF8 /* BottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
 		21857522289149D20082F2A0 /* NetworkType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkType.swift; sourceTree = "<group>"; };
 		218E63EC288C503A0023A8A0 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		21CF2BDB28927C1700293E38 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		21CF2BDE28927C7A00293E38 /* Dandelion.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Dandelion.xcdatamodel; sourceTree = "<group>"; };
 		21FDE2C22890090100A779A5 /* AddSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSearchView.swift; sourceTree = "<group>"; };
 		21FDE2C428900C1500A779A5 /* AddBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookView.swift; sourceTree = "<group>"; };
 		21FDE2C6289013F700A779A5 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
@@ -109,6 +113,14 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		21CF2BDA28927C0E00293E38 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				21CF2BDB28927C1700293E38 /* Persistence.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		21FFCCE5288C092F003152C2 = {
 			isa = PBXGroup;
 			children = (
@@ -128,12 +140,14 @@
 		21FFCCF0288C092F003152C2 /* Dandelion */ = {
 			isa = PBXGroup;
 			children = (
+				21CF2BDA28927C0E00293E38 /* Data */,
 				21857521289149C20082F2A0 /* Network */,
 				215F0A9C288FA6A40045FFF8 /* View */,
 				215F0A9B288FA6910045FFF8 /* Components */,
 				21FFCD03288C0EEB003152C2 /* Design */,
 				21FFCD0F288C1EF8003152C2 /* Info.plist */,
 				21FFCCF1288C092F003152C2 /* DandelionApp.swift */,
+				21CF2BDD28927C7A00293E38 /* Dandelion.xcdatamodeld */,
 				21FFCCF5288C0930003152C2 /* Assets.xcassets */,
 				21FFCCF7288C0930003152C2 /* Preview Content */,
 			);
@@ -252,11 +266,13 @@
 				21FDE2C7289013F700A779A5 /* CustomSlider.swift in Sources */,
 				21FFCCF2288C092F003152C2 /* DandelionApp.swift in Sources */,
 				21FFCD13288C33EB003152C2 /* Asset.swift in Sources */,
+				21CF2BDF28927C7A00293E38 /* Dandelion.xcdatamodeld in Sources */,
 				215F0A98288FA3AD0045FFF8 /* ButtonStyle.swift in Sources */,
 				215F0A9E288FA6E80045FFF8 /* BookDetailView.swift in Sources */,
 				21FDE2C32890090100A779A5 /* AddSearchView.swift in Sources */,
 				21FFCD02288C0EE2003152C2 /* Typography.swift in Sources */,
 				21FDE2C528900C1500A779A5 /* AddBookView.swift in Sources */,
+				21CF2BDC28927C1700293E38 /* Persistence.swift in Sources */,
 				21FFCD00288C0ED2003152C2 /* Color.swift in Sources */,
 				218E63ED288C503A0023A8A0 /* SearchBar.swift in Sources */,
 				215F0AA2288FA7620045FFF8 /* ManageBookmarkView.swift in Sources */,
@@ -467,6 +483,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		21CF2BDD28927C7A00293E38 /* Dandelion.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				21CF2BDE28927C7A00293E38 /* Dandelion.xcdatamodel */,
+			);
+			currentVersion = 21CF2BDE28927C7A00293E38 /* Dandelion.xcdatamodel */;
+			path = Dandelion.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 21FFCCE6288C092F003152C2 /* Project object */;
 }
