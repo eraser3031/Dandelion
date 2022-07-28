@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		210DFD992892931D008E3C07 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 210DFD982892931D008E3C07 /* Launch Screen.storyboard */; };
+		210DFD9C28929A2D008E3C07 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210DFD9B28929A2D008E3C07 /* View+Extension.swift */; };
 		215F0A98288FA3AD0045FFF8 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215F0A97288FA3AD0045FFF8 /* ButtonStyle.swift */; };
 		215F0A9A288FA68A0045FFF8 /* BookInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215F0A99288FA68A0045FFF8 /* BookInfoView.swift */; };
 		215F0A9E288FA6E80045FFF8 /* BookDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215F0A9D288FA6E80045FFF8 /* BookDetailView.swift */; };
@@ -42,6 +43,7 @@
 
 /* Begin PBXFileReference section */
 		210DFD982892931D008E3C07 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		210DFD9B28929A2D008E3C07 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		215F0A97288FA3AD0045FFF8 /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		215F0A99288FA68A0045FFF8 /* BookInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookInfoView.swift; sourceTree = "<group>"; };
 		215F0A9D288FA6E80045FFF8 /* BookDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailView.swift; sourceTree = "<group>"; };
@@ -87,6 +89,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		210DFD9A28929A19008E3C07 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				210DFD9B28929A2D008E3C07 /* View+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		215F0A9B288FA6910045FFF8 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -154,6 +164,7 @@
 				21CF2BDA28927C0E00293E38 /* Data */,
 				21857521289149C20082F2A0 /* Network */,
 				215F0A9C288FA6A40045FFF8 /* View */,
+				210DFD9A28929A19008E3C07 /* Extension */,
 				215F0A9B288FA6910045FFF8 /* Components */,
 				21FFCD03288C0EEB003152C2 /* Design */,
 				21FFCD0F288C1EF8003152C2 /* Info.plist */,
@@ -297,6 +308,7 @@
 				21CF2BE528928FFB00293E38 /* AddBarcodeView.swift in Sources */,
 				21CF2BE3289280BD00293E38 /* BookSearchService.swift in Sources */,
 				215F0A9A288FA68A0045FFF8 /* BookInfoView.swift in Sources */,
+				210DFD9C28929A2D008E3C07 /* View+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

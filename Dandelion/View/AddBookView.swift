@@ -24,8 +24,8 @@ struct AddBookView: View {
             VStack {
                 ZStack {
                     Color.theme.background
-                        .clipShape(RoundedRectangle(cornerRadius: 32, style: .continuous))
-                        .ignoresSafeArea()
+                        .cornerRadius(32, corners: [.bottomLeft, .bottomRight])
+                        .ignoresSafeArea(.container)
                     
                     
                     switch addCase {
@@ -68,6 +68,7 @@ struct AddBookView: View {
                 }
             }
             .frame(maxHeight: .infinity)
+            .ignoresSafeArea(.keyboard)
         }
     }
 }

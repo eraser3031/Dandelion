@@ -12,6 +12,8 @@ struct ContentView: View {
     @State private var searchText: String = ""
     @State private var books: [Item] = []
     @State private var showAddSheet = false
+    @State private var showAddSearchView = false
+
     
     private var columns: [GridItem] = [
         GridItem(.adaptive(minimum: 100), spacing: 12, alignment: .bottom)
@@ -52,13 +54,11 @@ struct ContentView: View {
             }
             .padding(.horizontal, 20)
             
-//
-//            if books.count == 0 {
-//                noResultView
-//            } else {
-//
-//            }
-            booksView
+            if books.count == 0 {
+                noResultView
+            } else {
+                booksView
+            }
         }
         .padding(.top, 20)
         .bottomSheet(isPresented: $showAddSheet) {
@@ -77,7 +77,9 @@ struct ContentView: View {
                 Spacer()
                 
                 Button {
-                    print("hi")
+                    withAnimation(.spring()) {
+                        showAddSheet = false
+                    }
                 } label: {
                     Image(systemName: "xmark")
                 }
@@ -85,13 +87,18 @@ struct ContentView: View {
             }
             
             VStack(spacing: 10) {
-                GroupedSection(title: "Camera", systemName: "camera.fill", text: "Through the camera, the name of the book is recognized as machine learning and the information is imported.")
+                GroupedSection(title: "Camera", systemName: "camera.fill", text: "Through the camera, the name of the book is recognized as machine learning and the information is imported.") { }
                 
                 HStack(spacing: 8) {
-                    GroupedSection(title: "Search", systemName: "magnifyingglass")
-                    GroupedSection(title: "Barcode", systemName: "barcode")
+                    GroupedSection(title: "Search", systemName: "magnifyingglass") {
+                        showAddSearchView = true
+                    }
+                    GroupedSection(title: "Barcode", systemName: "barcode") { }
                 }
             }
+        }
+        .fullScreenCover(isPresented: $showAddSearchView) {
+            AddBookView(addCase: .search)
         }
     }
     
@@ -128,7 +135,9 @@ struct ContentView: View {
             .foregroundColor(.theme.tertiary)
             
             Button {
-                print("hi")
+                withAnimation(.spring()) {
+                    showAddSheet = true
+                }
             } label: {
                 Label("Add Book", systemImage: "plus")
             }
@@ -165,23 +174,29 @@ struct GroupedSection: View {
     var title: String
     var systemName: String
     var text: String?
+    var action: () -> Void
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Label(title, systemImage: systemName)
-                .font(.theme.headline)
-            if let text = text {
-                Text(text)
-                    .font(.theme.footnote)
+        Button {
+            action()
+        } label: {
+            VStack(alignment: .leading, spacing: 10) {
+                Label(title, systemImage: systemName)
+                    .font(.theme.headline)
+                if let text = text {
+                    Text(text)
+                        .font(.theme.footnote)
+                }
             }
+            .padding(20)
+            .padding(.vertical, text == nil ? 10 : 0)
+            .frame(maxWidth: .infinity)
+            .background(
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .fill(Color.theme.groupedBackground)
+            )
         }
-        .padding(20)
-        .padding(.vertical, text == nil ? 10 : 0)
-        .frame(maxWidth: .infinity)
-        .background(
-            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                .fill(Color.theme.groupedBackground)
-        )
+        .buttonStyle(.plain)
     }
 }
 

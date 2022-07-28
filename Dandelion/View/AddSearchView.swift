@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct AddSearchView: View {
-    
+    @Environment(\.dismiss) var dismiss
     @State private var searchText: String = ""
     
     var body: some View {
         VStack(spacing: 26) {
             HStack {
                 Button {
-                    print("hi")
+                    dismiss()
                 } label: {
                     Image(systemName: "xmark")
                         .font(.theme.title2)
@@ -25,7 +25,7 @@ struct AddSearchView: View {
                 Spacer()
                 
                 Button {
-                    print("hi")
+                    dismiss()
                 } label: {
                     Text("Done")
                         .font(.theme.headline)
