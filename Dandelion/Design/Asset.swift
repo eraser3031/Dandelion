@@ -13,5 +13,14 @@ extension Image {
     static let book = Image("Book")
     static let bookLeft = Image("BookLeft")
     static let bookHorizontal = Image("BookHorizontal")
+    static let grainTexture = Image("GrainTexture")
     static let star = Image("Star")
 }
+
+//    .overlay {
+//        Image.grainTexture
+//            .resizable()
+//            .scaledToFill()
+//            .ignoresSafeArea()
+//            .blendMode(.softLight)
+//    }

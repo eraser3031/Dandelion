@@ -131,10 +131,10 @@
 				21857521289149C20082F2A0 /* Network */,
 				215F0A9C288FA6A40045FFF8 /* View */,
 				215F0A9B288FA6910045FFF8 /* Components */,
+				21FFCD03288C0EEB003152C2 /* Design */,
 				21FFCD0F288C1EF8003152C2 /* Info.plist */,
 				21FFCCF1288C092F003152C2 /* DandelionApp.swift */,
 				21FFCCF5288C0930003152C2 /* Assets.xcassets */,
-				21FFCD03288C0EEB003152C2 /* Design */,
 				21FFCCF7288C0930003152C2 /* Preview Content */,
 			);
 			path = Dandelion;

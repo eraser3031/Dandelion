@@ -137,9 +137,7 @@ struct ContentView: View {
 extension ContentView {
     
     private func getMovie() async -> [Item] {
-        // Const 구조체에 상수로써 URL 을 관리.
-        guard let url = URL(string: "http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttberaser30311317001&Query=%ED%95%98%EB%A3%A8%ED%82%A4&QueryType=Title&MaxResults=10&start=1&SearchTarget=Book&output=js&Cover=Big&Version=20070901") else {
-            print("hihi")
+        guard let url = URL(string: "http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttberaser30311317001&Query=haruki&QueryType=Title&MaxResults=10&start=1&SearchTarget=Foreign&output=js&Cover=Big&Version=20131101") else {
             return []
         }
 
@@ -149,7 +147,7 @@ extension ContentView {
                 return []
             }
 
-            let popularMovie = try JSONDecoder().decode(Welcome.self, from: data.dropLast(1))
+            let popularMovie = try JSONDecoder().decode(Welcome.self, from: data)
             return popularMovie.item
         } catch {
             print(error)
