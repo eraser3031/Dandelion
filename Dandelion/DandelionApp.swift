@@ -9,12 +9,12 @@ import SwiftUI
 
 @main
 struct DandelionApp: App {
-    let persistenceController = PersistenceController.shared
+    let coreDataManager = CoreDataManager.shared
     
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(\.managedObjectContext, coreDataManager.container.viewContext)
         }
     }
 }

@@ -8,8 +8,8 @@
 import Foundation
 import CoreData
 
-struct PersistenceController {
-    static let shared = PersistenceController()
+struct CoreDataManager {
+    static let shared = CoreDataManager()
 
 //    static var preview: PersistenceController = {
 //        let result = PersistenceController(inMemory: true)
