@@ -19,35 +19,39 @@ struct ContentView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            Image.logo
-                .resizable()
-                .foregroundColor(.theme.dandelion)
-                .frame(width: 32, height: 32)
-            
-            SearchBar(text: $searchText)
-            
-            HStack(alignment: .center, spacing: 16) {
-                Text("132")
-                    .font(.theme.headlineLabel)
-                Spacer()
-                Button {
-                    print("hi")
-                } label: {
-                    Label("Edit", systemImage: "pencil")
-                        .font(.theme.plainButton)
-                }
-                .buttonStyle(.plain)
+            Group {
+                Image.logo
+                    .resizable()
+                    .foregroundColor(.theme.dandelion)
+                    .frame(width: 32, height: 32)
                 
-                Button {
-                    withAnimation(.spring()) {
-                        showAddSheet = true
+                SearchBar(text: $searchText)
+                
+                HStack(alignment: .center, spacing: 16) {
+                    Text("132")
+                        .font(.theme.headlineLabel)
+                    Spacer()
+                    Button {
+                        print("hi")
+                    } label: {
+                        Label("Edit", systemImage: "pencil")
+                            .font(.theme.plainButton)
                     }
-                } label: {
-                    Label("Add", systemImage: "plus")
-                        .font(.theme.plainButton)
+                    .buttonStyle(.plain)
+                    
+                    Button {
+                        withAnimation(.spring()) {
+                            showAddSheet = true
+                        }
+                    } label: {
+                        Label("Add", systemImage: "plus")
+                            .font(.theme.plainButton)
+                    }
+                    .buttonStyle(.plain)
                 }
-                .buttonStyle(.plain)
             }
+            .padding(.horizontal, 20)
+            
 //
 //            if books.count == 0 {
 //                noResultView
@@ -56,7 +60,7 @@ struct ContentView: View {
 //            }
             booksView
         }
-        .padding([.top, .horizontal], 20)
+        .padding(.top, 20)
         .bottomSheet(isPresented: $showAddSheet) {
             sheetContentView
         }
@@ -105,6 +109,7 @@ struct ContentView: View {
                     })
                 }
             }
+            .padding(.horizontal, 20)
         }
         .shadow(color: .theme.shadow.opacity(0.2), radius: 20, y: 20)
     }
