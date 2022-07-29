@@ -19,6 +19,7 @@
 		218E63ED288C503A0023A8A0 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E63EC288C503A0023A8A0 /* SearchBar.swift */; };
 		21B1E6162892A714004593C7 /* BookListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B1E6152892A714004593C7 /* BookListViewModel.swift */; };
 		21B1E61A2892ABD4004593C7 /* AddSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B1E6192892ABD4004593C7 /* AddSearchViewModel.swift */; };
+		21B1E61D289390FE004593C7 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 21B1E61C289390FE004593C7 /* Kingfisher */; };
 		21CF2BDC28927C1700293E38 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CF2BDB28927C1700293E38 /* CoreDataManager.swift */; };
 		21CF2BDF28927C7A00293E38 /* Dandelion.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 21CF2BDD28927C7A00293E38 /* Dandelion.xcdatamodeld */; };
 		21CF2BE1289280A300293E38 /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CF2BE0289280A300293E38 /* NetworkingManager.swift */; };
@@ -87,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21B1E61D289390FE004593C7 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,6 +249,9 @@
 			dependencies = (
 			);
 			name = Dandelion;
+			packageProductDependencies = (
+				21B1E61C289390FE004593C7 /* Kingfisher */,
+			);
 			productName = Dandelion;
 			productReference = 21FFCCEE288C092F003152C2 /* Dandelion.app */;
 			productType = "com.apple.product-type.application";
@@ -275,6 +280,9 @@
 				Base,
 			);
 			mainGroup = 21FFCCE5288C092F003152C2;
+			packageReferences = (
+				21B1E61B289390FE004593C7 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = 21FFCCEF288C092F003152C2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -537,6 +545,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		21B1E61B289390FE004593C7 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		21B1E61C289390FE004593C7 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 21B1E61B289390FE004593C7 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		21CF2BDD28927C7A00293E38 /* Dandelion.xcdatamodeld */ = {

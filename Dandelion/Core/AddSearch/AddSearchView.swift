@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct AddSearchView: View {
     @StateObject private var vm = AddSearchViewModel()
@@ -55,7 +56,9 @@ struct AddSearchView: View {
             ScrollView {
                 VStack(spacing: 10) {
                     ForEach(vm.searchedItems, id: \.title) { item in
-                        SearchBookCellView(name: item.title, author: item.author)
+                        SearchBookCellView(thumbnail: URL(string: item.cover),
+                                           name: item.title,
+                                           author: item.author)
                     }
                 }
                 .padding(.horizontal, 30)
@@ -71,13 +74,13 @@ struct AddSearchView: View {
 
 struct SearchBookCellView: View {
     
-    var thumbnail: Data? = nil
+    var thumbnail: URL?
     var name: String
     var author: String
     
     var body: some View {
         HStack(alignment: .top, spacing: 20) {
-            Image("Book4")
+            KFImage(thumbnail)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 50)
