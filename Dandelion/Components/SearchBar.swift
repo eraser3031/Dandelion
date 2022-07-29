@@ -20,6 +20,7 @@ struct SearchBar: View {
                 TextField("Search", text: $text)
                     .font(.theme.regular)
                     .foregroundColor(.theme.primary)
+                    .autocorrectionDisabled(true)
  
                 if !text.isEmpty {
                     Button(action: {

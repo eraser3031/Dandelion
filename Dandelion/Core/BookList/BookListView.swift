@@ -7,13 +7,12 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct BookListView: View {
     
+    @StateObject private var vm = BookListViewModel()
     @State private var searchText: String = ""
-    @State private var books: [Item] = []
     @State private var showAddSheet = false
     @State private var showAddSearchView = false
-
     
     private var columns: [GridItem] = [
         GridItem(.adaptive(minimum: 100), spacing: 12, alignment: .bottom)
@@ -54,7 +53,7 @@ struct ContentView: View {
             }
             .padding(.horizontal, 20)
             
-            if books.count == 0 {
+            if vm.books.count == 0 {
                 noResultView
             } else {
                 booksView
@@ -63,9 +62,6 @@ struct ContentView: View {
         .padding(.top, 20)
         .bottomSheet(isPresented: $showAddSheet) {
             sheetContentView
-        }
-        .task {
-            books = await getMovie()
         }
     }
     
@@ -107,13 +103,15 @@ struct ContentView: View {
             Spacer()
                 .frame(height: 10)
             LazyVGrid(columns: columns, spacing: 30) {
-                ForEach(books, id: \.title) { book in
-                    AsyncImage(url: URL(string: book.cover), content: { imagePhase in
-                        imagePhase.image?
-                            .resizable()
-                            .scaledToFit()
-                            .cornerRadius(4)
-                    })
+                ForEach(vm.books) { book in
+                    if let url = book.coverURL {
+                        AsyncImage(url: url) { imagePhase in
+                            imagePhase.image?
+                                .resizable()
+                                .scaledToFit()
+                                .cornerRadius(4)
+                        }
+                    }
                 }
             }
             .padding(.horizontal, 20)
@@ -148,10 +146,10 @@ struct ContentView: View {
     }
 }
 
-extension ContentView {
+extension BookListView {
     
     private func getMovie() async -> [Item] {
-        guard let url = URL(string: "http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttberaser30311317001&Query=haruki&QueryType=Title&MaxResults=10&start=1&SearchTarget=Foreign&output=js&Cover=Big&Version=20131101") else {
+        guard let url = URL(string: "http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttberaser30311317001&Query=kakao&QueryType=Title&MaxResults=10&start=1&SearchTarget=Book&output=js&Cover=Big&Version=20131101") else {
             return []
         }
 
@@ -161,7 +159,7 @@ extension ContentView {
                 return []
             }
 
-            let popularMovie = try JSONDecoder().decode(Welcome.self, from: data)
+            let popularMovie = try JSONDecoder().decode(SearchResult.self, from: data)
             return popularMovie.item
         } catch {
             print(error)
@@ -202,7 +200,7 @@ struct GroupedSection: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        BookListView()
             .preferredColorScheme(.light)
     }
 }

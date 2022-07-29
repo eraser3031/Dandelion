@@ -13,7 +13,7 @@ struct DandelionApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            BookListView()
                 .environment(\.managedObjectContext, coreDataManager.container.viewContext)
         }
     }
