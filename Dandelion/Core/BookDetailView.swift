@@ -76,10 +76,18 @@ struct BookDetailView: View {
             if sheetCase == .info {
                 BookInfoView(book: book)
                     .padding(.horizontal, 30)
-                    .transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing)))
+                    .transition(
+                        .asymmetric(insertion: .move(edge: .leading),
+                                    removal: .move(edge: .trailing)
+                                   ).combined(with: .opacity)
+                    )
             } else {
                 BookMarkView(book: book)
-                    .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
+                    .transition(
+                        .asymmetric(insertion: .move(edge: .trailing),
+                                    removal: .move(edge: .leading))
+                        .combined(with: .opacity)
+                    )
             }
         }
         .padding(.top, 8)
