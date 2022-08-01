@@ -24,6 +24,8 @@ struct ColorTheme {
     let labelBackground = Color("labelBackground")
     let groupedBackground = Color("groupedBackground")
     let subGroupedBackground = Color("subGroupedBackground")
+    
+    let shadow = Color("shadow")
 }
 
 struct ColorTheme_Previews: PreviewProvider {

@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct DandelionApp: App {
+    let coreDataManager = CoreDataManager.shared
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            BookListView()
+                .environment(\.managedObjectContext, coreDataManager.container.viewContext)
         }
     }
 }
