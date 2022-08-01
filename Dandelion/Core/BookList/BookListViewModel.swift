@@ -23,4 +23,10 @@ final class BookListViewModel: ObservableObject {
             print("\(error)")
         }
     }
+    
+    func delete(book: Book) {
+        manager.context.delete(book)
+        manager.save()
+        fetchBookList()
+    }
 }

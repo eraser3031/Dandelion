@@ -14,6 +14,7 @@ struct BookListView: View {
     @State private var searchText: String = ""
     @State private var showAddSheet = false
     @State private var showAddSearchView = false
+    @State private var isEdit = false
     
     private var columns: [GridItem] = [
         GridItem(.adaptive(minimum: 100), spacing: 12, alignment: .bottom)
@@ -34,10 +35,18 @@ struct BookListView: View {
                         .font(.theme.headlineLabel)
                     Spacer()
                     Button {
-                        print("hi")
+                        withAnimation(.spring()) {
+                            isEdit.toggle()
+                        }
                     } label: {
-                        Label("Edit", systemImage: "pencil")
-                            .font(.theme.plainButton)
+                        Group {
+                            if isEdit {
+                                Text("Done")
+                            } else {
+                                Label("Edit", systemImage: "pencil")
+                            }
+                        }
+                        .font(.theme.plainButton)
                     }
                     .buttonStyle(.plain)
                     
@@ -111,10 +120,33 @@ struct BookListView: View {
             LazyVGrid(columns: columns, spacing: 30) {
                 ForEach(vm.books) { book in
                     if let url = book.coverURL {
-                        KFImage(url)
-                            .resizable()
-                            .scaledToFit()
-                            .cornerRadius(4)
+                        ZStack(alignment: .bottomTrailing) {
+                            KFImage(url)
+                                .resizable()
+                                .scaledToFit()
+                                .cornerRadius(4)
+                                .overlay(
+                                    Group {
+                                        if isEdit {
+                                            Color.theme.primary.opacity(0.2)
+                                        }
+                                    }
+                                )
+                            
+                            ZStack {
+                                if isEdit {
+                                    Button {
+                                        withAnimation(.spring()) {
+                                            vm.delete(book: book)
+                                        }
+                                    } label: {
+                                        Image(systemName: "xmark")
+                                    }
+                                    .buttonStyle(SheetDismissButtonStyle())
+                                    .padding(8)
+                                }
+                            }
+                        }
                     }
                 }
             }
