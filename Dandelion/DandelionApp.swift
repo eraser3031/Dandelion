@@ -23,12 +23,13 @@ struct DandelionApp: App {
                 ZStack {
                     if isLaunch {
                         LaunchScreenView()
+                            .transition(.opacity)
                     }
                 }
             }
             .task {
                 Task {
-                    try await Task.sleep(nanoseconds: 1_000_000_000)
+                    try await Task.sleep(nanoseconds: 400_000_000)
                     withAnimation {
                         isLaunch = false
                     }
