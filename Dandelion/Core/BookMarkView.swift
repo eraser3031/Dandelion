@@ -10,7 +10,7 @@ import SwiftUI
 struct BookMarkView: View {
     
     @State private var bookmarks: [String] = [""]
-    @State private var showManageSheet = true
+    @State private var showManageSheet = false
     
     var body: some View {
         ZStack {

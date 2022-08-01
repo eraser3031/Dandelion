@@ -15,63 +15,66 @@ struct BookListView: View {
     @State private var showAddSheet = false
     @State private var showAddSearchView = false
     @State private var isEdit = false
-    
+    @State private var selectedBook: Book?
     private var columns: [GridItem] = [
         GridItem(.adaptive(minimum: 100), spacing: 12, alignment: .bottom)
     ]
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            Group {
-                Image.logo
-                    .resizable()
-                    .foregroundColor(.theme.dandelion)
-                    .frame(width: 32, height: 32)
-                
-                SearchBar(text: $searchText)
-                
-                HStack(alignment: .center, spacing: 16) {
-                    Text("132")
-                        .font(.theme.headlineLabel)
-                    Spacer()
-                    Button {
-                        withAnimation(.spring()) {
-                            isEdit.toggle()
-                        }
-                    } label: {
-                        Group {
-                            if isEdit {
-                                Text("Done")
-                            } else {
-                                Label("Edit", systemImage: "pencil")
-                            }
-                        }
-                        .font(.theme.plainButton)
-                    }
-                    .buttonStyle(.plain)
+        NavigationView {
+            VStack(alignment: .leading, spacing: 20) {
+                Group {
+                    Image.logo
+                        .resizable()
+                        .foregroundColor(.theme.dandelion)
+                        .frame(width: 32, height: 32)
                     
-                    Button {
-                        withAnimation(.spring()) {
-                            showAddSheet = true
-                        }
-                    } label: {
-                        Label("Add", systemImage: "plus")
+                    SearchBar(text: $searchText)
+                    
+                    HStack(alignment: .center, spacing: 16) {
+                        Text("132")
+                            .font(.theme.headlineLabel)
+                        Spacer()
+                        Button {
+                            withAnimation(.spring()) {
+                                isEdit.toggle()
+                            }
+                        } label: {
+                            Group {
+                                if isEdit {
+                                    Text("Done")
+                                } else {
+                                    Label("Edit", systemImage: "pencil")
+                                }
+                            }
                             .font(.theme.plainButton)
+                        }
+                        .buttonStyle(.plain)
+                        
+                        Button {
+                            withAnimation(.spring()) {
+                                showAddSheet = true
+                            }
+                        } label: {
+                            Label("Add", systemImage: "plus")
+                                .font(.theme.plainButton)
+                        }
+                        .buttonStyle(.plain)
                     }
-                    .buttonStyle(.plain)
+                }
+                .padding(.horizontal, 20)
+                
+                if vm.books.count == 0 {
+                    noResultView
+                } else {
+                    booksView
                 }
             }
-            .padding(.horizontal, 20)
-            
-            if vm.books.count == 0 {
-                noResultView
-            } else {
-                booksView
+            .toolbar(.hidden, in: .navigationBar)
+            .padding(.top, 20)
+            .bottomSheet(isPresented: $showAddSheet) {
+                sheetContentView
             }
-        }
-        .padding(.top, 20)
-        .bottomSheet(isPresented: $showAddSheet) {
-            sheetContentView
         }
     }
     
@@ -121,17 +124,22 @@ struct BookListView: View {
                 ForEach(vm.books) { book in
                     if let url = book.coverURL {
                         ZStack(alignment: .bottomTrailing) {
-                            KFImage(url)
-                                .resizable()
-                                .scaledToFit()
-                                .cornerRadius(4)
-                                .overlay(
-                                    Group {
-                                        if isEdit {
-                                            Color.theme.primary.opacity(0.2)
-                                        }
+                            NavigationLink(destination: {
+                                BookDetailView()
+                                    .toolbar(.hidden, in: .navigationBar)
+                            }, label: {
+                                KFImage(url)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .cornerRadius(4)
+                            })
+                            .overlay(
+                                Group {
+                                    if isEdit {
+                                        Color.theme.primary.opacity(0.2)
                                     }
-                                )
+                                }
+                            )
                             
                             ZStack {
                                 if isEdit {
@@ -176,31 +184,9 @@ struct BookListView: View {
                 Label("Add Book", systemImage: "plus")
             }
             .buttonStyle(FilledButtonStyle())
-
+            
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-}
-
-extension BookListView {
-    
-    private func getMovie() async -> [Item] {
-        guard let url = URL(string: "http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttberaser30311317001&Query=kakao&QueryType=Title&MaxResults=10&start=1&SearchTarget=Book&output=js&Cover=Big&Version=20131101") else {
-            return []
-        }
-
-        do {
-            let (data, response) = try await URLSession.shared.data(from: url)
-            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                return []
-            }
-
-            let popularMovie = try JSONDecoder().decode(SearchResult.self, from: data)
-            return popularMovie.item
-        } catch {
-            print(error)
-            return []
-        }
     }
 }
 

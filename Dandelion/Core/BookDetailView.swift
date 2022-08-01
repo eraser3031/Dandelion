@@ -14,6 +14,7 @@ enum BookDetailCase: String {
 
 struct BookDetailView: View {
     
+    @Environment(\.dismiss) var dismiss
     @State private var sheetCase: BookDetailCase = .info
     
     var body: some View {
@@ -21,9 +22,9 @@ struct BookDetailView: View {
             VStack(spacing: 26) {
                 HStack {
                     Button {
-                        print("hi")
+                        dismiss()
                     } label: {
-                        Image(systemName: "xmark")
+                        Image(systemName: "chevron.backward")
                             .font(.theme.title2)
                     }
                     .buttonStyle(.plain)
