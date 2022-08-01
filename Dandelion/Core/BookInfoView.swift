@@ -24,8 +24,11 @@ struct BookInfoView: View {
                         Text(book.title ?? "")
                             .font(.theme.headline)
                             .multilineTextAlignment(.center)
+                            .padding(.horizontal, 20)
                         Text(book.author ?? "")
                             .font(.theme.footnote)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 20)
                     }
                 }
                 .frame(maxWidth: .infinity)
