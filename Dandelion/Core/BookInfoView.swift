@@ -6,17 +6,25 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct BookInfoView: View {
+    
+    var book: Book
+    
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 20) {
                 VStack(spacing: 16) {
-                    Image("Book3")
+                    KFImage(book.coverURL)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 150) //
                     VStack(spacing: 4) {
-                        Text("Pride and Prejudice")
+                        Text(book.title ?? "")
                             .font(.theme.headline)
-                        Text("Jane Austen")
+                            .multilineTextAlignment(.center)
+                        Text(book.author ?? "")
                             .font(.theme.footnote)
                     }
                 }
@@ -102,12 +110,5 @@ struct BookInfoLabel: View {
             }
         }
         .frame(maxWidth: .infinity)
-    }
-}
-
-
-struct BookInfoView_Previews: PreviewProvider {
-    static var previews: some View {
-        BookInfoView()
     }
 }

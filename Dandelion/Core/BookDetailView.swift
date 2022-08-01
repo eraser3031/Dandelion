@@ -16,6 +16,7 @@ struct BookDetailView: View {
     
     @Environment(\.dismiss) var dismiss
     @State private var sheetCase: BookDetailCase = .info
+    var book: Book
     
     var body: some View {
         VStack(spacing: 20) {
@@ -37,13 +38,17 @@ struct BookDetailView: View {
                         .font(.theme.sheetTitle)
                         .foregroundColor(sheetCase == .info ? .theme.primary : .theme.labelBackground)
                         .onTapGesture {
-                            sheetCase = .info
+                            withAnimation(.spring()) {
+                                sheetCase = .info
+                            }
                         }
                     Text("Bookmark")
                         .font(.theme.sheetTitle)
                         .foregroundColor(sheetCase == .bookmark ? .theme.primary : .theme.labelBackground)
                         .onTapGesture {
-                            sheetCase = .bookmark
+                            withAnimation(.spring()) {
+                                sheetCase = .bookmark
+                            }
                         }
                     Spacer()
                     
@@ -69,18 +74,14 @@ struct BookDetailView: View {
             .padding(.horizontal, 30)
             
             if sheetCase == .info {
-                BookInfoView()
+                BookInfoView(book: book)
                     .padding(.horizontal, 30)
+                    .transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing)))
             } else {
-                BookMarkView()
+                BookMarkView(book: book)
+                    .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
             }
         }
         .padding(.top, 8)
-    }
-}
-
-struct BookDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        BookDetailView()
     }
 }

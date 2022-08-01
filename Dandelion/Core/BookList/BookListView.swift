@@ -125,7 +125,7 @@ struct BookListView: View {
                     if let url = book.coverURL {
                         ZStack(alignment: .bottomTrailing) {
                             NavigationLink(destination: {
-                                BookDetailView()
+                                BookDetailView(book: book)
                                     .toolbar(.hidden, in: .navigationBar)
                             }, label: {
                                 KFImage(url)

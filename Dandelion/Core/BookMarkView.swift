@@ -11,6 +11,7 @@ struct BookMarkView: View {
     
     @State private var bookmarks: [String] = [""]
     @State private var showManageSheet = false
+    var book: Book
     
     var body: some View {
         ZStack {
@@ -65,11 +66,5 @@ struct BookMarkView: View {
         .sheet(isPresented: $showManageSheet) {
             ManageBookmarkView()
         }
-    }
-}
-
-struct BookMarkView_Previews: PreviewProvider {
-    static var previews: some View {
-        BookMarkView()
     }
 }
