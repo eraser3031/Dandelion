@@ -93,7 +93,11 @@ struct BookListView: View {
                 }
             }
         }
-        .fullScreenCover(isPresented: $showAddSearchView) {
+        .fullScreenCover(isPresented: $showAddSearchView, onDismiss: {
+            withAnimation(.spring()) {
+                showAddSheet = false
+            }
+        }) {
             AddBookView(addCase: .search)
         }
     }

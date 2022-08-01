@@ -26,7 +26,12 @@ struct SearchResult: Codable {
 }
 
 // MARK: - Item
-struct Item: Codable {
+struct Item: Codable, Identifiable {
+    
+    var id: String {
+        return String(itemID)
+    }
+    
     let title: String
     let link: String
     let author, pubDate, itemDescription, isbn: String

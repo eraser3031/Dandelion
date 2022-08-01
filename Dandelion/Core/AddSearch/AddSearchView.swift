@@ -9,6 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct AddSearchView: View {
+    @Binding var selectedItem: [Item]
     @StateObject private var vm = AddSearchViewModel()
     @FocusState private var focus: Bool
     @Environment(\.dismiss) var dismiss
@@ -56,9 +57,7 @@ struct AddSearchView: View {
             ScrollView {
                 VStack(spacing: 10) {
                     ForEach(vm.searchedItems, id: \.title) { item in
-                        SearchBookCellView(thumbnail: URL(string: item.cover),
-                                           name: item.title,
-                                           author: item.author)
+                        SearchBookCellView(selectedItem: $selectedItem, item: item)
                     }
                 }
                 .padding(.horizontal, 30)
@@ -74,36 +73,54 @@ struct AddSearchView: View {
 
 struct SearchBookCellView: View {
     
-    var thumbnail: URL?
-    var name: String
-    var author: String
+    @Binding var selectedItem: [Item]
+    
+    var item: Item
+    
+    var isSelected: Bool {
+        selectedItem.contains(where: {$0.id == item.id })
+    }
     
     var body: some View {
         HStack(alignment: .top, spacing: 20) {
-            KFImage(thumbnail)
+            KFImage(URL(string: item.cover))
                 .resizable()
                 .scaledToFit()
                 .frame(width: 50)
             VStack(alignment: .leading, spacing: 0) {
-                Text(name)
+                Text(item.title)
                     .font(.theme.subHeadline)
-                Text(author)
+                Text(item.author)
                     .font(.theme.footnote)
                     .foregroundColor(.theme.quaternary)
             }
             Spacer()
+            
+            if isSelected {
+                Image(systemName: "checkmark.circle.fill")
+                    .font(.theme.title2)
+                    .frame(maxHeight: .infinity)
+            }
         }
         .padding(20)
         .frame(maxWidth: .infinity, minHeight: 100)
         .background(
             RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .strokeBorder(Color.theme.groupedBackground)
+                .strokeBorder(isSelected ? Color.theme.primary : Color.theme.groupedBackground)
         )
-    }
-}
-
-struct AddSearchView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddSearchView()
+        .contentShape(Rectangle())
+        .onTapGesture {
+            withAnimation(.spring()) {
+                if selectedItem.contains(where: {$0.id == item.id}) {
+                    withAnimation(.spring()) {
+                        selectedItem.removeAll(where: {$0.id == item.id})
+                    }
+                } else {
+                    withAnimation(.spring()) {
+                        selectedItem.append(item)
+                    }
+                }
+            }
+        }
     }
 }

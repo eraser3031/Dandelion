@@ -10,7 +10,6 @@ import Foundation
 @MainActor
 final class AddSearchViewModel: ObservableObject {
     @Published var searchText: String = ""
-    @Published var selectedItems: [Item] = []
     @Published var searchedItems: [Item] = []
     
     let bookSearchService = BookSearchService()

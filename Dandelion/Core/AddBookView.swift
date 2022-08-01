@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 enum AddCase: String {
     case search
@@ -14,14 +15,16 @@ enum AddCase: String {
 }
 
 struct AddBookView: View {
-    @State private var selectedBooks: [String] = ["Sasdf", "asdf","as","a","asd"]
+    
+    @State private var selectedItems: [Item] = []
+    
     var addCase: AddCase
     var body: some View {
         ZStack(alignment: .top) {
             Color.theme.primary
                 .ignoresSafeArea()
             
-            VStack {
+            VStack(spacing: 0) {
                 ZStack {
                     Color.theme.background
                         .cornerRadius(32, corners: [.bottomLeft, .bottomRight])
@@ -30,7 +33,7 @@ struct AddBookView: View {
                     
                     switch addCase {
                     case .search:
-                        AddSearchView()
+                        AddSearchView(selectedItem: $selectedItems)
                     case .barcode:
                         EmptyView()
                     case .camera:
@@ -42,9 +45,9 @@ struct AddBookView: View {
                     HStack(spacing: 20) {
                         Spacer()
                             .frame(width: 0)
-                        ForEach(selectedBooks.indices, id: \.self) { i in
+                        ForEach(selectedItems) { i in
                             ZStack(alignment: .bottomTrailing) {
-                                Image("Book\(i+1)")
+                                KFImage(URL(string: i.cover))
                                     .resizable()
                                     .scaledToFit()
                                     .frame(height: 100)
@@ -54,7 +57,9 @@ struct AddBookView: View {
                                     .cornerRadius(4)
                                 
                                 Button {
-                                    print("hihi")
+                                    withAnimation(.spring()) {
+                                        selectedItems.removeAll(where: {$0.id == i.id})
+                                    }
                                 } label: {
                                     Image(systemName: "xmark")
                                 }
@@ -64,7 +69,7 @@ struct AddBookView: View {
                             }
                         }
                     }
-                    .padding(.vertical, 20)
+                    .padding(.vertical, selectedItems.isEmpty ? 0 : 20)
                 }
             }
             .frame(maxHeight: .infinity)
