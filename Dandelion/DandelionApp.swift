@@ -9,12 +9,31 @@ import SwiftUI
 
 @main
 struct DandelionApp: App {
+    
+    @State private var isLaunch = true
+    
     let coreDataManager = CoreDataManager.shared
     
     var body: some Scene {
         WindowGroup {
-            BookListView()
-                .environment(\.managedObjectContext, coreDataManager.container.viewContext)
+            ZStack {
+                BookListView()
+                    .environment(\.managedObjectContext, coreDataManager.container.viewContext)
+                
+                ZStack {
+                    if isLaunch {
+                        LaunchScreenView()
+                    }
+                }
+            }
+            .task {
+                Task {
+                    try await Task.sleep(nanoseconds: 1_000_000_000)
+                    withAnimation {
+                        isLaunch = false
+                    }
+                }
+            }
         }
     }
 }

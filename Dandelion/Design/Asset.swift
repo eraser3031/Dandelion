@@ -15,6 +15,7 @@ extension Image {
     static let bookHorizontal = Image("BookHorizontal")
     static let grainTexture = Image("GrainTexture")
     static let star = Image("Star")
+    static let splash = Image("Splash")
 }
 
 //    .overlay {
