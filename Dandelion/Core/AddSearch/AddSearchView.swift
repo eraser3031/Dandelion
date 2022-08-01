@@ -29,6 +29,7 @@ struct AddSearchView: View {
                     Spacer()
                     
                     Button {
+                        vm.addBooks(items: selectedItem)
                         dismiss()
                     } label: {
                         Text("Done")

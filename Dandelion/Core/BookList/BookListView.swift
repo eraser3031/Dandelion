@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct BookListView: View {
     
@@ -96,6 +97,7 @@ struct BookListView: View {
         .fullScreenCover(isPresented: $showAddSearchView, onDismiss: {
             withAnimation(.spring()) {
                 showAddSheet = false
+                vm.fetchBookList()
             }
         }) {
             AddBookView(addCase: .search)
@@ -109,12 +111,10 @@ struct BookListView: View {
             LazyVGrid(columns: columns, spacing: 30) {
                 ForEach(vm.books) { book in
                     if let url = book.coverURL {
-                        AsyncImage(url: url) { imagePhase in
-                            imagePhase.image?
-                                .resizable()
-                                .scaledToFit()
-                                .cornerRadius(4)
-                        }
+                        KFImage(url)
+                            .resizable()
+                            .scaledToFit()
+                            .cornerRadius(4)
                     }
                 }
             }
