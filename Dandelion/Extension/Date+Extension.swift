@@ -16,3 +16,31 @@ extension DateFormatter {
     }()
     
 }
+
+extension Date {
+    
+    var toDay: Date {
+        let calendar = Calendar.current
+        return calendar.date(bySettingHour: 0, minute: 0, second: 0, of: self) ?? self
+    }
+    
+    var year: Int {
+        let year = Calendar.current.component(.year, from: self)
+        return year
+    }
+    
+    var month: Int {
+        let month = Calendar.current.component(.month, from: self)
+        return month
+    }
+    
+    var day: Int {
+        let day = Calendar.current.component(.day, from: self)
+        return day
+    }
+    
+    var minute: Int {
+        let minute = Calendar.current.component(.minute, from: self)
+        return minute
+    }
+}

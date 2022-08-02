@@ -28,8 +28,8 @@ final class AddSearchViewModel: ObservableObject {
             newBook.coverURL = URL(string: item.cover)
             
             let categorys = item.categoryName?.split(separator: ">")
-            if let categorys = categorys, categorys.count > 1 {
-                newBook.genre = String(categorys[1])
+            if let category = categorys?.last {
+                newBook.genre = String(category)
             }
             
             newBook.isbn = item.isbn13

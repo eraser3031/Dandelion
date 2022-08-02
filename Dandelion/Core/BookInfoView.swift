@@ -12,6 +12,14 @@ struct BookInfoView: View {
     
     var book: Book
     
+    var year: String {
+        "\((book.publishedDate ?? Date()).year)"
+    }
+    
+    var monthWithDay: String {
+        "\((book.publishedDate ?? Date()).month).\((book.publishedDate ?? Date()).day)"
+    }
+    
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 20) {
@@ -68,22 +76,21 @@ struct BookInfoView: View {
                         .fill(Color.theme.subGroupedBackground)
                 )
                 
-                HStack {
-                    BookInfoLabel(title: "Date", mainLabel: "2012", subLabel: "11.23")
+                HStack(alignment: .top, spacing: 0) {
+                    BookInfoLabel(title: "Date", mainLabel: year, subLabel: monthWithDay)
                         .overlay(alignment: .trailing) {
                             divider
                         }
                     
-                    BookInfoLabel(title: "Length", mainLabel: "132", subLabel: "pages")
+                    BookInfoLabel(title: "Publisher", mainLabel: book.publisher ?? "", subLabel: "")
                         .overlay(alignment: .trailing) {
                             divider
                         }
                     
-                    BookInfoLabel(title: "Price", mainLabel: "11.2", subLabel: "dollar")
+                    BookInfoLabel(title: "Genre", mainLabel: book.genre ?? "", subLabel: "")
                     
                 }
                 .padding(.vertical, 8)
-                .padding(.horizontal, 16)
             }
         }
     }
@@ -107,9 +114,14 @@ struct BookInfoLabel: View {
                 .foregroundColor(.theme.tertiary)
             VStack(spacing: 0) {
                 Text(mainLabel)
-                    .font(.theme.headlineLabel)
+                    .font(.theme.headline)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
+                    .padding(.horizontal, 12)
                 Text(subLabel)
                     .font(.theme.footnote)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
             }
         }
         .frame(maxWidth: .infinity)

@@ -80,4 +80,5 @@ enum StockStatus: String, Codable {
     case empty = ""
     case outOfPrint = "절판"
     case soldOut = "품절"
+    case preSale = "예약판매"
 }
