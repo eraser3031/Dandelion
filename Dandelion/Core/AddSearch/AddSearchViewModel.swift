@@ -26,7 +26,12 @@ final class AddSearchViewModel: ObservableObject {
             newBook.title = item.title
             newBook.author = item.author
             newBook.coverURL = URL(string: item.cover)
-            newBook.genre = item.categoryName
+            
+            let categorys = item.categoryName?.split(separator: ">")
+            if let categorys = categorys, categorys.count > 1 {
+                newBook.genre = String(categorys[1])
+            }
+            
             newBook.isbn = item.isbn13
             let convertDate = DateFormatter.shared.date(from: item.pubDate)
             newBook.publishedDate = convertDate
