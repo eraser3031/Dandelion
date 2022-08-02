@@ -27,6 +27,7 @@
 		21CF2BE1289280A300293E38 /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CF2BE0289280A300293E38 /* NetworkingManager.swift */; };
 		21CF2BE3289280BD00293E38 /* BookSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CF2BE2289280BD00293E38 /* BookSearchService.swift */; };
 		21CF2BE528928FFB00293E38 /* AddBarcodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CF2BE428928FFB00293E38 /* AddBarcodeView.swift */; };
+		21D1DF082899600000C49DE1 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1DF072899600000C49DE1 /* Date+Extension.swift */; };
 		21FDE2C32890090100A779A5 /* AddSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FDE2C22890090100A779A5 /* AddSearchView.swift */; };
 		21FDE2C528900C1500A779A5 /* AddBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FDE2C428900C1500A779A5 /* AddBookView.swift */; };
 		21FDE2C7289013F700A779A5 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FDE2C6289013F700A779A5 /* CustomSlider.swift */; };
@@ -66,6 +67,7 @@
 		21CF2BE0289280A300293E38 /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		21CF2BE2289280BD00293E38 /* BookSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchService.swift; sourceTree = "<group>"; };
 		21CF2BE428928FFB00293E38 /* AddBarcodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBarcodeView.swift; sourceTree = "<group>"; };
+		21D1DF072899600000C49DE1 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		21FDE2C22890090100A779A5 /* AddSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSearchView.swift; sourceTree = "<group>"; };
 		21FDE2C428900C1500A779A5 /* AddBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookView.swift; sourceTree = "<group>"; };
 		21FDE2C6289013F700A779A5 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 			children = (
 				210DFD9B28929A2D008E3C07 /* View+Extension.swift */,
 				215FB3A628980F02009C85F9 /* UIKit+Extension.swift */,
+				21D1DF072899600000C49DE1 /* Date+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -347,6 +350,7 @@
 				21CF2BE3289280BD00293E38 /* BookSearchService.swift in Sources */,
 				215F0A9A288FA68A0045FFF8 /* BookInfoView.swift in Sources */,
 				210DFD9C28929A2D008E3C07 /* View+Extension.swift in Sources */,
+				21D1DF082899600000C49DE1 /* Date+Extension.swift in Sources */,
 				21B1E61A2892ABD4004593C7 /* AddSearchViewModel.swift in Sources */,
 				215FB3A928984761009C85F9 /* LaunchScreenView.swift in Sources */,
 			);

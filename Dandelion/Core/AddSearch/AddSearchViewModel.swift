@@ -28,8 +28,8 @@ final class AddSearchViewModel: ObservableObject {
             newBook.coverURL = URL(string: item.cover)
             newBook.genre = item.categoryName
             newBook.isbn = item.isbn13
-//            newBook.pages
-//            newBook.publishedDate = item.pubDate
+            let convertDate = DateFormatter.shared.date(from: item.pubDate)
+            newBook.publishedDate = convertDate
             newBook.publisher = item.publisher
             newBook.price = Int32(item.priceStandard)
             manager.save()

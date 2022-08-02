@@ -16,7 +16,7 @@ class BookSearchService {
     
     let manager = NetworkingManager.shared
     let aladinURL = URL(string: "")
-    
+
     func search(_ region: Region, text: String) async -> [Item] {
         let queryItems = [
             URLQueryItem(name: "ttbkey", value: "ttberaser30311317001"),
