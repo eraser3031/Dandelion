@@ -11,7 +11,7 @@ struct BookMarkView: View {
     
     @State private var bookmarks: [String] = [""]
     @State private var showManageSheet = false
-    var book: Book
+    @ObservedObject var vm: BookDetailViewModel
     
     var body: some View {
         ZStack {
