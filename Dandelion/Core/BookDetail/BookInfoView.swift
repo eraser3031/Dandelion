@@ -85,6 +85,7 @@ struct BookInfoView: View {
                 .matchedGeometryEffect(id: "text", in: id)
             
             ReviewTextField(text: $text, id: id)
+                .disabled(true)
                 .background(
                     RoundedRectangle(cornerRadius: 12, style: .continuous)
                         .fill(Color.theme.subGroupedBackground)
