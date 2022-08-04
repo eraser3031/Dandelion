@@ -12,6 +12,7 @@ struct BookInfoView: View {
     
     @ObservedObject var vm: BookDetailViewModel
     var id: Namespace.ID
+    @Binding var text: String
     @Binding var showRatingSheet: Bool
     
     var year: String {
@@ -77,33 +78,13 @@ struct BookInfoView: View {
     
     private var innerRating: some View {
         VStack(spacing: 20) {
-            HStack(spacing: 22) {
-                ForEach(-2..<3) { i in
-                    Image.star
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 28, height: 28)
-                        .matchedGeometryEffect(id: "rating\(i)", in: id)
-                        .foregroundColor(.theme.quaternary)
-                        .offset(y: !showRatingSheet ? CGFloat(abs(i)) == 1 ? 20 : CGFloat(abs(i)) == 2 ? 66 : 0 : 0)
-                        .offset(x: !showRatingSheet ? CGFloat(abs(i)) == 1 ? 12*CGFloat(i) : 0 : 0)
-                }
-            }
             
-            VStack(spacing: 6) {
-                Text("rating")
-                    .font(.theme.subHeadline)
-                    .foregroundColor(.theme.tertiary)
-                Text("3 / 5")
-                    .font(.system(size: 28, weight: .bold, design: .rounded))
-            }
-            .matchedGeometryEffect(id: "text", in: id)
-            Text("“ Work hard in silence, let your success be the noise ”")
-                .font(.theme.regularSerifItalic)
-                .matchedGeometryEffect(id: "review", in: id)
-                .frame(width: 200)
-                .frame(maxWidth: .infinity)
-                .multilineTextAlignment(.center)
+            RatingStepper(showRatingSheet: showRatingSheet, id: id)
+                
+            RatingIndicator()
+                .matchedGeometryEffect(id: "text", in: id)
+            
+            ReviewTextField(text: $text, id: id)
                 .background(
                     RoundedRectangle(cornerRadius: 12, style: .continuous)
                         .fill(Color.theme.subGroupedBackground)

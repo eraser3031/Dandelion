@@ -17,13 +17,11 @@ struct BookDetailView: View {
     @StateObject var vm: BookDetailViewModel
     @Environment(\.dismiss) var dismiss
     @State private var sheetCase: BookDetailCase = .info
+    @State private var text = ""
     @State private var showRatingSheet = false
     @Namespace var id
     
-    var book: Book
-    
     init(book: Book) {
-        self.book = book
         self._vm = StateObject(wrappedValue: BookDetailViewModel(book: book))
     }
     
@@ -83,7 +81,7 @@ struct BookDetailView: View {
             .padding(.horizontal, 30)
             
             if sheetCase == .info {
-                BookInfoView(vm: vm, id: id, showRatingSheet: $showRatingSheet)
+                BookInfoView(vm: vm, id: id, text: $text, showRatingSheet: $showRatingSheet)
                     .padding(.horizontal, 30)
                     .transition(
                         .asymmetric(insertion: .move(edge: .leading),
@@ -121,44 +119,22 @@ struct BookDetailView: View {
     private var RatingSheet: some View {
         VStack(spacing: 20) {
             
-            VStack(spacing: 6) {
-                Text("rating")
-                    .font(.theme.subHeadline)
-                    .foregroundColor(.theme.tertiary)
-                Text("3 / 5")
-                    .font(.system(size: 28, weight: .bold, design: .rounded))
-            }
-            .matchedGeometryEffect(id: "text", in: id)
+            RatingIndicator()
+                .matchedGeometryEffect(id: "text", in: id)
             
-            HStack(spacing: 22) {
-                ForEach(-2..<3) { i in
-                    Image.star
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 28, height: 28)
-                        .matchedGeometryEffect(id: "rating\(i)", in: id)
-                        .foregroundColor(.theme.quaternary)
-                        .offset(y: !showRatingSheet ? CGFloat(abs(i)) == 1 ? 20 : CGFloat(abs(i)) == 2 ? 66 : 0 : 0)
-                        .offset(x: !showRatingSheet ? CGFloat(abs(i)) == 1 ? 12*CGFloat(i) : 0 : 0)
-                }
-            }
-            .padding(16)
-            .frame(maxWidth: .infinity)
-            .background(
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(Color.theme.groupedBackground)
-                    .matchedGeometryEffect(id: "ratingBackground", in: id)
-            )
+            RatingStepper(showRatingSheet: showRatingSheet, id: id)
+                .padding(16)
+                .frame(maxWidth: .infinity)
+                .background(
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .fill(Color.theme.groupedBackground)
+                        .matchedGeometryEffect(id: "ratingBackground", in: id)
+                )
             
             Hdivider
             
-            Text("“ Work hard in silence, let your success be the noise ”")
-                .font(.theme.regularSerifItalic)
-                .matchedGeometryEffect(id: "review", in: id)
-                .frame(width: 200)
-                .multilineTextAlignment(.center)
-                .padding(20)
-                .frame(maxWidth: .infinity)
+            ReviewTextField(text: $text, id: id)
+                .padding(.vertical, 30)
                 .background(
                     RoundedRectangle(cornerRadius: 12, style: .continuous)
                         .fill(Color.theme.groupedBackground)
