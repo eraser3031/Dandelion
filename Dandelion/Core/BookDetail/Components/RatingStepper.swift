@@ -23,22 +23,32 @@ struct RatingSlider: View {
     }
     
     var body: some View {
-        VStack {
-            Text("\(value)")
-            StarView.overlay(SliderView).mask(StarView)
-        }
-    }
-    
-    private var SliderView: some View {
         GeometryReader { geo in
-            ZStack(alignment: .leading) {
+            ZStack {
                 Rectangle()
                     .fill(Color.theme.groupedBackground.opacity(0.01))
                     .frame(height: 50)
-
-                Rectangle()
-                    .fill(Color.theme.dandelion)
-                    .frame(width: geo.size.width * CGFloat(value) / CGFloat(bounds.count), height: 50)
+                
+                HStack(spacing: 18) {
+                    ForEach(-2..<3) { i in
+                        ZStack {
+                            Image.star
+                                .foregroundColor(.theme.quaternary)
+                                .frame(width: 28, height: 28)
+                            HStack(spacing: 0) {
+                                ForEach(1..<3) { j in
+                                    Color.theme.dandelion
+                                        .frame(width: 14, height: 28)
+                                        .opacity((i+2)*2+j > value ? 0 : 1)
+                                }
+                            }
+                        }
+                        .mask(Image.star)
+                        .matchedGeometryEffect(id: "starBackground\(i)", in: id)
+                        .offset(x: getOffsetX(i: i), y: getOffsetY(i: i))
+                    }
+                }
+                .padding(.horizontal, 11)
             }
             .gesture(
                 DragGesture()
@@ -50,24 +60,18 @@ struct RatingSlider: View {
                         onEditingChanged(false)
                     }
             )
+            .disabled(!showingRatingSheet)
         }
         .frame(height: 50)
+
     }
     
-    private var StarView: some View {
-        HStack(spacing: 22) {
-            ForEach(-2..<3) { i in
-                Image.star
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 28, height: 28)
-                    .matchedGeometryEffect(id: "rating\(i)", in: id)
-                    .foregroundColor(.theme.quaternary)
-                    .offset(y: !showingRatingSheet ? CGFloat(abs(i)) == 1 ? 20 : CGFloat(abs(i)) == 2 ? 66 : 0 : 0)
-                    .offset(x: !showingRatingSheet ? CGFloat(abs(i)) == 1 ? 12*CGFloat(i) : 0 : 0)
-            }
-        }
-        .padding(.horizontal, 11)
+    private func getOffsetX(i: Int) -> CGFloat {
+        return !showingRatingSheet ? CGFloat(abs(i)) == 1 ? 12*CGFloat(i) : 0 : 0
+    }
+    
+    private func getOffsetY(i: Int) -> CGFloat {
+        return !showingRatingSheet ? CGFloat(abs(i)) == 1 ? 20 : CGFloat(abs(i)) == 2 ? 66 : 0 : 0
     }
 }
 
