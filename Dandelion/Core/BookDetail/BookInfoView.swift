@@ -80,6 +80,11 @@ struct BookInfoView: View {
         VStack(spacing: 20) {
             
             RatingStepper(showRatingSheet: showRatingSheet, id: id)
+                .background(
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .fill(Color.theme.subGroupedBackground)
+                        .matchedGeometryEffect(id: "ratingBackground", in: id)
+                )
                 
             RatingIndicator()
                 .matchedGeometryEffect(id: "text", in: id)

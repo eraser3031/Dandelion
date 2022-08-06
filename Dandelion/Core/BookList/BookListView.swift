@@ -17,7 +17,7 @@ struct BookListView: View {
     @State private var isEdit = false
     @State private var selectedBook: Book?
     private var columns: [GridItem] = [
-        GridItem(.adaptive(minimum: 100), spacing: 12, alignment: .bottom)
+        GridItem(.adaptive(minimum: 100), spacing: 20, alignment: .bottom)
     ]
     
     var body: some View {
@@ -120,7 +120,7 @@ struct BookListView: View {
         ScrollView {
             Spacer()
                 .frame(height: 10)
-            LazyVGrid(columns: columns, spacing: 30) {
+            LazyVGrid(columns: columns, spacing: 40) {
                 ForEach(vm.books) { book in
                     if let url = book.coverURL {
                         ZStack(alignment: .bottomTrailing) {
@@ -132,6 +132,10 @@ struct BookListView: View {
                                     .resizable()
                                     .scaledToFit()
                                     .cornerRadius(4)
+                                    .overlay {
+                                        RoundedRectangle(cornerRadius: 4, style: .continuous)
+                                            .stroke(Color.theme.labelBackground, lineWidth: 0.5)
+                                    }
                             })
                             .overlay(
                                 Group {
@@ -142,6 +146,7 @@ struct BookListView: View {
                             )
                             
                             ZStack {
+                                
                                 if isEdit {
                                     Button {
                                         withAnimation(.spring()) {
@@ -160,7 +165,6 @@ struct BookListView: View {
             }
             .padding(.horizontal, 20)
         }
-        .shadow(color: .theme.shadow.opacity(0.2), radius: 20, y: 20)
     }
     
     private var noResultView: some View {
