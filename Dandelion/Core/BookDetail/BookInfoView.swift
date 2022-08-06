@@ -14,6 +14,7 @@ struct BookInfoView: View {
     var id: Namespace.ID
     @Binding var text: String
     @Binding var showRatingSheet: Bool
+    @Binding var rating: Int
     
     var year: String {
         "\((vm.book.publishedDate ?? Date()).year)"
@@ -79,7 +80,7 @@ struct BookInfoView: View {
     private var innerRating: some View {
         VStack(spacing: 20) {
             
-            RatingStepper(showRatingSheet: showRatingSheet, id: id)
+            RatingSlider(value: $rating, showingRatingSheet: showRatingSheet, id: id)
                 .background(
                     RoundedRectangle(cornerRadius: 12, style: .continuous)
                         .fill(Color.theme.subGroupedBackground)

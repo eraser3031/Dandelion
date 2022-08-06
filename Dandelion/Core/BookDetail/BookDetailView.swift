@@ -19,6 +19,7 @@ struct BookDetailView: View {
     @State private var sheetCase: BookDetailCase = .info
     @State private var text = ""
     @State private var showRatingSheet = false
+    @State private var rating = 0
     @Namespace var id
     
     init(book: Book) {
@@ -81,7 +82,7 @@ struct BookDetailView: View {
             .padding(.horizontal, 30)
             
             if sheetCase == .info {
-                BookInfoView(vm: vm, id: id, text: $text, showRatingSheet: $showRatingSheet)
+                BookInfoView(vm: vm, id: id, text: $text, showRatingSheet: $showRatingSheet, rating: $rating)
                     .padding(.horizontal, 30)
                     .transition(
                         .asymmetric(insertion: .move(edge: .leading),
@@ -122,7 +123,7 @@ struct BookDetailView: View {
             RatingIndicator()
                 .matchedGeometryEffect(id: "text", in: id)
             
-            RatingStepper(showRatingSheet: showRatingSheet, id: id)
+            RatingSlider(value: $rating, showingRatingSheet: showRatingSheet, id: id)
                 .padding(16)
                 .frame(maxWidth: .infinity)
                 .background(

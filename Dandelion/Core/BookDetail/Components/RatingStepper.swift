@@ -7,12 +7,54 @@
 
 import SwiftUI
 
-struct RatingStepper: View {
+struct RatingSlider: View {
     
-    var showRatingSheet: Bool
-    var id: Namespace.ID
+    let showingRatingSheet: Bool
+    let id: Namespace.ID
+    @Binding var value: Int
+    var bounds: ClosedRange<Int> = 1...10
+    let onEditingChanged: (Bool) -> Void
+    let step: Int = 1
+    init(value: Binding<Int>, showingRatingSheet: Bool, id: Namespace.ID, onEditingChanged: @escaping (Bool) -> Void = { _ in}) {
+        self._value = value
+        self.showingRatingSheet = showingRatingSheet
+        self.id = id
+        self.onEditingChanged = onEditingChanged
+    }
     
     var body: some View {
+        VStack {
+            Text("\(value)")
+            StarView.overlay(SliderView).mask(StarView)
+        }
+    }
+    
+    private var SliderView: some View {
+        GeometryReader { geo in
+            ZStack(alignment: .leading) {
+                Rectangle()
+                    .fill(Color.theme.groupedBackground.opacity(0.01))
+                    .frame(height: 50)
+
+                Rectangle()
+                    .fill(Color.theme.dandelion)
+                    .frame(width: geo.size.width * CGFloat(value) / CGFloat(bounds.count), height: 50)
+            }
+            .gesture(
+                DragGesture()
+                    .onChanged{ transition in
+                        onEditingChanged(true)
+                        value = Int(min(max(round(transition.location.x / geo.size.width * CGFloat(bounds.count)), 0), CGFloat(bounds.count)))
+                    }
+                    .onEnded{ _ in
+                        onEditingChanged(false)
+                    }
+            )
+        }
+        .frame(height: 50)
+    }
+    
+    private var StarView: some View {
         HStack(spacing: 22) {
             ForEach(-2..<3) { i in
                 Image.star
@@ -21,38 +63,11 @@ struct RatingStepper: View {
                     .frame(width: 28, height: 28)
                     .matchedGeometryEffect(id: "rating\(i)", in: id)
                     .foregroundColor(.theme.quaternary)
-                    .offset(y: !showRatingSheet ? CGFloat(abs(i)) == 1 ? 20 : CGFloat(abs(i)) == 2 ? 66 : 0 : 0)
-                    .offset(x: !showRatingSheet ? CGFloat(abs(i)) == 1 ? 12*CGFloat(i) : 0 : 0)
+                    .offset(y: !showingRatingSheet ? CGFloat(abs(i)) == 1 ? 20 : CGFloat(abs(i)) == 2 ? 66 : 0 : 0)
+                    .offset(x: !showingRatingSheet ? CGFloat(abs(i)) == 1 ? 12*CGFloat(i) : 0 : 0)
             }
         }
+        .padding(.horizontal, 11)
     }
 }
 
-
-struct IntSlider: View {
-    @State var score: Int = 0
-    var intProxy: Binding<Double>{
-        Binding<Double>(get: {
-            //returns the score as a Double
-            return Double(score)
-        }, set: {
-            //rounds the double to an Int
-            print($0.description)
-            score = Int($0)
-        })
-    }
-    var body: some View {
-        VStack{
-            Text(score.description)
-            Slider(value: intProxy , in: 0.0...10.0, step: 1.0, onEditingChanged: {_ in
-                print(score.description)
-            })
-        }
-    }
-}
-
-struct IntSlider_Previews: PreviewProvider {
-    static var previews: some View {
-        IntSlider()
-    }
-}
