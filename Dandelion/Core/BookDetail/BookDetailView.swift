@@ -16,6 +16,7 @@ struct BookDetailView: View {
     
     @StateObject var vm: BookDetailViewModel
     @Environment(\.dismiss) var dismiss
+    @FocusState private var isInputActive: Bool
     @State private var sheetCase: BookDetailCase = .info
     @State private var review = ""
     @State private var showRatingSheet = true
@@ -108,6 +109,7 @@ struct BookDetailView: View {
                         .ignoresSafeArea()
                         .onTapGesture {
                             withAnimation(.spring()) {
+                                isInputActive = false
                                 showRatingSheet = false
                                 vm.updateRating(score: score, review: review)
                             }
@@ -145,6 +147,7 @@ struct BookDetailView: View {
             Hdivider
             
             ReviewTextField(text: $review, id: id)
+                .focused($isInputActive)
                 .padding(.vertical, 30)
                 .background(
                     RoundedRectangle(cornerRadius: 12, style: .continuous)
