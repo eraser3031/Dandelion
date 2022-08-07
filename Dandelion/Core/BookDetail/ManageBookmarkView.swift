@@ -9,7 +9,16 @@ import SwiftUI
 
 struct ManageBookmarkView: View {
     
-    @State private var text = "true"
+    @ObservedObject var vm: BookDetailViewModel
+    var bookmark: Bookmark?
+    
+    var isEditMode: Bool {
+        bookmark != nil
+    }
+    
+    @Environment(\.dismiss) var dismiss
+    
+    @State private var note = "true"
     @State private var page = 0
     @State private var test = 3.0
     
@@ -18,7 +27,7 @@ struct ManageBookmarkView: View {
             VStack(spacing: 30) {
                 HStack {
                     Button {
-                        print("hi")
+                        dismiss()
                     } label: {
                         Image(systemName: "xmark")
                             .font(.theme.title2)
@@ -35,7 +44,8 @@ struct ManageBookmarkView: View {
                 Capsule()
                     .fill(Color.theme.groupedBackground)
                     .frame(height: 1)
-                TextEditor(text: $text)
+                
+                TextEditor(text: $note)
                     .padding(20)
                     .background(
                         RoundedRectangle(cornerRadius: 12, style: .continuous)
@@ -45,9 +55,15 @@ struct ManageBookmarkView: View {
             }
             
             Button {
-                print("hi")
+                if isEditMode {
+                    vm.updateBookmark(bookmark!, page: page, note: note)
+                } else {
+                    vm.addBookmark(page: page, note: note)
+                }
+                dismiss()
             } label: {
-                Label("Add Bookmark", systemImage: "plus")
+                Label("\(isEditMode ? "Edit" : "Add") Bookmark",
+                      systemImage: isEditMode ? "pencil" : "plus")
                     .frame(maxWidth: 300)
             }
             .buttonStyle(FilledButtonStyle())
@@ -58,11 +74,5 @@ struct ManageBookmarkView: View {
         }.onDisappear() {
             UITextView.appearance().backgroundColor = nil
         }
-    }
-}
-
-struct ManageBookmarkView_Previews: PreviewProvider {
-    static var previews: some View {
-        ManageBookmarkView()
     }
 }

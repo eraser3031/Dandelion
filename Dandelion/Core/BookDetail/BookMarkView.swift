@@ -9,13 +9,12 @@ import SwiftUI
 
 struct BookMarkView: View {
     
-    @State private var bookmarks: [String] = [""]
-    @State private var showManageSheet = false
     @ObservedObject var vm: BookDetailViewModel
+    @State private var showManageSheet = false
     
     var body: some View {
         ZStack {
-            if bookmarks.count != 0 {
+            if vm.bookmarks.count != 0 {
                 HStack(spacing: 20) {
                     Image.bookLeft
                         .resizable()
@@ -54,7 +53,7 @@ struct BookMarkView: View {
                     .foregroundColor(.theme.tertiary)
                     
                     Button {
-                        print("hi")
+                        showManageSheet = true
                     } label: {
                         Label("Add BookMark", systemImage: "plus")
                     }
@@ -64,7 +63,7 @@ struct BookMarkView: View {
             }
         }
         .sheet(isPresented: $showManageSheet) {
-            ManageBookmarkView()
+            ManageBookmarkView(vm: vm)
         }
     }
 }

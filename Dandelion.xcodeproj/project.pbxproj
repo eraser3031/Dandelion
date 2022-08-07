@@ -150,7 +150,6 @@
 				21D1DF09289967A200C49DE1 /* BookDetail */,
 				21B1E6182892ABB8004593C7 /* AddSearch */,
 				21B1E6172892ABA2004593C7 /* BookList */,
-				215F0AA1288FA7620045FFF8 /* ManageBookmarkView.swift */,
 				21FDE2C428900C1500A779A5 /* AddBookView.swift */,
 				21CF2BE428928FFB00293E38 /* AddBarcodeView.swift */,
 				215FB3A828984761009C85F9 /* LaunchScreenView.swift */,
@@ -200,6 +199,7 @@
 				213BF002289BDC3A005A68B6 /* Components */,
 				215F0A99288FA68A0045FFF8 /* BookInfoView.swift */,
 				215F0A9F288FA6F40045FFF8 /* BookMarkView.swift */,
+				215F0AA1288FA7620045FFF8 /* ManageBookmarkView.swift */,
 				215F0A9D288FA6E80045FFF8 /* BookDetailView.swift */,
 				21D1DF0A289967B300C49DE1 /* BookDetailViewModel.swift */,
 			);

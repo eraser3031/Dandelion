@@ -33,9 +33,42 @@ final class BookDetailViewModel: ObservableObject {
         }
     }
     
-    func saveRating(score: Int, review: String) {
+    func updateRating(score: Int, review: String) {
         rating.score = Int16(score)
         rating.review = review
         manager.save()
+    }
+    
+    func updateBookmark(_ bookmark: Bookmark, page: Int, note: String) {
+        bookmark.page = Int32(page)
+        bookmark.note = note
+        manager.save()
+        fetchBookmarks()
+    }
+    
+    func addBookmark(page: Int, note: String) {
+        let newBookmark = Bookmark(context: manager.context)
+        newBookmark.id = UUID()
+        newBookmark.note = note
+        newBookmark.page = Int32(page)
+        newBookmark.book = book
+        manager.save()
+        fetchBookmarks()
+    }
+    
+    func fetchBookmarks() {
+        let request = Book.fetchRequest()
+        let filter = NSPredicate(format: "id = %@", book.id! as CVarArg)
+        request.predicate = filter
+        do {
+            var books: [Book] = []
+            books = try manager.context.fetch(request)
+            let fetchedBookmarks = books.first?.bookmarks?.allObjects as? [Bookmark]
+            if let fetchedBookmarks = fetchedBookmarks {
+                bookmarks = fetchedBookmarks
+            }
+        } catch {
+            print("\(error)")
+        }
     }
 }

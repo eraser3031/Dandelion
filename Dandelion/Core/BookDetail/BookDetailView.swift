@@ -108,7 +108,7 @@ struct BookDetailView: View {
                         .onTapGesture {
                             withAnimation(.spring()) {
                                 showRatingSheet = false
-                                vm.saveRating(score: score, review: review)
+                                vm.updateRating(score: score, review: review)
                             }
                         }
                 }
