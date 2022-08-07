@@ -10,7 +10,8 @@ import SwiftUI
 struct BookMarkView: View {
     
     @ObservedObject var vm: BookDetailViewModel
-    @State private var showManageSheet = false
+    @Binding var showManageSheet: Bool
+    @State private var item: Bookmark?
     
     var body: some View {
         ZStack {
@@ -22,18 +23,23 @@ struct BookMarkView: View {
                     
                     ScrollView(showsIndicators: false) {
                         VStack(spacing: 24) {
-                            ForEach(0..<10) { i in
+                            ForEach(vm.bookmarks) { bookmark in
                                 VStack(alignment: .leading, spacing: 10) {
-                                    Text("150p")
+                                    Text("\(bookmark.page)p")
                                         .font(.theme.footnote)
-                                    Text("Better to arrive late than not to come at allTo get something over with because it is inevitable")
+                                    Text(bookmark.note ?? "")
                                         .font(.theme.regularSerif)
+                                        .multilineTextAlignment(.leading)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
                                 }
                                 .padding(20)
                                 .background(
                                     RoundedRectangle(cornerRadius: 20, style: .continuous)
                                         .fill(.regularMaterial)
                                 )
+                                .onTapGesture {
+                                    item = bookmark
+                                }
                             }
                         }
                         .padding(.trailing, 20)
@@ -64,6 +70,9 @@ struct BookMarkView: View {
         }
         .sheet(isPresented: $showManageSheet) {
             ManageBookmarkView(vm: vm)
+        }
+        .sheet(item: $item) { item in
+            ManageBookmarkView(vm: vm, bookmark: item)
         }
     }
 }

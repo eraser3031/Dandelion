@@ -20,6 +20,7 @@ struct BookDetailView: View {
     @State private var review = ""
     @State private var showRatingSheet = true
     @State private var score = 0
+    @State private var showManageSheet = false
     @Namespace var id
     
     init(book: Book) {
@@ -63,7 +64,7 @@ struct BookDetailView: View {
                     HStack(spacing: 16) {
                         if sheetCase == .bookmark {
                             Button {
-                                print("hi")
+                                showManageSheet = true
                             } label: {
                                 Image(systemName: "plus")
                             }
@@ -90,7 +91,7 @@ struct BookDetailView: View {
                                    ).combined(with: .opacity)
                     )
             } else {
-                BookMarkView(vm: vm)
+                BookMarkView(vm: vm, showManageSheet: $showManageSheet)
                     .transition(
                         .asymmetric(insertion: .move(edge: .trailing),
                                     removal: .move(edge: .leading))
