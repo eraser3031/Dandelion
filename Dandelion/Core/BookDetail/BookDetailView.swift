@@ -17,9 +17,9 @@ struct BookDetailView: View {
     @StateObject var vm: BookDetailViewModel
     @Environment(\.dismiss) var dismiss
     @State private var sheetCase: BookDetailCase = .info
-    @State private var text = ""
-    @State private var showRatingSheet = false
-    @State private var rating = 0
+    @State private var review = ""
+    @State private var showRatingSheet = true
+    @State private var score = 0
     @Namespace var id
     
     init(book: Book) {
@@ -82,7 +82,7 @@ struct BookDetailView: View {
             .padding(.horizontal, 30)
             
             if sheetCase == .info {
-                BookInfoView(vm: vm, id: id, text: $text, showRatingSheet: $showRatingSheet, rating: $rating)
+                BookInfoView(vm: vm, id: id, review: $review, showRatingSheet: $showRatingSheet, score: $score)
                     .padding(.horizontal, 30)
                     .transition(
                         .asymmetric(insertion: .move(edge: .leading),
@@ -108,22 +108,31 @@ struct BookDetailView: View {
                         .onTapGesture {
                             withAnimation(.spring()) {
                                 showRatingSheet = false
+                                vm.saveRating(score: score, review: review)
                             }
                         }
-                    
-                    RatingSheet
+                }
+                ZStack {
+                    if showRatingSheet {
+                        RatingSheet
+                    }
                 }
             }
+        }
+        .onAppear{
+            showRatingSheet = false
+            review = vm.rating.review ?? ""
+            score = Int(vm.rating.score)
         }
     }
     
     private var RatingSheet: some View {
         VStack(spacing: 20) {
             
-            RatingIndicator()
+            RatingIndicator(score: score)
                 .matchedGeometryEffect(id: "text", in: id)
             
-            RatingSlider(value: $rating, showingRatingSheet: showRatingSheet, id: id)
+            RatingSlider(value: $score, showingRatingSheet: showRatingSheet, id: id)
                 .padding(16)
                 .frame(maxWidth: .infinity)
                 .background(
@@ -134,7 +143,7 @@ struct BookDetailView: View {
             
             Hdivider
             
-            ReviewTextField(text: $text, id: id)
+            ReviewTextField(text: $review, id: id)
                 .padding(.vertical, 30)
                 .background(
                     RoundedRectangle(cornerRadius: 12, style: .continuous)

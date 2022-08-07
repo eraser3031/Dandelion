@@ -12,9 +12,9 @@ struct BookInfoView: View {
     
     @ObservedObject var vm: BookDetailViewModel
     var id: Namespace.ID
-    @Binding var text: String
+    @Binding var review: String
     @Binding var showRatingSheet: Bool
-    @Binding var rating: Int
+    @Binding var score: Int
     
     var year: String {
         "\((vm.book.publishedDate ?? Date()).year)"
@@ -51,8 +51,6 @@ struct BookInfoView: View {
                 )
                 
                 ZStack {
-                    innerRating
-                        .opacity(0)
                     if !showRatingSheet {
                         innerRating
                     }
@@ -80,17 +78,17 @@ struct BookInfoView: View {
     private var innerRating: some View {
         VStack(spacing: 20) {
             
-            RatingSlider(value: $rating, showingRatingSheet: showRatingSheet, id: id)
+            RatingSlider(value: $score, showingRatingSheet: showRatingSheet, id: id)
                 .background(
                     RoundedRectangle(cornerRadius: 12, style: .continuous)
                         .fill(Color.theme.subGroupedBackground)
                         .matchedGeometryEffect(id: "ratingBackground", in: id)
                 )
                 
-            RatingIndicator()
+            RatingIndicator(score: score)
                 .matchedGeometryEffect(id: "text", in: id)
             
-            ReviewTextField(text: $text, id: id)
+            ReviewTextField(text: $review, id: id)
                 .disabled(true)
                 .background(
                     RoundedRectangle(cornerRadius: 12, style: .continuous)

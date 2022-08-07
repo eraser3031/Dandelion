@@ -18,6 +18,7 @@ final class BookDetailViewModel: ObservableObject {
     init(book: Book) {
         self.book = book
         if let rating = book.rating {
+            print(rating.score)
             self._rating = Published(initialValue: rating)
         } else {
             let rating = Rating(context: manager.context)
@@ -30,5 +31,11 @@ final class BookDetailViewModel: ObservableObject {
         if let bookmarks = bookmarks {
             self._bookmarks = Published(initialValue: bookmarks)
         }
+    }
+    
+    func saveRating(score: Int, review: String) {
+        rating.score = Int16(score)
+        rating.review = review
+        manager.save()
     }
 }
