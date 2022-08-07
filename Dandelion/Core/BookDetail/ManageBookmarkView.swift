@@ -19,9 +19,8 @@ struct ManageBookmarkView: View {
     @Environment(\.dismiss) var dismiss
     @FocusState var isInputActive: Bool
     
-    @State private var note = "true"
+    @State private var note = ""
     @State private var page = 0
-    @State private var test = 3.0
     
     var body: some View {
         NavigationView {
@@ -41,7 +40,7 @@ struct ManageBookmarkView: View {
                     
                     PageStepper(page: $page, minValue: 0, maxValue: 199)
                     
-                    CustomSlider(value: $test, in: 0...100)
+                    PageSlider(value: $page, in: 0...100)
                     
                     Capsule()
                         .fill(Color.theme.groupedBackground)
@@ -69,9 +68,10 @@ struct ManageBookmarkView: View {
                         .font(.theme.regularSerif)
                         .overlay(alignment: .bottomTrailing) {
                             ScanButton(text: $note)
-                                .frame(width: 120, height: 40)
+                                .fixedSize()
+                                .padding()
                                 .background(
-                                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                    RoundedRectangle(cornerRadius: 12, style: .continuous)
                                         .fill(.thinMaterial)
                                 )
                                 .padding(8)

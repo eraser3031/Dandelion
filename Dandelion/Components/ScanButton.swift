@@ -15,6 +15,8 @@ struct ScanButton: UIViewRepresentable {
           responder: context.coordinator,
           identifier: nil)
         let button = UIButton(primaryAction: textFromCamera)
+        button.setImage(UIImage(systemName: "camera.fill"), for: .normal)
+        button.setTitle("", for: .normal)
         button.tintColor = UIColor(named: "primary")
         return button
     }

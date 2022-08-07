@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		210DFD992892931D008E3C07 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 210DFD982892931D008E3C07 /* Launch Screen.storyboard */; };
 		210DFD9C28929A2D008E3C07 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210DFD9B28929A2D008E3C07 /* View+Extension.swift */; };
-		213BF004289BDC4D005A68B6 /* RatingStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213BF003289BDC4D005A68B6 /* RatingStepper.swift */; };
+		213BF004289BDC4D005A68B6 /* RatingSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213BF003289BDC4D005A68B6 /* RatingSlider.swift */; };
 		213BF006289BDC55005A68B6 /* ReviewTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213BF005289BDC55005A68B6 /* ReviewTextField.swift */; };
 		213BF008289BDC5F005A68B6 /* RatingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213BF007289BDC5F005A68B6 /* RatingIndicator.swift */; };
 		215F0A98288FA3AD0045FFF8 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215F0A97288FA3AD0045FFF8 /* ButtonStyle.swift */; };
@@ -56,7 +56,7 @@
 /* Begin PBXFileReference section */
 		210DFD982892931D008E3C07 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		210DFD9B28929A2D008E3C07 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
-		213BF003289BDC4D005A68B6 /* RatingStepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingStepper.swift; sourceTree = "<group>"; };
+		213BF003289BDC4D005A68B6 /* RatingSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingSlider.swift; sourceTree = "<group>"; };
 		213BF005289BDC55005A68B6 /* ReviewTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTextField.swift; sourceTree = "<group>"; };
 		213BF007289BDC5F005A68B6 /* RatingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingIndicator.swift; sourceTree = "<group>"; };
 		215F0A97288FA3AD0045FFF8 /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
@@ -126,7 +126,7 @@
 		213BF002289BDC3A005A68B6 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				213BF003289BDC4D005A68B6 /* RatingStepper.swift */,
+				213BF003289BDC4D005A68B6 /* RatingSlider.swift */,
 				213BF005289BDC55005A68B6 /* ReviewTextField.swift */,
 				213BF007289BDC5F005A68B6 /* RatingIndicator.swift */,
 			);
@@ -375,7 +375,7 @@
 				21FDE2C528900C1500A779A5 /* AddBookView.swift in Sources */,
 				21CF2BDC28927C1700293E38 /* CoreDataManager.swift in Sources */,
 				213BF006289BDC55005A68B6 /* ReviewTextField.swift in Sources */,
-				213BF004289BDC4D005A68B6 /* RatingStepper.swift in Sources */,
+				213BF004289BDC4D005A68B6 /* RatingSlider.swift in Sources */,
 				21FFCD00288C0ED2003152C2 /* Color.swift in Sources */,
 				218E63ED288C503A0023A8A0 /* SearchBar.swift in Sources */,
 				213BF008289BDC5F005A68B6 /* RatingIndicator.swift in Sources */,
