@@ -67,6 +67,15 @@ struct ManageBookmarkView: View {
                                 .fill(Color.theme.groupedBackground)
                         )
                         .font(.theme.regularSerif)
+                        .overlay(alignment: .bottomTrailing) {
+                            ScanButton(text: $note)
+                                .frame(width: 120, height: 40)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                        .fill(.thinMaterial)
+                                )
+                                .padding(8)
+                        }
                 }
                 
                 Button {
