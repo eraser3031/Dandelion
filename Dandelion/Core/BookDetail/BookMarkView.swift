@@ -11,6 +11,7 @@ struct BookMarkView: View {
     
     @ObservedObject var vm: BookDetailViewModel
     @Binding var showManageSheet: Bool
+    @Binding var isEdit: Bool
     @State private var item: Bookmark?
     
     var body: some View {
@@ -24,21 +25,20 @@ struct BookMarkView: View {
                     ScrollView(showsIndicators: false) {
                         VStack(spacing: 24) {
                             ForEach(vm.bookmarks) { bookmark in
-                                VStack(alignment: .leading, spacing: 10) {
-                                    Text("\(bookmark.page)p")
-                                        .font(.theme.footnote)
-                                    Text(bookmark.note ?? "")
-                                        .font(.theme.regularSerif)
-                                        .multilineTextAlignment(.leading)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                }
-                                .padding(20)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 20, style: .continuous)
-                                        .fill(.regularMaterial)
-                                )
-                                .onTapGesture {
-                                    item = bookmark
+                                ZStack(alignment: .topTrailing) {
+                                    Cell(bookmark)
+                                    
+                                    if isEdit {
+                                        Button {
+                                            withAnimation(.spring()) {
+                                                vm.removeBookmark(bookmark)
+                                            }
+                                        } label: {
+                                            Image(systemName: "xmark")
+                                        }
+                                        .buttonStyle(CircledButtonStyle())
+                                        .padding(10)
+                                    }
                                 }
                             }
                         }
@@ -73,6 +73,25 @@ struct BookMarkView: View {
         }
         .sheet(item: $item) { item in
             ManageBookmarkView(vm: vm, bookmark: item)
+        }
+    }
+    
+    private func Cell(_ bookmark: Bookmark) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("\(bookmark.page)p")
+                .font(.theme.footnote)
+            Text(bookmark.note ?? "")
+                .font(.theme.regularSerif)
+                .multilineTextAlignment(.leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .padding(20)
+        .background(
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .fill(.regularMaterial)
+        )
+        .onTapGesture {
+            item = bookmark
         }
     }
 }

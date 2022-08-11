@@ -35,6 +35,7 @@ struct BookListView: View {
                         Text("132")
                             .font(.theme.headlineLabel)
                         Spacer()
+                        
                         Button {
                             withAnimation(.spring()) {
                                 isEdit.toggle()

@@ -99,7 +99,6 @@ struct PageSlider: View {
                                         onEditingChanged(true)
                                         let result = max(min(geo.size.width, transition.location.x), 0)
                                         value = Int(result / geo.size.width * CGFloat(bounds.upperBound))
-                                        print(value)
                                     }
                                     .onEnded{ _ in
                                         onEditingChanged(false)

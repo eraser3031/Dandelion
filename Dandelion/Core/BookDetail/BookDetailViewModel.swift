@@ -71,4 +71,10 @@ final class BookDetailViewModel: ObservableObject {
             print("\(error)")
         }
     }
+    
+    func removeBookmark(_ bookmark: Bookmark) {
+        manager.context.delete(bookmark)
+        manager.save()
+        fetchBookmarks()
+    }
 }

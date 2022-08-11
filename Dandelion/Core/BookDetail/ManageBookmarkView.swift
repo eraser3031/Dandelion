@@ -57,6 +57,7 @@ struct ManageBookmarkView: View {
                                     }
                                     .font(.theme.regular)
                                     .padding(.leading, 16)
+                                    .tint(.theme.primary)
                                 }
                             }
                         }

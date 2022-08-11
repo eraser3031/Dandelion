@@ -22,6 +22,7 @@ struct BookDetailView: View {
     @State private var showRatingSheet = true
     @State private var score = 0
     @State private var showManageSheet = false
+    @State private var isEdit = false
     @Namespace var id
     
     init(book: Book) {
@@ -63,21 +64,53 @@ struct BookDetailView: View {
                     Spacer()
                     
                     HStack(spacing: 16) {
-                        if sheetCase == .bookmark {
+                        if isEdit {
                             Button {
-                                showManageSheet = true
+                                withAnimation(.spring()) {
+                                    isEdit = false
+                                }
                             } label: {
-                                Image(systemName: "plus")
+                                Text("Done")
+                                    .frame(height: 34)
                             }
-                            .buttonStyle(CircledButtonStyle())
+                            .buttonStyle(.plain)
+                        } else {
+                            
+                            if sheetCase == .bookmark {
+                                Button {
+                                    showManageSheet = true
+                                } label: {
+                                    Image(systemName: "plus")
+                                }
+                                .buttonStyle(CircledButtonStyle())
+                            }
+                            
+                            Menu {
+                                if sheetCase == .info {
+                                    Button(action: {}) {
+                                        Label("Delete Book", systemImage: "trash")
+                                    }
+                                } else {
+                                    Button {
+                                        withAnimation(.spring()){
+                                            isEdit = true
+                                        }
+                                    } label: {
+                                        Label("Edit Bookmarks", systemImage: "pencil")
+                                    }
+                                }
+                            } label: {
+                                Image(systemName: "ellipsis")
+                                    .frame(width: 34, height: 34)
+                                    .foregroundColor(.theme.primary)
+                                    .font(.theme.plainButton)
+                                    .background(
+                                        Circle()
+                                            .fill(Color.theme.groupedBackground)
+                                    )
+                            }
+
                         }
-                        
-                        Button {
-                            print("hi")
-                        } label: {
-                            Image(systemName: "ellipsis")
-                        }
-                        .buttonStyle(CircledButtonStyle())
                     }
                 }
             }
@@ -92,7 +125,7 @@ struct BookDetailView: View {
                                    ).combined(with: .opacity)
                     )
             } else {
-                BookMarkView(vm: vm, showManageSheet: $showManageSheet)
+                BookMarkView(vm: vm, showManageSheet: $showManageSheet, isEdit: $isEdit)
                     .transition(
                         .asymmetric(insertion: .move(edge: .trailing),
                                     removal: .move(edge: .leading))
