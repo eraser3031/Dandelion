@@ -22,7 +22,7 @@ class BookSearchService {
             URLQueryItem(name: "ttbkey", value: "ttberaser30311317001"),
             URLQueryItem(name: "Query", value: text),
             URLQueryItem(name: "QueryType", value: "Title"),
-            URLQueryItem(name: "MaxResults", value: "10"),
+            URLQueryItem(name: "MaxResults", value: "20"),
             URLQueryItem(name: "start", value: "1"),
             URLQueryItem(name: "SearchTarget", value: "Book"),
             URLQueryItem(name: "output", value: "js"),
@@ -32,7 +32,6 @@ class BookSearchService {
         var components = URLComponents(string: "http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?")
         components?.queryItems = queryItems
         guard let url = components?.url else { return [] }
-        print(url)
         let result = await manager.request(url: url)
         
         guard let result = result else { return [] }

@@ -42,7 +42,6 @@ struct CustomSlider<T>: View where T: BinaryFloatingPoint, T.Stride : BinaryFloa
                                     .onChanged{ transition in
                                         onEditingChanged(true)
                                         value = T(max(min(geo.size.width, transition.location.x), 0))
-                                        print(transition.location.x)
                                     }
                                     .onEnded{ _ in
                                         onEditingChanged(false)

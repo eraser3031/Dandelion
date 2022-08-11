@@ -55,15 +55,31 @@ struct AddSearchView: View {
             }
             .padding(.horizontal, 30)
             
-            ScrollView {
-                VStack(spacing: 10) {
-                    ForEach(vm.searchedItems, id: \.title) { item in
-                        SearchBookCellView(selectedItem: $selectedItem, item: item)
-                    }
+            if vm.searchedItems.isEmpty, !vm.searchText.isEmpty {
+                VStack(spacing: 16) {
+                    Spacer()
+                    
+                    Image.seed
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 70)
+                    
+                    Text("No results..")
+                        .font(.theme.subHeadline)
+                    
+                    Spacer()
                 }
-                .padding(.horizontal, 30)
+                .foregroundColor(.theme.tertiary)
+            } else {
+                ScrollView {
+                    VStack(spacing: 10) {
+                        ForEach(vm.searchedItems, id: \.title) { item in
+                            SearchBookCellView(selectedItem: $selectedItem, item: item)
+                        }
+                    }
+                    .padding(.horizontal, 30)
+                }
             }
-            
         }
         .padding(.top, 8)
         .onAppear{

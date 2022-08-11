@@ -26,7 +26,11 @@ struct SearchResult: Codable {
 }
 
 // MARK: - Item
-struct Item: Codable, Identifiable {
+struct Item: Codable, Identifiable, Equatable {
+    
+    static func == (lhs: Item, rhs: Item) -> Bool {
+        lhs.id == rhs.id
+    }
     
     var id: String {
         return String(itemID)
