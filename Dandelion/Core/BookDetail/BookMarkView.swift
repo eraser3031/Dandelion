@@ -13,6 +13,10 @@ struct BookMarkView: View {
     @Binding var showManageSheet: Bool
     @Binding var isEdit: Bool
     @State private var item: Bookmark?
+    @State private var width: CGFloat = 0
+    
+    let trailingGapPer: CGFloat = 0.132
+    let leadingGapPer: CGFloat = 0.357
     
     var body: some View {
         ZStack {
@@ -21,28 +25,45 @@ struct BookMarkView: View {
                     Image.bookLeft
                         .resizable()
                         .scaledToFit()
+                        .modifier(SizeModifier())
+                        .onPreferenceChange(SizePreferenceKey.self) { size in
+                            width = size.width
+                        }
                     
                     ScrollView(showsIndicators: false) {
                         VStack(spacing: 24) {
                             ForEach(vm.bookmarks) { bookmark in
-                                ZStack(alignment: .topTrailing) {
-                                    Cell(bookmark)
-                                    
-                                    if isEdit {
-                                        Button {
-                                            withAnimation(.spring()) {
-                                                vm.removeBookmark(bookmark)
+                                ZStack(alignment: .leading) {
+                                    ZStack(alignment: .topTrailing) {
+                                        Cell(bookmark)
+                                        
+                                        if isEdit {
+                                            Button {
+                                                withAnimation(.spring()) {
+                                                    vm.removeBookmark(bookmark)
+                                                }
+                                            } label: {
+                                                Image(systemName: "xmark")
                                             }
-                                        } label: {
-                                            Image(systemName: "xmark")
+                                            .buttonStyle(CircledButtonStyle())
+                                            .padding(10)
                                         }
-                                        .buttonStyle(CircledButtonStyle())
-                                        .padding(10)
                                     }
+
+                                    
+                                    Capsule()
+                                        .frame(width: width * trailingGapPer + 20, height: 1)
+                                        .offset(x: -(width * trailingGapPer + 20))
                                 }
                             }
                         }
                         .padding(.trailing, 20)
+                    }
+                    .onAppear{
+                        UIScrollView.appearance().clipsToBounds = false
+                    }
+                    .onDisappear{
+                        UIScrollView.appearance().clipsToBounds = true
                     }
                 }
             } else {
