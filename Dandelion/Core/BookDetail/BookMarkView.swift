@@ -19,52 +19,47 @@ struct BookMarkView: View {
     let leadingGapPer: CGFloat = 0.357
     
     var body: some View {
-        ZStack {
+        ZStack(alignment: .leading) {
             if vm.bookmarks.count != 0 {
-                HStack(spacing: 20) {
-                    Image.bookLeft
-                        .resizable()
-                        .scaledToFit()
-                        .modifier(SizeModifier())
-                        .onPreferenceChange(SizePreferenceKey.self) { size in
-                            width = size.width
-                        }
-                    
-                    ScrollView(showsIndicators: false) {
-                        VStack(spacing: 24) {
-                            ForEach(vm.bookmarks) { bookmark in
-                                ZStack(alignment: .leading) {
-                                    ZStack(alignment: .topTrailing) {
-                                        Cell(bookmark)
-                                        
-                                        if isEdit {
-                                            Button {
-                                                withAnimation(.spring()) {
-                                                    vm.removeBookmark(bookmark)
-                                                }
-                                            } label: {
-                                                Image(systemName: "xmark")
-                                            }
-                                            .buttonStyle(CircledButtonStyle())
-                                            .padding(10)
-                                        }
+                Image.bookLeft
+                    .resizable()
+                    .scaledToFit()
+                    .modifier(SizeModifier())
+                    .onPreferenceChange(SizePreferenceKey.self) { size in
+                        width = size.width
+                    }
+                
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 24) {
+                        ForEach(vm.bookmarks) { bookmark in
+                            HStack(spacing: 0) {
+                                
+                                Color.clear
+                                    .frame(width: width + 20)
+                                    .overlay(alignment: .trailing) {
+                                        Capsule()
+                                            .frame(width: width * trailingGapPer + 20, height: 1)
                                     }
-
+                                
+                                ZStack(alignment: .topTrailing) {
+                                    Cell(bookmark)
                                     
-                                    Capsule()
-                                        .frame(width: width * trailingGapPer + 20, height: 1)
-                                        .offset(x: -(width * trailingGapPer + 20))
+                                    if isEdit {
+                                        Button {
+                                            withAnimation(.spring()) {
+                                                vm.removeBookmark(bookmark)
+                                            }
+                                        } label: {
+                                            Image(systemName: "xmark")
+                                        }
+                                        .buttonStyle(CircledButtonStyle())
+                                        .padding(10)
+                                    }
                                 }
                             }
                         }
-                        .padding(.trailing, 20)
                     }
-                    .onAppear{
-                        UIScrollView.appearance().clipsToBounds = false
-                    }
-                    .onDisappear{
-                        UIScrollView.appearance().clipsToBounds = true
-                    }
+                    .padding(.trailing, 20)
                 }
             } else {
                 VStack(spacing: 30) {
