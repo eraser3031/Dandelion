@@ -42,13 +42,20 @@ struct BookMarkView: View {
                                     .overlay(alignment: .trailing) {
                                         HStack(spacing: 0) {
                                             Rectangle()
-                                                .fill(Color.theme.background)
+                                                .fill(.black)
                                                 .frame(width: calPageIndicatorWidth(bookmark.page), height: 1)
                                             Rectangle()
                                                 .fill(Color.theme.primary)
                                                 .frame(width: 20, height: 1)
                                         }
                                         .clipShape(Capsule())
+                                        .overlay(alignment: .leading) {
+                                            Circle()
+                                                .fill(.black)
+                                                .frame(width: 4, height: 4)
+                                                .offset(x: -2)
+                                                
+                                        }
                                     }
                                 
                                 ZStack(alignment: .topTrailing) {
