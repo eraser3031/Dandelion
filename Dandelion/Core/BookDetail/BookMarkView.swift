@@ -17,6 +17,9 @@ struct BookMarkView: View {
     
     let trailingGapPer: CGFloat = 0.132
     let leadingGapPer: CGFloat = 0.357
+    var pageGapPer: CGFloat {
+        1 - trailingGapPer - leadingGapPer
+    }
     
     var body: some View {
         ZStack(alignment: .leading) {
@@ -38,7 +41,7 @@ struct BookMarkView: View {
                                     .frame(width: width + 20)
                                     .overlay(alignment: .trailing) {
                                         Capsule()
-                                            .frame(width: width * trailingGapPer + 20, height: 1)
+                                            .frame(width: calPageIndicatorWidth(bookmark.page), height: 1)
                                     }
                                 
                                 ZStack(alignment: .topTrailing) {
@@ -109,5 +112,13 @@ struct BookMarkView: View {
         .onTapGesture {
             item = bookmark
         }
+    }
+    
+    private func calPageIndicatorWidth(_ page: Int32) -> CGFloat {
+        let startWidth = width * (1 - leadingGapPer)
+        let padding: CGFloat = 20
+        let pageWidth = CGFloat(page) * width * pageGapPer
+        let bookPages = CGFloat(vm.book.shape?.pages ?? 0)
+        return startWidth + padding - pageWidth / bookPages
     }
 }
