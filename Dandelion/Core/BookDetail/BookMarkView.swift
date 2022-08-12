@@ -40,8 +40,15 @@ struct BookMarkView: View {
                                 Color.clear
                                     .frame(width: width + 20)
                                     .overlay(alignment: .trailing) {
-                                        Capsule()
-                                            .frame(width: calPageIndicatorWidth(bookmark.page), height: 1)
+                                        HStack(spacing: 0) {
+                                            Rectangle()
+                                                .fill(Color.theme.background)
+                                                .frame(width: calPageIndicatorWidth(bookmark.page), height: 1)
+                                            Rectangle()
+                                                .fill(Color.theme.primary)
+                                                .frame(width: 20, height: 1)
+                                        }
+                                        .clipShape(Capsule())
                                     }
                                 
                                 ZStack(alignment: .topTrailing) {
@@ -116,9 +123,8 @@ struct BookMarkView: View {
     
     private func calPageIndicatorWidth(_ page: Int32) -> CGFloat {
         let startWidth = width * (1 - leadingGapPer)
-        let padding: CGFloat = 20
         let pageWidth = CGFloat(page) * width * pageGapPer
         let bookPages = CGFloat(vm.book.shape?.pages ?? 0)
-        return startWidth + padding - pageWidth / bookPages
+        return startWidth - pageWidth / bookPages
     }
 }
