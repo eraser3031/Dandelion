@@ -23,7 +23,7 @@ struct RatingIndicator: View {
             Text("rating")
                 .font(.theme.subHeadline)
                 .foregroundColor(.theme.tertiary)
-            Text("\(ratingString) / 5")
+            Text("\(ratingString)")
                 .font(.system(size: 28, weight: .bold, design: .rounded))
         }
     }
