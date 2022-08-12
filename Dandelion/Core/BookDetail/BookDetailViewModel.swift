@@ -88,6 +88,11 @@ final class BookDetailViewModel: ObservableObject {
         }
     }
     
+    func removeBook() {
+        manager.context.delete(book)
+        manager.save()
+    }
+    
     func removeBookmark(_ bookmark: Bookmark) {
         manager.context.delete(bookmark)
         manager.save()

@@ -13,7 +13,6 @@ enum BookDetailCase: String {
 }
 
 struct BookDetailView: View {
-    
     @StateObject var vm: BookDetailViewModel
     @Environment(\.dismiss) var dismiss
     @FocusState private var isInputActive: Bool
@@ -87,7 +86,12 @@ struct BookDetailView: View {
                             
                             Menu {
                                 if sheetCase == .info {
-                                    Button(action: {}) {
+                                    Button {
+                                        withAnimation(.spring()) {
+                                            dismiss()
+                                            vm.removeBook()
+                                        }
+                                    } label: {
                                         Label("Delete Book", systemImage: "trash")
                                     }
                                 } else {
