@@ -66,7 +66,17 @@ struct Item: Codable, Identifiable, Equatable {
     }
 }
 
+// MARK: - SubInfo
 struct SubInfo: Codable {
+    let subTitle, originalTitle: String?
+    let itemPage: Int?
+    let packing: Packing?
+}
+
+// MARK: - Packing
+struct Packing: Codable {
+    let styleDesc: String
+    let weight, sizeDepth, sizeHeight, sizeWidth: Int
 }
 
 struct SeriesInfo: Codable {
@@ -83,6 +93,7 @@ struct SeriesInfo: Codable {
 enum StockStatus: String, Codable {
     case empty = ""
     case outOfPrint = "절판"
+    case outOfPrintOldVersion = "구판절판"
     case soldOut = "품절"
     case preSale = "예약판매"
     case preSaleEnded = "예약판매종료"

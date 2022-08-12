@@ -33,6 +33,10 @@ final class BookDetailViewModel: ObservableObject {
         }
     }
     
+//    if let item = await bookSearchService.lookup(isbn: "9788965465270") {
+//        searchedItems.append(item)
+//    }
+    
     func updateRating(score: Int, review: String) {
         rating.score = Int16(score)
         rating.review = review
