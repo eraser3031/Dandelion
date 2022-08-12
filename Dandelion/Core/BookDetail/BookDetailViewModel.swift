@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 final class BookDetailViewModel: ObservableObject {
     
     var book: Book
@@ -14,6 +15,7 @@ final class BookDetailViewModel: ObservableObject {
     @Published var bookmarks: [Bookmark] = []
     
     let manager = CoreDataManager.shared
+    let bookSearchService = BookSearchService()
     
     init(book: Book) {
         self.book = book
@@ -33,9 +35,19 @@ final class BookDetailViewModel: ObservableObject {
         }
     }
     
-//    if let item = await bookSearchService.lookup(isbn: "9788965465270") {
-//        searchedItems.append(item)
-//    }
+    func fetchBookShape() async -> BookShape {
+        let subInfo = await bookSearchService.lookup(isbn: book.isbn ?? "")?.subInfo
+        let bookShape = BookShape(context: manager.context)
+        bookShape.id = UUID()
+        bookShape.book = book
+        bookShape.pages = Int32(subInfo?.itemPage ?? 0)
+        bookShape.width = Int16(subInfo?.packing?.sizeWidth ?? 0)
+        bookShape.height = Int16(subInfo?.packing?.sizeHeight ?? 0)
+        bookShape.depth = Int16(subInfo?.packing?.sizeDepth ?? 0)
+        manager.save()
+        
+        return bookShape
+    }
     
     func updateRating(score: Int, review: String) {
         rating.score = Int16(score)

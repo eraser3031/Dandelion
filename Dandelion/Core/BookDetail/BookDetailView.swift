@@ -160,6 +160,11 @@ struct BookDetailView: View {
             review = vm.rating.review ?? ""
             score = Int(vm.rating.score)
         }
+        .task {
+            if vm.book.shape == nil {
+                await vm.fetchBookShape()
+            }
+        }
     }
     
     private var RatingSheet: some View {

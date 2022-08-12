@@ -38,9 +38,9 @@ struct ManageBookmarkView: View {
                         Spacer()
                     }
                     
-                    PageStepper(page: $page, minValue: 0, maxValue: 199)
+                    PageStepper(page: $page, minValue: 0, maxValue: Int(vm.book.shape?.pages ?? 0))
                     
-                    PageSlider(value: $page, in: 0...100)
+                    PageSlider(value: $page, in: 0...Int(vm.book.shape?.pages ?? 0))
                     
                     Capsule()
                         .fill(Color.theme.groupedBackground)
