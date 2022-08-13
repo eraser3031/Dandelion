@@ -237,7 +237,7 @@ struct BookListCell: View {
                 }
             }
             .confirmationDialog("Are you sure?", isPresented: $deleteBookDialog, titleVisibility: .visible) {
-                Button("Empty Trash", role: .destructive) {
+                Button("Delete Book", role: .destructive) {
                     removeAction()
                 }
                 Button("Cancel", role: .cancel) {

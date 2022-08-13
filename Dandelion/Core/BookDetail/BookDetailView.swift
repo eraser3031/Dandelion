@@ -159,7 +159,7 @@ struct BookDetailView: View {
             }
         }
         .confirmationDialog("Are you sure?", isPresented: $deleteBookDialog, titleVisibility: .visible) {
-            Button("Empty Trash", role: .destructive) {
+            Button("Delete Book", role: .destructive) {
                 dismiss()
                 vm.removeBook()
             }
