@@ -14,6 +14,7 @@ struct BookMarkView: View {
     @Binding var isEdit: Bool
     @State private var item: Bookmark?
     @State private var width: CGFloat = 0
+    @State private var deleteBookmarkDiaLog: Bookmark?
     
     let trailingGapPer: CGFloat = 0.132
     let leadingGapPer: CGFloat = 0.357
@@ -22,7 +23,16 @@ struct BookMarkView: View {
     }
     
     var body: some View {
-        ZStack(alignment: .leading) {
+        let diaLog = Binding(
+                    get: { self.deleteBookmarkDiaLog != nil },
+                    set: {
+                        if $0 == false {
+                            deleteBookmarkDiaLog = nil
+                        }
+                    }
+                )
+        
+        return ZStack(alignment: .leading) {
             if vm.bookmarks.count != 0 {
                 Image.bookLeft
                     .resizable()
@@ -64,13 +74,23 @@ struct BookMarkView: View {
                                     if isEdit {
                                         Button {
                                             withAnimation(.spring()) {
-                                                vm.removeBookmark(bookmark)
+                                                deleteBookmarkDiaLog = bookmark
                                             }
                                         } label: {
                                             Image(systemName: "xmark")
                                         }
                                         .buttonStyle(CircledButtonStyle())
                                         .padding(10)
+                                        .confirmationDialog("Are you sure?", isPresented: diaLog) {
+                                            Button("Empty Trash", role: .destructive) {
+                                                withAnimation(.spring()) {
+                                                    vm.removeBookmark(bookmark)
+                                                }
+                                            }
+                                            Button("Cancel", role: .cancel) {
+                                                deleteBookmarkDiaLog = nil
+                                            }
+                                        }
                                     }
                                 }
                             }

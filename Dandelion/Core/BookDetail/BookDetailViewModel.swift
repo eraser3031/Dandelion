@@ -35,7 +35,7 @@ final class BookDetailViewModel: ObservableObject {
         }
     }
     
-    func fetchBookShape() async -> BookShape {
+    func fetchBookShape() async {
         let subInfo = await bookSearchService.lookup(isbn: book.isbn ?? "")?.subInfo
         let bookShape = BookShape(context: manager.context)
         bookShape.id = UUID()
@@ -45,8 +45,6 @@ final class BookDetailViewModel: ObservableObject {
         bookShape.height = Int16(subInfo?.packing?.sizeHeight ?? 0)
         bookShape.depth = Int16(subInfo?.packing?.sizeDepth ?? 0)
         manager.save()
-        
-        return bookShape
     }
     
     func updateRating(score: Int, review: String) {

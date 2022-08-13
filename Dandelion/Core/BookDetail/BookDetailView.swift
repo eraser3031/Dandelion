@@ -22,6 +22,7 @@ struct BookDetailView: View {
     @State private var score = 0
     @State private var showManageSheet = false
     @State private var isEdit = false
+    @State private var deleteBookDiaLog = false
     @Namespace var id
     
     init(book: Book) {
@@ -87,10 +88,8 @@ struct BookDetailView: View {
                             Menu {
                                 if sheetCase == .info {
                                     Button {
-                                        withAnimation(.spring()) {
-                                            dismiss()
-                                            vm.removeBook()
-                                        }
+                                        deleteBookDiaLog = true
+                                        print(deleteBookDiaLog)
                                     } label: {
                                         Label("Delete Book", systemImage: "trash")
                                     }
@@ -113,7 +112,7 @@ struct BookDetailView: View {
                                             .fill(Color.theme.groupedBackground)
                                     )
                             }
-
+                            
                         }
                     }
                 }
@@ -157,6 +156,15 @@ struct BookDetailView: View {
                         RatingSheet
                     }
                 }
+            }
+        }
+        .confirmationDialog("Are you sure?", isPresented: $deleteBookDiaLog, titleVisibility: .visible) {
+            Button("Empty Trash", role: .destructive) {
+                dismiss()
+                vm.removeBook()
+            }
+            Button("Cancel", role: .cancel) {
+                deleteBookDiaLog = false
             }
         }
         .onAppear{
