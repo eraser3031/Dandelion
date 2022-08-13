@@ -123,43 +123,9 @@ struct BookListView: View {
                 .frame(height: 10)
             LazyVGrid(columns: columns, spacing: 40) {
                 ForEach(vm.books) { book in
-                    if let url = book.coverURL {
-                        ZStack(alignment: .bottomTrailing) {
-                            NavigationLink(destination: {
-                                BookDetailView(book: book)
-                                    .toolbar(.hidden, in: .navigationBar)
-                            }, label: {
-                                KFImage(url)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .cornerRadius(4)
-                                    .overlay {
-                                        RoundedRectangle(cornerRadius: 4, style: .continuous)
-                                            .stroke(Color.theme.labelBackground, lineWidth: 0.5)
-                                    }
-                            })
-                            .overlay(
-                                Group {
-                                    if isEdit {
-                                        Color.theme.primary.opacity(0.2)
-                                    }
-                                }
-                            )
-                            
-                            ZStack {
-                                
-                                if isEdit {
-                                    Button {
-                                        withAnimation(.spring()) {
-                                            vm.delete(book: book)
-                                        }
-                                    } label: {
-                                        Image(systemName: "xmark")
-                                    }
-                                    .buttonStyle(SheetDismissButtonStyle())
-                                    .padding(8)
-                                }
-                            }
+                    BookListCell(book: book, isEdit: isEdit) {
+                        withAnimation(.spring()) {
+                            vm.delete(book: book)
                         }
                     }
                 }
@@ -222,6 +188,63 @@ struct GroupedSection: View {
             )
         }
         .buttonStyle(.plain)
+    }
+}
+
+struct BookListCell: View {
+    
+    var book: Book
+    var isEdit: Bool
+    let removeAction: () -> Void
+    
+    @State private var deleteBookDialog = false
+    
+    var body: some View {
+        if let url = book.coverURL {
+            ZStack(alignment: .bottomTrailing) {
+                NavigationLink(destination: {
+                    BookDetailView(book: book)
+                        .toolbar(.hidden, in: .navigationBar)
+                }, label: {
+                    KFImage(url)
+                        .resizable()
+                        .scaledToFit()
+                        .cornerRadius(4)
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 4, style: .continuous)
+                                .stroke(Color.theme.labelBackground, lineWidth: 0.5)
+                        }
+                })
+                .overlay(
+                    Group {
+                        if isEdit {
+                            Color.theme.primary.opacity(0.2)
+                        }
+                    }
+                )
+                
+                ZStack {
+                    
+                    if isEdit {
+                        Button {
+                            deleteBookDialog = true
+                        } label: {
+                            Image(systemName: "xmark")
+                        }
+                        .buttonStyle(SheetDismissButtonStyle())
+                        .padding(8)
+                    }
+                }
+            }
+            .confirmationDialog("Are you sure?", isPresented: $deleteBookDialog, titleVisibility: .visible) {
+                Button("Empty Trash", role: .destructive) {
+                    removeAction()
+                }
+                Button("Cancel", role: .cancel) {
+                    deleteBookDialog = false
+                }
+            }
+        }
     }
 }
 

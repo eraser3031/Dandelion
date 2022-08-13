@@ -81,7 +81,7 @@ struct BookMarkView: View {
                                         }
                                         .buttonStyle(CircledButtonStyle())
                                         .padding(10)
-                                        .confirmationDialog("Are you sure?", isPresented: diaLog) {
+                                        .confirmationDialog("Are you sure?", isPresented: diaLog, titleVisibility: .visible) {
                                             Button("Empty Trash", role: .destructive) {
                                                 withAnimation(.spring()) {
                                                     vm.removeBookmark(bookmark)
