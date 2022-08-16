@@ -21,6 +21,8 @@
 		215FB3A728980F02009C85F9 /* UIKit+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215FB3A628980F02009C85F9 /* UIKit+Extension.swift */; };
 		215FB3A928984761009C85F9 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215FB3A828984761009C85F9 /* LaunchScreenView.swift */; };
 		216019BC289EA19D00454721 /* StepSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216019BB289EA19D00454721 /* StepSlider.swift */; };
+		217E5B8C28A8F83E009A8C11 /* BarCodeScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217E5B8B28A8F83E009A8C11 /* BarCodeScanner.swift */; };
+		217E5B8F28ABF9F1009A8C11 /* AddBarcodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217E5B8E28ABF9F1009A8C11 /* AddBarcodeViewModel.swift */; };
 		21857523289149D20082F2A0 /* NetworkType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21857522289149D20082F2A0 /* NetworkType.swift */; };
 		218E63ED288C503A0023A8A0 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E63EC288C503A0023A8A0 /* SearchBar.swift */; };
 		21B1E6162892A714004593C7 /* BookListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B1E6152892A714004593C7 /* BookListViewModel.swift */; };
@@ -68,6 +70,8 @@
 		215FB3A628980F02009C85F9 /* UIKit+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit+Extension.swift"; sourceTree = "<group>"; };
 		215FB3A828984761009C85F9 /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
 		216019BB289EA19D00454721 /* StepSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepSlider.swift; sourceTree = "<group>"; };
+		217E5B8B28A8F83E009A8C11 /* BarCodeScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarCodeScanner.swift; sourceTree = "<group>"; };
+		217E5B8E28ABF9F1009A8C11 /* AddBarcodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBarcodeViewModel.swift; sourceTree = "<group>"; };
 		21857522289149D20082F2A0 /* NetworkType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkType.swift; sourceTree = "<group>"; };
 		218E63EC288C503A0023A8A0 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		21B1E6152892A714004593C7 /* BookListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookListViewModel.swift; sourceTree = "<group>"; };
@@ -143,6 +147,7 @@
 				216019BB289EA19D00454721 /* StepSlider.swift */,
 				21FDE2C82890140700A779A5 /* PageStepper.swift */,
 				21FE9A86289F9CBF0001B7CC /* ScanButton.swift */,
+				217E5B8B28A8F83E009A8C11 /* BarCodeScanner.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -152,12 +157,21 @@
 			children = (
 				21D1DF09289967A200C49DE1 /* BookDetail */,
 				21B1E6182892ABB8004593C7 /* AddSearch */,
+				217E5B8D28ABF83C009A8C11 /* AddBarcode */,
 				21B1E6172892ABA2004593C7 /* BookList */,
 				21FDE2C428900C1500A779A5 /* AddBookView.swift */,
-				21CF2BE428928FFB00293E38 /* AddBarcodeView.swift */,
 				215FB3A828984761009C85F9 /* LaunchScreenView.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		217E5B8D28ABF83C009A8C11 /* AddBarcode */ = {
+			isa = PBXGroup;
+			children = (
+				21CF2BE428928FFB00293E38 /* AddBarcodeView.swift */,
+				217E5B8E28ABF9F1009A8C11 /* AddBarcodeViewModel.swift */,
+			);
+			path = AddBarcode;
 			sourceTree = "<group>";
 		};
 		21857521289149C20082F2A0 /* Network */ = {
@@ -360,7 +374,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				21FFCCF4288C092F003152C2 /* BookListView.swift in Sources */,
+				217E5B8F28ABF9F1009A8C11 /* AddBarcodeViewModel.swift in Sources */,
 				21FDE2C7289013F700A779A5 /* CustomSlider.swift in Sources */,
+				217E5B8C28A8F83E009A8C11 /* BarCodeScanner.swift in Sources */,
 				21FFCCF2288C092F003152C2 /* DandelionApp.swift in Sources */,
 				21FFCD13288C33EB003152C2 /* Asset.swift in Sources */,
 				21D1DF0B289967B300C49DE1 /* BookDetailViewModel.swift in Sources */,

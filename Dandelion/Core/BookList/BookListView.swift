@@ -13,9 +13,11 @@ struct BookListView: View {
     @StateObject private var vm = BookListViewModel()
     @State private var searchText: String = ""
     @State private var showAddSheet = false
-    @State private var showAddSearchView = false
+    @State private var showAddBookCase: AddCase?
+    @State private var showAddBarcodeView = false
     @State private var isEdit = false
     @State private var selectedBook: Book?
+    
     private var columns: [GridItem] = [
         GridItem(.adaptive(minimum: 100), spacing: 20, alignment: .bottom)
     ]
@@ -101,19 +103,21 @@ struct BookListView: View {
                 
                 HStack(spacing: 8) {
                     GroupedSection(title: "Search", systemName: "magnifyingglass") {
-                        showAddSearchView = true
+                        showAddBookCase = .search
                     }
-                    GroupedSection(title: "Barcode", systemName: "barcode") { }
+                    GroupedSection(title: "Barcode", systemName: "barcode") {
+                        showAddBookCase = .barcode
+                    }
                 }
             }
         }
-        .fullScreenCover(isPresented: $showAddSearchView, onDismiss: {
+        .fullScreenCover(item: $showAddBookCase, onDismiss: {
             withAnimation(.spring()) {
                 showAddSheet = false
                 vm.fetchBookList()
             }
-        }) {
-            AddBookView(addCase: .search)
+        }) { item in
+            AddBookView(addCase: item)
         }
     }
     

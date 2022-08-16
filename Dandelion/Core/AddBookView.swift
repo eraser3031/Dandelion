@@ -8,17 +8,21 @@
 import SwiftUI
 import Kingfisher
 
-enum AddCase: String {
+enum AddCase: String, Identifiable {
     case search
     case barcode
     case camera
+    
+    var id: String {
+        self.rawValue
+    }
 }
 
 struct AddBookView: View {
     
     @State private var selectedItems: [Item] = []
-    
     var addCase: AddCase
+    
     var body: some View {
         ZStack(alignment: .top) {
             Color.theme.primary
@@ -33,9 +37,9 @@ struct AddBookView: View {
                     
                     switch addCase {
                     case .search:
-                        AddSearchView(selectedItem: $selectedItems)
+                        AddSearchView(selectedItems: $selectedItems)
                     case .barcode:
-                        EmptyView()
+                        AddBarcodeView(selectedItems: $selectedItems)
                     case .camera:
                         EmptyView()
                     }

@@ -9,7 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct AddSearchView: View {
-    @Binding var selectedItem: [Item]
+    @Binding var selectedItems: [Item]
     @StateObject private var vm = AddSearchViewModel()
     @FocusState private var focus: Bool
     @Environment(\.dismiss) var dismiss
@@ -29,7 +29,7 @@ struct AddSearchView: View {
                     Spacer()
                     
                     Button {
-                        vm.addBooks(items: selectedItem)
+                        vm.addBooks(items: selectedItems)
                         dismiss()
                     } label: {
                         Text("Done")
@@ -74,7 +74,7 @@ struct AddSearchView: View {
                 ScrollView {
                     VStack(spacing: 10) {
                         ForEach(vm.searchedItems, id: \.title) { item in
-                            SearchBookCellView(selectedItem: $selectedItem, item: item)
+                            SearchBookCellView(selectedItems: $selectedItems, item: item)
                         }
                     }
                     .padding(.horizontal, 30)
@@ -90,12 +90,12 @@ struct AddSearchView: View {
 
 struct SearchBookCellView: View {
     
-    @Binding var selectedItem: [Item]
+    @Binding var selectedItems: [Item]
     
     var item: Item
     
     var isSelected: Bool {
-        selectedItem.contains(where: {$0.id == item.id })
+        selectedItems.contains(where: {$0.id == item.id })
     }
     
     var body: some View {
@@ -128,13 +128,13 @@ struct SearchBookCellView: View {
         .contentShape(Rectangle())
         .onTapGesture {
             withAnimation(.spring()) {
-                if selectedItem.contains(where: {$0.id == item.id}) {
+                if selectedItems.contains(where: {$0.id == item.id}) {
                     withAnimation(.spring()) {
-                        selectedItem.removeAll(where: {$0.id == item.id})
+                        selectedItems.removeAll(where: {$0.id == item.id})
                     }
                 } else {
                     withAnimation(.spring()) {
-                        selectedItem.append(item)
+                        selectedItems.append(item)
                     }
                 }
             }
