@@ -70,6 +70,7 @@ struct BookMarkView: View {
                                 
                                 ZStack(alignment: .topTrailing) {
                                     Cell(bookmark)
+                                        .opacity(isEdit ? 0.5 : 1)
                                     
                                     if isEdit {
                                         Button {
@@ -78,8 +79,9 @@ struct BookMarkView: View {
                                             }
                                         } label: {
                                             Image(systemName: "xmark")
+                                                .font(.theme.caption)
                                         }
-                                        .buttonStyle(CircledButtonStyle())
+                                        .buttonStyle(EditCircledButtonStyle())
                                         .padding(10)
                                         .confirmationDialog("Are you sure?", isPresented: diaLog, titleVisibility: .visible) {
                                             Button("Delete Bookmark", role: .destructive) {

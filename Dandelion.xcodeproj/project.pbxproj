@@ -24,6 +24,7 @@
 		217E5B8C28A8F83E009A8C11 /* BarCodeScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217E5B8B28A8F83E009A8C11 /* BarCodeScanner.swift */; };
 		217E5B8F28ABF9F1009A8C11 /* AddBarcodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217E5B8E28ABF9F1009A8C11 /* AddBarcodeViewModel.swift */; };
 		217E5B9128ACC442009A8C11 /* Foundation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217E5B9028ACC442009A8C11 /* Foundation+Extension.swift */; };
+		217E5B9528ACDAE1009A8C11 /* TestARView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217E5B9428ACDAE1009A8C11 /* TestARView.swift */; };
 		21857523289149D20082F2A0 /* NetworkType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21857522289149D20082F2A0 /* NetworkType.swift */; };
 		218E63ED288C503A0023A8A0 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E63EC288C503A0023A8A0 /* SearchBar.swift */; };
 		21B1E6162892A714004593C7 /* BookListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B1E6152892A714004593C7 /* BookListViewModel.swift */; };
@@ -74,6 +75,7 @@
 		217E5B8B28A8F83E009A8C11 /* BarCodeScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarCodeScanner.swift; sourceTree = "<group>"; };
 		217E5B8E28ABF9F1009A8C11 /* AddBarcodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBarcodeViewModel.swift; sourceTree = "<group>"; };
 		217E5B9028ACC442009A8C11 /* Foundation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Foundation+Extension.swift"; sourceTree = "<group>"; };
+		217E5B9428ACDAE1009A8C11 /* TestARView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestARView.swift; sourceTree = "<group>"; };
 		21857522289149D20082F2A0 /* NetworkType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkType.swift; sourceTree = "<group>"; };
 		218E63EC288C503A0023A8A0 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		21B1E6152892A714004593C7 /* BookListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookListViewModel.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 		215F0A9C288FA6A40045FFF8 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				217E5B9328ACDAB8009A8C11 /* AR */,
 				217E5B9228ACC61F009A8C11 /* AddBook */,
 				21D1DF09289967A200C49DE1 /* BookDetail */,
 				21B1E6172892ABA2004593C7 /* BookList */,
@@ -183,6 +186,14 @@
 				217E5B8D28ABF83C009A8C11 /* AddBarcode */,
 			);
 			path = AddBook;
+			sourceTree = "<group>";
+		};
+		217E5B9328ACDAB8009A8C11 /* AR */ = {
+			isa = PBXGroup;
+			children = (
+				217E5B9428ACDAE1009A8C11 /* TestARView.swift */,
+			);
+			path = AR;
 			sourceTree = "<group>";
 		};
 		21857521289149C20082F2A0 /* Network */ = {
@@ -415,6 +426,7 @@
 				215F0AA4288FA78A0045FFF8 /* BottomSheet.swift in Sources */,
 				21CF2BE528928FFB00293E38 /* AddBarcodeView.swift in Sources */,
 				21CF2BE3289280BD00293E38 /* BookSearchService.swift in Sources */,
+				217E5B9528ACDAE1009A8C11 /* TestARView.swift in Sources */,
 				215F0A9A288FA68A0045FFF8 /* BookInfoView.swift in Sources */,
 				210DFD9C28929A2D008E3C07 /* View+Extension.swift in Sources */,
 				21D1DF082899600000C49DE1 /* Date+Extension.swift in Sources */,
