@@ -51,6 +51,7 @@ class BookSearchService {
             URLQueryItem(name: "ItemId", value: isbn),
             URLQueryItem(name: "output", value: "js"),
             URLQueryItem(name: "Version", value: "20131101"),
+            URLQueryItem(name: "Cover", value: "Big"),
             URLQueryItem(name: "OptResult", value: "packing")
         ]
         var components = URLComponents(string: "http://www.aladin.co.kr/ttb/api/ItemLookUp.aspx?")

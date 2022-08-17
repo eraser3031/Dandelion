@@ -49,7 +49,10 @@ struct BarCodeScanner: UIViewControllerRepresentable {
         context.coordinator.previewLayer.videoGravity = .resizeAspectFill
         vc.view.layer.addSublayer(context.coordinator.previewLayer)
         
-        context.coordinator.captureSession.startRunning()
+        Task(priority: .background) {
+            context.coordinator.captureSession.startRunning()
+        }
+        
         return vc
     }
     
