@@ -10,6 +10,7 @@ import SwiftUI
 
 struct BarCodeScanner: UIViewControllerRepresentable {
     
+    @Binding var selectedItems: [Item]
     @Binding var isbns: [String]
     @Environment(\.presentationMode) private var presentationMode
     
@@ -52,7 +53,15 @@ struct BarCodeScanner: UIViewControllerRepresentable {
         return vc
     }
     
-    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) { }
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+        if selectedItems.count == 0 {
+            context.coordinator.previewLayer.cornerRadius = 0
+            context.coordinator.previewLayer.frame = UIScreen.main.bounds
+        } else {
+            context.coordinator.previewLayer.cornerRadius = 32
+            context.coordinator.previewLayer.frame = uiViewController.view.layer.bounds
+        }
+    }
     
     class Coordinator : NSObject, AVCaptureMetadataOutputObjectsDelegate {
         let parent: BarCodeScanner

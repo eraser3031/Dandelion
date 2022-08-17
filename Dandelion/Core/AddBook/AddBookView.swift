@@ -67,7 +67,7 @@ struct AddBookView: View {
                                         selectedItems.removeAll(where: {$0.id == i.id})
                                         if addCase == .barcode {
                                             isbns.removeAll(where: {$0 == i.isbn13})
-                                        } 
+                                        }
                                     }
                                 } label: {
                                     Image(systemName: "xmark")
@@ -80,6 +80,7 @@ struct AddBookView: View {
                     }
                     .padding(.vertical, selectedItems.isEmpty ? 0 : 20)
                 }
+                .background(Color.theme.primary)
             }
             .frame(maxHeight: .infinity)
             .ignoresSafeArea(.keyboard)

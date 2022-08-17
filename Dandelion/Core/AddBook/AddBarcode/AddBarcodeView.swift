@@ -16,7 +16,7 @@ struct AddBarcodeView: View {
     
     var body: some View {
         ZStack {
-            BarCodeScanner(isbns: $isbns)
+            BarCodeScanner(selectedItems: $selectedItems, isbns: $isbns)
                 .ignoresSafeArea()
                 .overlay {
                     Color.black.opacity(0.8)
@@ -59,7 +59,8 @@ struct AddBarcodeView: View {
                 Spacer()
                 Button {
                     withAnimation(.spring()) {
-                        print("hi")
+                        vm.addBooks(items: selectedItems)
+                        dismiss()
                     }
                 } label: {
                     Text("Done")
