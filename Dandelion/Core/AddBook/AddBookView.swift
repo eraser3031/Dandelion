@@ -49,8 +49,10 @@ struct AddBookView: View {
                 
                 ScrollView(.horizontal) {
                     HStack(spacing: 20) {
-                        Spacer()
-                            .frame(width: 0)
+                        if selectedItems.count != 0 {                        
+                            Spacer()
+                                .frame(width: 0)
+                        }
                         ForEach(selectedItems) { i in
                             ZStack(alignment: .bottomTrailing) {
                                 KFImage(URL(string: i.cover))
@@ -80,7 +82,7 @@ struct AddBookView: View {
                     }
                     .padding(.vertical, selectedItems.isEmpty ? 0 : 20)
                 }
-                .background(Color.theme.primary)
+                .background(Color.theme.primary.opacity(addCase == .barcode ? 1 : 0))
             }
             .frame(maxHeight: .infinity)
             .ignoresSafeArea(.keyboard)

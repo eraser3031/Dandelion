@@ -16,6 +16,8 @@ struct BookInfoView: View {
     @Binding var showRatingSheet: Bool
     @Binding var score: Int
     
+    @State private var ratingHeight: CGFloat = 0
+    
     var year: String {
         "\((vm.book.publishedDate ?? Date()).year)"
     }
@@ -27,11 +29,16 @@ struct BookInfoView: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 20) {
-                VStack(spacing: 16) {
+                VStack(spacing: 20) {
                     KFImage(vm.book.coverURL)
                         .resizable()
                         .scaledToFit()
-                        .frame(height: 150) //
+                        .frame(height: 150)
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 4, style: .continuous)
+                                .stroke(Color.theme.labelBackground, lineWidth: 0.5)
+                        }
+                    
                     VStack(spacing: 4) {
                         Text(vm.book.title ?? "")
                             .font(.theme.headline)
@@ -51,6 +58,9 @@ struct BookInfoView: View {
                 )
                 
                 ZStack {
+                    Spacer()
+                        .frame(height: ratingHeight)
+                    
                     if !showRatingSheet {
                         innerRating
                     }
@@ -108,6 +118,10 @@ struct BookInfoView: View {
             RoundedRectangle(cornerRadius: 32, style: .continuous)
                 .fill(Color.theme.subGroupedBackground)
                 .matchedGeometryEffect(id: "background", in: id)
+                .modifier(SizeModifier())
+                .onPreferenceChange(SizePreferenceKey.self) { size in
+                    ratingHeight = size.height
+                }
         )
     }
     

@@ -49,21 +49,18 @@ struct BarCodeScanner: UIViewControllerRepresentable {
         context.coordinator.previewLayer.videoGravity = .resizeAspectFill
         vc.view.layer.addSublayer(context.coordinator.previewLayer)
         
-        Task(priority: .background) {
-            context.coordinator.captureSession.startRunning()
-        }
-        
+        context.coordinator.captureSession.startRunning()
         return vc
     }
     
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
-        if selectedItems.count == 0 {
-            context.coordinator.previewLayer.cornerRadius = 0
-            context.coordinator.previewLayer.frame = UIScreen.main.bounds
-        } else {
-            context.coordinator.previewLayer.cornerRadius = 32
-            context.coordinator.previewLayer.frame = uiViewController.view.layer.bounds
-        }
+//        if selectedItems.count == 0 {
+//            context.coordinator.previewLayer.cornerRadius = 0
+//            context.coordinator.previewLayer.frame = UIScreen.main.bounds
+//        } else {
+//            context.coordinator.previewLayer.cornerRadius = 32
+//            context.coordinator.previewLayer.frame = uiViewController.view.layer.bounds
+//        }
     }
     
     class Coordinator : NSObject, AVCaptureMetadataOutputObjectsDelegate {
@@ -78,7 +75,6 @@ struct BarCodeScanner: UIViewControllerRepresentable {
             if let metaDataObject = metadataObjects.first {
                 guard let readableObject = metaDataObject as? AVMetadataMachineReadableCodeObject else { return }
                 guard let stringValue = readableObject.stringValue else { return }
-                AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
                 found(code: stringValue)
                 if parent.isbns.count > 4 {
                     captureSession.stopRunning()
