@@ -21,6 +21,8 @@ enum AddCase: String, Identifiable {
 struct AddBookView: View {
     
     @State private var selectedItems: [Item] = []
+    @State private var isbns: [String] = []
+    
     var addCase: AddCase
     
     var body: some View {
@@ -39,7 +41,7 @@ struct AddBookView: View {
                     case .search:
                         AddSearchView(selectedItems: $selectedItems)
                     case .barcode:
-                        AddBarcodeView(selectedItems: $selectedItems)
+                        AddBarcodeView(selectedItems: $selectedItems, isbns: $isbns)
                     case .camera:
                         EmptyView()
                     }
@@ -63,6 +65,9 @@ struct AddBookView: View {
                                 Button {
                                     withAnimation(.spring()) {
                                         selectedItems.removeAll(where: {$0.id == i.id})
+                                        if addCase == .barcode {
+                                            isbns.removeAll(where: {$0 == i.isbn13})
+                                        } 
                                     }
                                 } label: {
                                     Image(systemName: "xmark")

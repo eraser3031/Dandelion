@@ -11,7 +11,7 @@ struct AddBarcodeView: View {
     
     @Binding var selectedItems: [Item]
     @StateObject var vm = AddBarcodeViewModel()
-    @State private var isbns: [String] = []
+    @Binding var isbns: [String]
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
