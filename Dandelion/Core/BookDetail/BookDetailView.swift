@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 enum BookDetailCase: String {
     case info
@@ -23,6 +24,7 @@ struct BookDetailView: View {
     @State private var showManageSheet = false
     @State private var isEdit = false
     @State private var deleteBookDialog = false
+    @State private var showAR = false
     @Namespace var id
     
     init(book: Book) {
@@ -42,6 +44,17 @@ struct BookDetailView: View {
                     .buttonStyle(.plain)
                     
                     Spacer()
+                    
+                    Button {
+                        showAR = true
+                    } label: {
+                        Image(systemName: "arkit")
+                            .font(.theme.title2)
+                    }
+                    .buttonStyle(.plain)
+                    .fullScreenCover(isPresented: $showAR) {
+                        TestARView(url: vm.book.coverURL?.absoluteString ?? "")
+                    }
                 }
                 
                 HStack(spacing: 12) {
