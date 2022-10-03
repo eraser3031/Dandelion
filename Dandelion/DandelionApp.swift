@@ -11,7 +11,7 @@ import SwiftUI
 struct DandelionApp: App {
     
     @State private var isLaunch = true
-    
+    @State private var point = CGPoint.zero
     let coreDataManager = CoreDataManager.shared
     
     var body: some Scene {
@@ -19,7 +19,6 @@ struct DandelionApp: App {
             ZStack {
                 BookListView()
                     .environment(\.managedObjectContext, coreDataManager.container.viewContext)
-                
                 ZStack {
                     if isLaunch {
                         LaunchScreenView()

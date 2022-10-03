@@ -10,33 +10,42 @@ import RealityKit
 import SwiftUI
 
 struct TestARView: View {
-    
+    var bookmarks: [Bookmark]
+    var bookShape: BookShape
     var url: String
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        ARViewContainer(url: url)
-            .ignoresSafeArea()
+        ZStack(alignment: .topTrailing) {
+            
+            ARViewContainer(bookmarks: bookmarks, bookShape: bookShape, url: url)
+                .edgesIgnoringSafeArea(.all)
+            
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "xmark")
+            }
+            .buttonStyle(CircledButtonStyle())
+
+        }
     }
 }
 
 struct ARViewContainer: UIViewRepresentable {
-    
+    var bookmarks: [Bookmark]
+    var bookShape: BookShape
     var url: String
     let arView: CustomARView
     
-    init(url: String) {
+    init(bookmarks: [Bookmark], bookShape: BookShape, url: String) {
+        self.bookmarks = bookmarks
+        self.bookShape = bookShape
         self.url = url
-        self.arView = CustomARView(frame: .zero, url: url)
+        self.arView = CustomARView(frame: .zero, bookmarks: bookmarks, bookShape: bookShape, url: url)
     }
     
-    func makeUIView(context: Context) -> CustomARView {
-//        var referenceImages = Set<ARReferenceImage>()
-//        guard let cgImage = image.cgImage else { fatalError("이러면 안되는데..") }
-//        let imageWidth = CGFloat(cgImage.width)
-//        let customARReferenceImage = ARReferenceImage(cgImage, orientation: .up, physicalWidth: imageWidth)
-//        customARReferenceImage.name = "MyCustomARImage"
-//        referenceImages.insert(customARReferenceImage)
-        
+    func makeUIView(context: Context) -> CustomARView {        
         arView.session.delegate = context.coordinator
         
         let configuration = ARImageTrackingConfiguration()
@@ -77,6 +86,28 @@ struct ARViewContainer: UIViewRepresentable {
             let anchor = AnchorEntity(anchor: imageAnchor)
             anchor.addChild(entity)
             parent.arView.scene.addAnchor(anchor)
+            let bookmarkEntities = displayBookmarks()
+            bookmarkEntities.forEach { entity in
+                anchor.addChild(entity)
+            }
+        }
+        
+        func displayBookmarks() -> [ModelEntity] {
+            // ? = 책 두께 * 현재페이지 / 전체페이지
+            var entities: [ModelEntity] = []
+            for (i, bookmark) in parent.bookmarks.enumerated() {
+                let y = CGFloat(parent.bookShape.depth) * CGFloat(bookmark.page) / CGFloat(parent.bookShape.pages)
+                let x = CGFloat(parent.bookShape.width) / 2
+                
+                let mesh = MeshResource.generatePlane(width: 0.01, height: 0.01)
+                let material = UnlitMaterial.init(color: .blue)
+                let entity = ModelEntity(mesh: mesh, materials: [material])
+                
+//                entity.position = [x,y,CGFloat(i)/10]
+                entities.append(entity)
+            }
+            
+            return entities
         }
     }
     
@@ -87,10 +118,14 @@ struct ARViewContainer: UIViewRepresentable {
 
 class CustomARView: ARView {
     
+    var bookmarks: [Bookmark]
+    var bookShape: BookShape
     var url: String
     var newReferenceImages:Set<ARReferenceImage> = Set<ARReferenceImage>()
     
-    init(frame frameRect: CGRect, url: String) {
+    init(frame frameRect: CGRect, bookmarks:[Bookmark], bookShape: BookShape, url: String) {
+        self.bookmarks = bookmarks
+        self.bookShape = bookShape
         self.url = url
         super.init(frame: .zero)
         self.loadImageFrom(url: URL(string: url)!) { (result) in
@@ -103,6 +138,8 @@ class CustomARView: ARView {
     
     required init(frame frameRect: CGRect) {
         self.url = ""
+        self.bookShape = BookShape()
+        self.bookmarks = []
         super.init(frame: .zero)
     }
     

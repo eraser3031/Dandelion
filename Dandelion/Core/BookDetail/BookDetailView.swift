@@ -52,9 +52,9 @@ struct BookDetailView: View {
                             .font(.theme.title2)
                     }
                     .buttonStyle(.plain)
-                    .fullScreenCover(isPresented: $showAR) {
-                        TestARView(url: vm.book.coverURL?.absoluteString ?? "")
-                    }
+//                    .fullScreenCover(isPresented: $showAR) {
+//                        TestARView(url: vm.book.coverURL?.absoluteString ?? "")
+//                    }
                 }
                 
                 HStack(spacing: 12) {

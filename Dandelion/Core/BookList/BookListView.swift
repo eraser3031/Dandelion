@@ -73,7 +73,7 @@ struct BookListView: View {
                     booksView
                 }
             }
-            .toolbar(.hidden, in: .navigationBar)
+            .toolbar(.hidden, for: .navigationBar)
             .padding(.top, 20)
             .bottomSheet(isPresented: $showAddSheet) {
                 sheetContentView
@@ -208,7 +208,7 @@ struct BookListCell: View {
             ZStack(alignment: .bottomTrailing) {
                 NavigationLink(destination: {
                     BookDetailView(book: book)
-                        .toolbar(.hidden, in: .navigationBar)
+                        .toolbar(.hidden, for: .navigationBar)
                 }, label: {
                     KFImage(url)
                         .resizable()

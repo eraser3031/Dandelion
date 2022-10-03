@@ -2,7 +2,7 @@
 //  BookSearchService.swift
 //  Dandelion
 //
-//  Created by 김예훈 on 2022/07/28.
+//  Created by 김예훈 on 2022/07/28.ㄹ  ㅊ
 //
 
 import Foundation
@@ -24,7 +24,7 @@ class BookSearchService {
             URLQueryItem(name: "QueryType", value: "Title"),
             URLQueryItem(name: "MaxResults", value: "40"),
             URLQueryItem(name: "start", value: "1"),
-            URLQueryItem(name: "SearchTarget", value: region == .korean ? "Book" : "Foreign"),
+            URLQueryItem(name: "SearchTarget", value: region == .korean ? "Music" : "Foreign"),
             URLQueryItem(name: "output", value: "js"),
             URLQueryItem(name: "Cover", value: "Big"),
             URLQueryItem(name: "Version", value: "20131101"),
