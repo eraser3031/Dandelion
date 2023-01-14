@@ -135,18 +135,10 @@ struct BookDetailView: View {
             if sheetCase == .info {
                 BookInfoView(vm: vm, id: id, review: $review, showRatingSheet: $showRatingSheet, score: $score)
                     .padding(.horizontal, 30)
-                    .transition(
-                        .asymmetric(insertion: .move(edge: .leading),
-                                    removal: .move(edge: .trailing)
-                                   ).combined(with: .opacity)
-                    )
+                    .transition(.move(edge: .leading).combined(with: .opacity))
             } else {
                 BookMarkView(vm: vm, showManageSheet: $showManageSheet, isEdit: $isEdit)
-                    .transition(
-                        .asymmetric(insertion: .move(edge: .trailing),
-                                    removal: .move(edge: .leading))
-                        .combined(with: .opacity)
-                    )
+                    .transition(.move(edge: .trailing).combined(with: .opacity))
             }
         }
         .padding(.top, 8)
