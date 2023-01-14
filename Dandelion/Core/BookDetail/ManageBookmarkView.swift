@@ -49,16 +49,12 @@ struct ManageBookmarkView: View {
                     TextEditor(text: $note)
                         .scrollContentBackground(.hidden)
                         .focused($isInputActive)
+                        .font(.theme.regularSerif)
                         .toolbar {
                             ToolbarItemGroup(placement: .keyboard) {
-                                HStack {
-                                    Spacer()
-                                    Button("Close") {
-                                        isInputActive = false
-                                    }
-                                    .font(.theme.regular)
-                                    .padding(.leading, 16)
-                                    .tint(.theme.primary)
+                                Spacer()
+                                Button("Close") {
+                                    isInputActive = false
                                 }
                             }
                         }
@@ -67,7 +63,6 @@ struct ManageBookmarkView: View {
                             RoundedRectangle(cornerRadius: 12, style: .continuous)
                                 .fill(Color.theme.groupedBackground)
                         )
-                        .font(.theme.regularSerif)
                         .overlay(alignment: .bottomTrailing) {
                             ScanButton(text: $note)
                                 .fixedSize()
