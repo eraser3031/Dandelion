@@ -47,6 +47,7 @@ struct ManageBookmarkView: View {
                         .frame(height: 1)
                     
                     TextEditor(text: $note)
+                        .scrollContentBackground(.hidden)
                         .focused($isInputActive)
                         .toolbar {
                             ToolbarItemGroup(placement: .keyboard) {
@@ -96,13 +97,10 @@ struct ManageBookmarkView: View {
             .padding(20)
         }
         .onAppear() {
-            UITextView.appearance().backgroundColor = .clear
             if isEditMode {
                 note = bookmark?.note ?? ""
                 page = Int(bookmark?.page ?? 0)
             }
-        }.onDisappear() {
-            UITextView.appearance().backgroundColor = nil
         }
     }
 }
