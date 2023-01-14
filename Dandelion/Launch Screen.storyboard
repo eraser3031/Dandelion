@@ -25,7 +25,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="Gop-Ta-h26">
-                                <rect key="frame" x="163" y="395" width="64" height="64"/>
+                                <rect key="frame" x="163" y="390" width="64" height="64"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="Mtk-cZ-G7p"/>
@@ -37,15 +37,15 @@
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Gop-Ta-h26" firstAttribute="centerY" secondItem="Bcu-3y-fUS" secondAttribute="centerY" id="07O-bz-8GQ"/>
                             <constraint firstItem="Bcu-3y-fUS" firstAttribute="centerX" secondItem="obG-Y5-kRd" secondAttribute="centerX" id="5cz-MP-9tL"/>
                             <constraint firstItem="nB2-qW-2zd" firstAttribute="bottom" secondItem="Bcu-3y-fUS" secondAttribute="bottom" constant="34" id="9RE-Wo-YMS"/>
                             <constraint firstItem="Bcu-3y-fUS" firstAttribute="trailing" secondItem="nB2-qW-2zd" secondAttribute="trailing" id="OfJ-6U-Hgq"/>
                             <constraint firstItem="obG-Y5-kRd" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" symbolic="YES" id="SfN-ll-jLj"/>
                             <constraint firstItem="Bcu-3y-fUS" firstAttribute="top" secondItem="nB2-qW-2zd" secondAttribute="top" constant="44" id="TNf-on-bYC"/>
                             <constraint firstAttribute="bottom" secondItem="obG-Y5-kRd" secondAttribute="bottom" constant="20" id="Y44-ml-fuU"/>
+                            <constraint firstItem="Gop-Ta-h26" firstAttribute="centerY" secondItem="nB2-qW-2zd" secondAttribute="centerY" id="ber-zK-3Rm"/>
+                            <constraint firstItem="Gop-Ta-h26" firstAttribute="centerX" secondItem="nB2-qW-2zd" secondAttribute="centerX" id="bhU-JR-xOi"/>
                             <constraint firstItem="nB2-qW-2zd" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" id="hHI-SE-tWc"/>
-                            <constraint firstItem="Gop-Ta-h26" firstAttribute="centerX" secondItem="Bcu-3y-fUS" secondAttribute="centerX" id="wP5-iw-UhC"/>
                         </constraints>
                     </view>
                 </viewController>

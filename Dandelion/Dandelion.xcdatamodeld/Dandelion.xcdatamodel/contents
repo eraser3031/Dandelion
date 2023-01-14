@@ -13,6 +13,7 @@
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="bookmarks" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Bookmark" inverseName="book" inverseEntity="Bookmark"/>
         <relationship name="rating" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Rating" inverseName="book" inverseEntity="Rating"/>
+        <relationship name="shape" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="BookShape" inverseName="book" inverseEntity="BookShape"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="books" inverseEntity="User"/>
     </entity>
     <entity name="Bookmark" representedClassName="Bookmark" syncable="YES" codeGenerationType="class">
@@ -21,6 +22,14 @@
         <attribute name="note" optional="YES" attributeType="String"/>
         <attribute name="page" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="book" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Book" inverseName="bookmarks" inverseEntity="Book"/>
+    </entity>
+    <entity name="BookShape" representedClassName="BookShape" syncable="YES" codeGenerationType="class">
+        <attribute name="depth" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="height" optional="YES" attributeType="Integer 16" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="pages" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="width" optional="YES" attributeType="Integer 16" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="book" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Book" inverseName="shape" inverseEntity="Book"/>
     </entity>
     <entity name="Rating" representedClassName="Rating" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -34,9 +43,10 @@
         <relationship name="books" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Book" inverseName="user" inverseEntity="Book"/>
     </entity>
     <elements>
-        <element name="User" positionX="-63" positionY="-18" width="128" height="74"/>
-        <element name="Book" positionX="-54" positionY="18" width="128" height="224"/>
+        <element name="Book" positionX="-54" positionY="18" width="128" height="239"/>
         <element name="Bookmark" positionX="-36" positionY="81" width="128" height="104"/>
+        <element name="BookShape" positionX="-54" positionY="108" width="128" height="119"/>
         <element name="Rating" positionX="-27" positionY="117" width="128" height="89"/>
+        <element name="User" positionX="-63" positionY="-18" width="128" height="74"/>
     </elements>
 </model>

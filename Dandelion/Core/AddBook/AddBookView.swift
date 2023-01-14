@@ -6,22 +6,31 @@
 //
 
 import SwiftUI
+import Kingfisher
 
-enum AddCase: String {
+enum AddCase: String, Identifiable {
     case search
     case barcode
     case camera
+    
+    var id: String {
+        self.rawValue
+    }
 }
 
 struct AddBookView: View {
-    @State private var selectedBooks: [String] = ["Sasdf", "asdf","as","a","asd"]
+    
+    @State private var selectedItems: [Item] = []
+    @State private var isbns: [String] = []
+    
     var addCase: AddCase
+    
     var body: some View {
         ZStack(alignment: .top) {
             Color.theme.primary
                 .ignoresSafeArea()
             
-            VStack {
+            VStack(spacing: 0) {
                 ZStack {
                     Color.theme.background
                         .cornerRadius(32, corners: [.bottomLeft, .bottomRight])
@@ -30,9 +39,9 @@ struct AddBookView: View {
                     
                     switch addCase {
                     case .search:
-                        AddSearchView()
+                        AddSearchView(selectedItems: $selectedItems)
                     case .barcode:
-                        EmptyView()
+                        AddBarcodeView(selectedItems: $selectedItems, isbns: $isbns)
                     case .camera:
                         EmptyView()
                     }
@@ -40,11 +49,13 @@ struct AddBookView: View {
                 
                 ScrollView(.horizontal) {
                     HStack(spacing: 20) {
-                        Spacer()
-                            .frame(width: 0)
-                        ForEach(selectedBooks.indices, id: \.self) { i in
+                        if selectedItems.count != 0 {                        
+                            Spacer()
+                                .frame(width: 0)
+                        }
+                        ForEach(selectedItems) { i in
                             ZStack(alignment: .bottomTrailing) {
-                                Image("Book\(i+1)")
+                                KFImage(URL(string: i.cover))
                                     .resizable()
                                     .scaledToFit()
                                     .frame(height: 100)
@@ -54,7 +65,12 @@ struct AddBookView: View {
                                     .cornerRadius(4)
                                 
                                 Button {
-                                    print("hihi")
+                                    withAnimation(.spring()) {
+                                        selectedItems.removeAll(where: {$0.id == i.id})
+                                        if addCase == .barcode {
+                                            isbns.removeAll(where: {$0 == i.isbn13})
+                                        }
+                                    }
                                 } label: {
                                     Image(systemName: "xmark")
                                 }
@@ -64,8 +80,9 @@ struct AddBookView: View {
                             }
                         }
                     }
-                    .padding(.vertical, 20)
+                    .padding(.vertical, selectedItems.isEmpty ? 0 : 20)
                 }
+                .background(Color.theme.primary.opacity(addCase == .barcode ? 1 : 0))
             }
             .frame(maxHeight: .infinity)
             .ignoresSafeArea(.keyboard)

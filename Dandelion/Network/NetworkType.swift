@@ -26,7 +26,16 @@ struct SearchResult: Codable {
 }
 
 // MARK: - Item
-struct Item: Codable {
+struct Item: Codable, Identifiable, Equatable {
+    
+    static func == (lhs: Item, rhs: Item) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    var id: String {
+        return String(itemID)
+    }
+    
     let title: String
     let link: String
     let author, pubDate, itemDescription, isbn: String
@@ -57,7 +66,17 @@ struct Item: Codable {
     }
 }
 
+// MARK: - SubInfo
 struct SubInfo: Codable {
+    let subTitle, originalTitle: String?
+    let itemPage: Int?
+    let packing: Packing?
+}
+
+// MARK: - Packing
+struct Packing: Codable {
+    let styleDesc: String
+    let weight, sizeDepth, sizeHeight, sizeWidth: Int
 }
 
 struct SeriesInfo: Codable {
@@ -74,5 +93,8 @@ struct SeriesInfo: Codable {
 enum StockStatus: String, Codable {
     case empty = ""
     case outOfPrint = "절판"
+    case outOfPrintOldVersion = "구판절판"
     case soldOut = "품절"
+    case preSale = "예약판매"
+    case preSaleEnded = "예약판매종료"
 }

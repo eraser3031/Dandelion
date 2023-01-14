@@ -34,6 +34,19 @@ struct CircledButtonStyle: ButtonStyle {
     }
 }
 
+struct EditCircledButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .frame(width: 25, height: 25)
+            .foregroundColor(.theme.primary)
+            .font(.theme.plainButton)
+            .background(
+                Circle()
+                    .fill(Color.theme.labelBackground)
+            )
+    }
+}
+
 struct SheetDismissButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label

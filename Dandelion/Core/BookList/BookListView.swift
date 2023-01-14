@@ -6,62 +6,78 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct BookListView: View {
     
     @StateObject private var vm = BookListViewModel()
     @State private var searchText: String = ""
     @State private var showAddSheet = false
-    @State private var showAddSearchView = false
+    @State private var showAddBookCase: AddCase?
+    @State private var showAddBarcodeView = false
+    @State private var isEdit = false
+    @State private var selectedBook: Book?
     
     private var columns: [GridItem] = [
-        GridItem(.adaptive(minimum: 100), spacing: 12, alignment: .bottom)
+        GridItem(.adaptive(minimum: 100), spacing: 20, alignment: .bottom)
     ]
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            Group {
-                Image.logo
-                    .resizable()
-                    .foregroundColor(.theme.dandelion)
-                    .frame(width: 32, height: 32)
-                
-                SearchBar(text: $searchText)
-                
-                HStack(alignment: .center, spacing: 16) {
-                    Text("132")
-                        .font(.theme.headlineLabel)
-                    Spacer()
-                    Button {
-                        print("hi")
-                    } label: {
-                        Label("Edit", systemImage: "pencil")
-                            .font(.theme.plainButton)
-                    }
-                    .buttonStyle(.plain)
+        NavigationView {
+            VStack(alignment: .leading, spacing: 20) {
+                Group {
+                    Image.logo
+                        .resizable()
+                        .foregroundColor(.theme.dandelion)
+                        .frame(width: 32, height: 32)
                     
-                    Button {
-                        withAnimation(.spring()) {
-                            showAddSheet = true
-                        }
-                    } label: {
-                        Label("Add", systemImage: "plus")
+                    SearchBar(text: $searchText)
+                    
+                    HStack(alignment: .center, spacing: 16) {
+                        Text("132")
+                            .font(.theme.headlineLabel)
+                        Spacer()
+                        
+                        Button {
+                            withAnimation(.spring()) {
+                                isEdit.toggle()
+                            }
+                        } label: {
+                            Group {
+                                if isEdit {
+                                    Text("Done")
+                                } else {
+                                    Label("Edit", systemImage: "pencil")
+                                }
+                            }
                             .font(.theme.plainButton)
+                        }
+                        .buttonStyle(.plain)
+                        
+                        Button {
+                            withAnimation(.spring()) {
+                                showAddSheet = true
+                            }
+                        } label: {
+                            Label("Add", systemImage: "plus")
+                                .font(.theme.plainButton)
+                        }
+                        .buttonStyle(.plain)
                     }
-                    .buttonStyle(.plain)
+                }
+                .padding(.horizontal, 20)
+                
+                if vm.books.count == 0 {
+                    noResultView
+                } else {
+                    booksView
                 }
             }
-            .padding(.horizontal, 20)
-            
-            if vm.books.count == 0 {
-                noResultView
-            } else {
-                booksView
+            .toolbar(.hidden, for: .navigationBar)
+            .padding(.top, 20)
+            .bottomSheet(isPresented: $showAddSheet) {
+                sheetContentView
             }
-        }
-        .padding(.top, 20)
-        .bottomSheet(isPresented: $showAddSheet) {
-            sheetContentView
         }
     }
     
@@ -87,14 +103,21 @@ struct BookListView: View {
                 
                 HStack(spacing: 8) {
                     GroupedSection(title: "Search", systemName: "magnifyingglass") {
-                        showAddSearchView = true
+                        showAddBookCase = .search
                     }
-                    GroupedSection(title: "Barcode", systemName: "barcode") { }
+                    GroupedSection(title: "Barcode", systemName: "barcode") {
+                        showAddBookCase = .barcode
+                    }
                 }
             }
         }
-        .fullScreenCover(isPresented: $showAddSearchView) {
-            AddBookView(addCase: .search)
+        .fullScreenCover(item: $showAddBookCase, onDismiss: {
+            withAnimation(.spring()) {
+                showAddSheet = false
+                vm.fetchBookList()
+            }
+        }) { item in
+            AddBookView(addCase: item)
         }
     }
     
@@ -102,21 +125,17 @@ struct BookListView: View {
         ScrollView {
             Spacer()
                 .frame(height: 10)
-            LazyVGrid(columns: columns, spacing: 30) {
+            LazyVGrid(columns: columns, spacing: 40) {
                 ForEach(vm.books) { book in
-                    if let url = book.coverURL {
-                        AsyncImage(url: url) { imagePhase in
-                            imagePhase.image?
-                                .resizable()
-                                .scaledToFit()
-                                .cornerRadius(4)
+                    BookListCell(book: book, isEdit: isEdit) {
+                        withAnimation(.spring()) {
+                            vm.delete(book: book)
                         }
                     }
                 }
             }
             .padding(.horizontal, 20)
         }
-        .shadow(color: .theme.shadow.opacity(0.2), radius: 20, y: 20)
     }
     
     private var noResultView: some View {
@@ -140,31 +159,9 @@ struct BookListView: View {
                 Label("Add Book", systemImage: "plus")
             }
             .buttonStyle(FilledButtonStyle())
-
+            
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-}
-
-extension BookListView {
-    
-    private func getMovie() async -> [Item] {
-        guard let url = URL(string: "http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttberaser30311317001&Query=kakao&QueryType=Title&MaxResults=10&start=1&SearchTarget=Book&output=js&Cover=Big&Version=20131101") else {
-            return []
-        }
-
-        do {
-            let (data, response) = try await URLSession.shared.data(from: url)
-            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                return []
-            }
-
-            let popularMovie = try JSONDecoder().decode(SearchResult.self, from: data)
-            return popularMovie.item
-        } catch {
-            print(error)
-            return []
-        }
     }
 }
 
@@ -195,6 +192,63 @@ struct GroupedSection: View {
             )
         }
         .buttonStyle(.plain)
+    }
+}
+
+struct BookListCell: View {
+    
+    var book: Book
+    var isEdit: Bool
+    let removeAction: () -> Void
+    
+    @State private var deleteBookDialog = false
+    
+    var body: some View {
+        if let url = book.coverURL {
+            ZStack(alignment: .bottomTrailing) {
+                NavigationLink(destination: {
+                    BookDetailView(book: book)
+                        .toolbar(.hidden, for: .navigationBar)
+                }, label: {
+                    KFImage(url)
+                        .resizable()
+                        .scaledToFit()
+                        .cornerRadius(4)
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 4, style: .continuous)
+                                .stroke(Color.theme.labelBackground, lineWidth: 0.5)
+                        }
+                })
+                .overlay(
+                    Group {
+                        if isEdit {
+                            Color.theme.primary.opacity(0.2)
+                        }
+                    }
+                )
+                
+                ZStack {
+                    
+                    if isEdit {
+                        Button {
+                            deleteBookDialog = true
+                        } label: {
+                            Image(systemName: "xmark")
+                        }
+                        .buttonStyle(SheetDismissButtonStyle())
+                        .padding(8)
+                    }
+                }
+            }
+            .confirmationDialog("Are you sure?", isPresented: $deleteBookDialog, titleVisibility: .visible) {
+                Button("Delete Book", role: .destructive) {
+                    removeAction()
+                }
+                Button("Cancel", role: .cancel) {
+                    deleteBookDialog = false
+                }
+            }
+        }
     }
 }
 

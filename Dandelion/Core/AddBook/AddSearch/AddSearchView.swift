@@ -9,6 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct AddSearchView: View {
+    @Binding var selectedItems: [Item]
     @StateObject private var vm = AddSearchViewModel()
     @FocusState private var focus: Bool
     @Environment(\.dismiss) var dismiss
@@ -28,6 +29,7 @@ struct AddSearchView: View {
                     Spacer()
                     
                     Button {
+                        vm.addBooks(items: selectedItems)
                         dismiss()
                     } label: {
                         Text("Done")
@@ -53,17 +55,31 @@ struct AddSearchView: View {
             }
             .padding(.horizontal, 30)
             
-            ScrollView {
-                VStack(spacing: 10) {
-                    ForEach(vm.searchedItems, id: \.title) { item in
-                        SearchBookCellView(thumbnail: URL(string: item.cover),
-                                           name: item.title,
-                                           author: item.author)
-                    }
+            if vm.searchedItems.isEmpty, !vm.searchText.isEmpty {
+                VStack(spacing: 16) {
+                    Spacer()
+                    
+                    Image.seed
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 70)
+                    
+                    Text("No results..")
+                        .font(.theme.subHeadline)
+                    
+                    Spacer()
                 }
-                .padding(.horizontal, 30)
+                .foregroundColor(.theme.tertiary)
+            } else {
+                ScrollView {
+                    VStack(spacing: 10) {
+                        ForEach(vm.searchedItems, id: \.title) { item in
+                            SearchBookCellView(selectedItems: $selectedItems, item: item)
+                        }
+                    }
+                    .padding(.horizontal, 30)
+                }
             }
-            
         }
         .padding(.top, 8)
         .onAppear{
@@ -74,36 +90,54 @@ struct AddSearchView: View {
 
 struct SearchBookCellView: View {
     
-    var thumbnail: URL?
-    var name: String
-    var author: String
+    @Binding var selectedItems: [Item]
+    
+    var item: Item
+    
+    var isSelected: Bool {
+        selectedItems.contains(where: {$0.id == item.id })
+    }
     
     var body: some View {
         HStack(alignment: .top, spacing: 20) {
-            KFImage(thumbnail)
+            KFImage(URL(string: item.cover))
                 .resizable()
                 .scaledToFit()
                 .frame(width: 50)
             VStack(alignment: .leading, spacing: 0) {
-                Text(name)
+                Text(item.title)
                     .font(.theme.subHeadline)
-                Text(author)
+                Text(item.author)
                     .font(.theme.footnote)
                     .foregroundColor(.theme.quaternary)
             }
             Spacer()
+            
+            if isSelected {
+                Image(systemName: "checkmark.circle.fill")
+                    .font(.theme.title2)
+                    .frame(maxHeight: .infinity)
+            }
         }
         .padding(20)
         .frame(maxWidth: .infinity, minHeight: 100)
         .background(
             RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .strokeBorder(Color.theme.groupedBackground)
+                .strokeBorder(isSelected ? Color.theme.primary : Color.theme.groupedBackground)
         )
-    }
-}
-
-struct AddSearchView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddSearchView()
+        .contentShape(Rectangle())
+        .onTapGesture {
+            withAnimation(.spring()) {
+                if selectedItems.contains(where: {$0.id == item.id}) {
+                    withAnimation(.spring()) {
+                        selectedItems.removeAll(where: {$0.id == item.id})
+                    }
+                } else {
+                    withAnimation(.spring()) {
+                        selectedItems.append(item)
+                    }
+                }
+            }
+        }
     }
 }
