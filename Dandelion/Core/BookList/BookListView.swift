@@ -17,6 +17,7 @@ struct BookListView: View {
     @State private var showAddBarcodeView = false
     @State private var isEdit = false
     @State private var selectedBook: Book?
+    @State private var showAR = false
     
     private var columns: [GridItem] = [
         GridItem(.adaptive(minimum: 100), spacing: 20, alignment: .bottom)
@@ -26,10 +27,25 @@ struct BookListView: View {
         NavigationView {
             VStack(alignment: .leading, spacing: 20) {
                 Group {
-                    Image.logo
-                        .resizable()
-                        .foregroundColor(.theme.dandelion)
-                        .frame(width: 32, height: 32)
+                    HStack {
+                        Image.logo
+                            .resizable()
+                            .foregroundColor(.theme.dandelion)
+                            .frame(width: 32, height: 32)
+                        
+                        Spacer()
+                        
+                        Button {
+                            showAR = true
+                        } label: {
+                            Image(systemName: "arkit")
+                                .font(.theme.title2)
+                        }
+                        .buttonStyle(.plain)
+                        .fullScreenCover(isPresented: $showAR) {
+                            TestARView(books: vm.books)
+                        }
+                    }
                     
                     SearchBar(text: $searchText)
                     
