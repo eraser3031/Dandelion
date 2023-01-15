@@ -24,7 +24,6 @@ struct BookDetailView: View {
     @State private var showManageSheet = false
     @State private var isEdit = false
     @State private var deleteBookDialog = false
-    @State private var showAR = false
     @Namespace var id
     
     init(book: Book) {
@@ -44,17 +43,6 @@ struct BookDetailView: View {
                     .buttonStyle(.plain)
                     
                     Spacer()
-                    
-                    Button {
-                        showAR = true
-                    } label: {
-                        Image(systemName: "arkit")
-                            .font(.theme.title2)
-                    }
-                    .buttonStyle(.plain)
-//                    .fullScreenCover(isPresented: $showAR) {
-//                        TestARView(url: vm.book.coverURL?.absoluteString ?? "")
-//                    }
                 }
                 
                 HStack(spacing: 12) {
@@ -135,18 +123,10 @@ struct BookDetailView: View {
             if sheetCase == .info {
                 BookInfoView(vm: vm, id: id, review: $review, showRatingSheet: $showRatingSheet, score: $score)
                     .padding(.horizontal, 30)
-                    .transition(
-                        .asymmetric(insertion: .move(edge: .leading),
-                                    removal: .move(edge: .trailing)
-                                   ).combined(with: .opacity)
-                    )
+                    .transition(.move(edge: .leading).combined(with: .opacity))
             } else {
                 BookMarkView(vm: vm, showManageSheet: $showManageSheet, isEdit: $isEdit)
-                    .transition(
-                        .asymmetric(insertion: .move(edge: .trailing),
-                                    removal: .move(edge: .leading))
-                        .combined(with: .opacity)
-                    )
+                    .transition(.move(edge: .trailing).combined(with: .opacity))
             }
         }
         .padding(.top, 8)
