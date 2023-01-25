@@ -43,7 +43,7 @@ struct BookListView: View {
                         }
                         .buttonStyle(.plain)
                         .fullScreenCover(isPresented: $showAR) {
-                            TestARView(books: vm.books)
+                            ARBookView(books: vm.books)
                         }
                     }
                     
