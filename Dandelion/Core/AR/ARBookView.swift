@@ -9,16 +9,14 @@ import ARKit
 import RealityKit
 import SwiftUI
 
-struct TestARView: View {
-    var bookmarks: [Bookmark]
-    var bookShape: BookShape
-    var url: String
+struct ARBookView: View {
     @Environment(\.dismiss) var dismiss
+    var books: [Book]
     
     var body: some View {
         ZStack(alignment: .topTrailing) {
             
-            ARViewContainer(bookmarks: bookmarks, bookShape: bookShape, url: url)
+            ARViewContainer(books: books)
                 .edgesIgnoringSafeArea(.all)
             
             Button {
@@ -33,16 +31,12 @@ struct TestARView: View {
 }
 
 struct ARViewContainer: UIViewRepresentable {
-    var bookmarks: [Bookmark]
-    var bookShape: BookShape
-    var url: String
+    var books: [Book]
     let arView: CustomARView
     
-    init(bookmarks: [Bookmark], bookShape: BookShape, url: String) {
-        self.bookmarks = bookmarks
-        self.bookShape = bookShape
-        self.url = url
-        self.arView = CustomARView(frame: .zero, bookmarks: bookmarks, bookShape: bookShape, url: url)
+    init(books: [Book]) {
+        self.books = books
+        self.arView = CustomARView(frame: .zero, books: books)
     }
     
     func makeUIView(context: Context) -> CustomARView {        
@@ -65,7 +59,6 @@ struct ARViewContainer: UIViewRepresentable {
     func updateUIView(_ uiView: CustomARView, context: Context) { }
     
     class Coordinator: NSObject, ARSessionDelegate {
-        
         var parent: ARViewContainer
         
         init(parent: ARViewContainer) {
@@ -73,41 +66,43 @@ struct ARViewContainer: UIViewRepresentable {
         }
         
         func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
-            guard let imageAnchor = anchors[0] as? ARImageAnchor else {
-                print("Problems loading anchor.")
-                return
-            }
-            
-            let width = Float(imageAnchor.referenceImage.physicalSize.width * 1.03)
-            let height = Float(imageAnchor.referenceImage.physicalSize.height * 1.03)
-            let simpleMaterial = SimpleMaterial(color: .white, isMetallic: false)
-            let entity = ModelEntity(mesh: .generatePlane(width: width, depth: height, cornerRadius: 0.3), materials: [simpleMaterial])
-            
-            let anchor = AnchorEntity(anchor: imageAnchor)
-            anchor.addChild(entity)
-            parent.arView.scene.addAnchor(anchor)
-            let bookmarkEntities = displayBookmarks()
-            bookmarkEntities.forEach { entity in
-                anchor.addChild(entity)
+            if let imageAnchor = anchors[0] as? ARImageAnchor {
+                let anchor = AnchorEntity(anchor: imageAnchor)
+                parent.arView.scene.addAnchor(anchor)
+                guard let referenceBook = parent.books.first(where: { imageAnchor.referenceImage.name == $0.id?.uuidString ?? "" }) else { return print("why...") }
+                
+                Task { @MainActor in
+                    let bookmarksEntitiy = await displayBookmarks(book: referenceBook)
+                    if let bookmarksEntitiy = bookmarksEntitiy {
+                        anchor.addChild(bookmarksEntitiy)
+                    }
+                }
             }
         }
         
-        func displayBookmarks() -> [ModelEntity] {
+        @MainActor
+        func displayBookmarks(book: Book) async -> Entity? {
             // ? = 책 두께 * 현재페이지 / 전체페이지
-            var entities: [ModelEntity] = []
-            for (i, bookmark) in parent.bookmarks.enumerated() {
-                let y = CGFloat(parent.bookShape.depth) * CGFloat(bookmark.page) / CGFloat(parent.bookShape.pages)
-                let x = CGFloat(parent.bookShape.width) / 2
-                
-                let mesh = MeshResource.generatePlane(width: 0.01, height: 0.01)
-                let material = UnlitMaterial.init(color: .blue)
-                let entity = ModelEntity(mesh: mesh, materials: [material])
-                
-//                entity.position = [x,y,CGFloat(i)/10]
-                entities.append(entity)
-            }
+            let bookmarksEntity = Entity()
             
-            return entities
+            guard let bookShape = book.shape,
+                  let bookmark = book.bookmarks?.allObjects as? [Bookmark] else { return nil }
+            
+            for (i, bookmark) in bookmark.enumerated() {
+                let y = -Float(bookShape.depth) * Float(bookmark.page) / Float(bookShape.pages) / 1000.0
+                let x = Float(bookShape.width) / 2 / 1000.0 + 0.03 + 0.01
+                
+                let cgImage = await generateSnapshotAsync(content: createBookmarkView(bookmark: bookmark))
+                var mat = UnlitMaterial()
+                let textureResource = try? TextureResource.generate(from: cgImage!, options: .init(semantic: .color))
+                mat.color = .init(tint: .white.withAlphaComponent(0.9999), texture: .init(.init(textureResource!)))
+                let entity = ModelEntity(mesh: .generatePlane(width: 0.06, depth: 0.02), materials: [mat])
+                
+                entity.move(to: .init(translation: .init(x, y, (Float(i) * 0.02) + 0.02 - Float(bookShape.height) / 2000.0)), relativeTo: nil)
+                bookmarksEntity.addChild(entity)
+            }
+
+            return bookmarksEntity
         }
         
     }
