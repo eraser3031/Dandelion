@@ -137,9 +137,6 @@ class CustomARView: ARView {
     }
     
     required init(frame frameRect: CGRect) {
-        self.url = ""
-        self.bookShape = BookShape()
-        self.bookmarks = []
         super.init(frame: .zero)
     }
     
@@ -161,8 +158,8 @@ class CustomARView: ARView {
     }
     
     public func resetTracking() {
-        let configuration = ARWorldTrackingConfiguration()
-        configuration.detectionImages = newReferenceImages;
+        let configuration = ARImageTrackingConfiguration()
+        configuration.trackingImages = newReferenceImages;
         configuration.maximumNumberOfTrackedImages = 1;
         session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
     }
