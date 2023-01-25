@@ -117,6 +117,35 @@ struct ARViewContainer: UIViewRepresentable {
     }
 }
 
+@MainActor
+extension ARViewContainer.Coordinator {
+    func generateSnapshotAsync<Content: View>(content: Content) async -> CGImage? {
+        let renderer = ImageRenderer(content: content)
+        renderer.scale = UIScreen.main.scale
+        return renderer.cgImage
+    }
+    
+    func createBookmarkView(bookmark: Bookmark) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("\(bookmark.page)p")
+                .font(.theme.footnote)
+            
+            Text(bookmark.note ?? "")
+                .font(.theme.regularSerif)
+                .multilineTextAlignment(.leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            Spacer()
+        }
+        .padding(20)
+        .frame(width: 360, height: 120)
+        .background(
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .fill(.white)
+        )
+    }
+}
+
 class CustomARView: ARView {
     var books: [Book] = []
     var newReferenceImages:Set<ARReferenceImage> = Set<ARReferenceImage>()
