@@ -109,6 +109,7 @@ struct ARViewContainer: UIViewRepresentable {
             
             return entities
         }
+        
     }
     
     func makeCoordinator() -> Coordinator {
@@ -117,22 +118,25 @@ struct ARViewContainer: UIViewRepresentable {
 }
 
 class CustomARView: ARView {
-    
-    var bookmarks: [Bookmark]
-    var bookShape: BookShape
-    var url: String
+    var books: [Book] = []
     var newReferenceImages:Set<ARReferenceImage> = Set<ARReferenceImage>()
     
-    init(frame frameRect: CGRect, bookmarks:[Bookmark], bookShape: BookShape, url: String) {
-        self.bookmarks = bookmarks
-        self.bookShape = bookShape
-        self.url = url
+    init(frame frameRect: CGRect, books: [Book]) {
+        self.books = books
         super.init(frame: .zero)
-        self.loadImageFrom(url: URL(string: url)!) { (result) in
-            let arImage = ARReferenceImage(result.cgImage!, orientation: CGImagePropertyOrientation.up, physicalWidth: 0.1)
-            arImage.name = "REFERENCE_IMAGE_NAME"
-            self.newReferenceImages.insert(arImage)
-            self.resetTracking()
+        Task { [weak self] in
+            do {
+                let covers = try await fetchBookCovers()
+                for (book, cover) in covers {
+                    let bookWidth = max(CGFloat(book.shape?.width ?? 0) / 1000, 0.1)
+                    let arImage = ARReferenceImage(cover.cgImage!, orientation: CGImagePropertyOrientation.up, physicalWidth: bookWidth)
+                    arImage.name = book.id?.uuidString ?? ""
+                    self?.newReferenceImages.insert(arImage)
+                    self?.resetTracking()
+                }
+            } catch {
+                print("Fetch ReferenceImage Failed")
+            }
         }
     }
     
@@ -143,18 +147,25 @@ class CustomARView: ARView {
     required init?(coder decoder: NSCoder) {
         fatalError()
     }
-    
-    func loadImageFrom(url: URL, completionHandler: @escaping(UIImage)->()) {
-        DispatchQueue.global().async { [weak self] in
-            if let data = try? Data(contentsOf: url) {
-                if let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        print("LOADED ASSET");
-                        completionHandler(image);
-                    }
+
+    private func fetchBookCovers() async throws -> [Book: UIImage] {
+        var images: [Book: UIImage] = [:]
+        try await withThrowingTaskGroup(of: (Book, UIImage?).self) { group in
+            for book in books {
+                guard let url = book.coverURL else { continue }
+                group.addTask {
+                    let (data, _) = try await URLSession.shared.data(from: url)
+                    return (book, UIImage(data: data))
                 }
             }
+
+            for try await (book, image) in group {
+                guard let image = image else { continue }
+                images[book] = image
+            }
         }
+
+        return images
     }
     
     public func resetTracking() {
